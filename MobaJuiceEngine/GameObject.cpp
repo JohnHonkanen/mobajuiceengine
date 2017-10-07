@@ -13,8 +13,8 @@ GameObject::~GameObject()
 }
 
 //Adds a Component to the GameObject.
-void GameObject::addComponent(std::unique_ptr<Component> component)
+void GameObject::addComponent(std::shared_ptr<Component> component)
 {
-	component->gameObject = std::make_shared<GameObject>(this);
-	GameObject:components.push_back(component);
+	component->SetGameObject(shared_from_this());
+	GameObject::components.push_back(component);
 }

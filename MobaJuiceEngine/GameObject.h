@@ -7,15 +7,14 @@
 #include <memory>
 #include <cereal\types\vector.hpp>
 #include "Transform.h"
-#include "Serializable.h"
 class Component;
 
-class GameObject : public Serializable
+class GameObject : std::enable_shared_from_this<GameObject>
 {
 public:
 	GameObject();
 	~GameObject();
-	void addComponent(std::unique_ptr<Component> component);
+	void addComponent(std::shared_ptr<Component> component);
 	template<class T>
 	std::unique_ptr<T> GetComponent();
 
@@ -28,7 +27,7 @@ public:
 	
 
 private:
-	std::vector<std::unique_ptr<Component>> components;
+	std::vector<std::shared_ptr<Component>> components;
 };
 
 //Loops Through the Component vector, and returns the first Component of same type if found.

@@ -18,6 +18,7 @@ public:
 	//Rendering Loop
 	virtual void Draw() {};
 
-	std::shared_ptr<GameObject> gameObject;
+	void SetGameObject(std::shared_ptr<GameObject> gameObject);
+	std::weak_ptr<GameObject> gameObject;
 };
 
