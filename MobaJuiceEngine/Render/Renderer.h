@@ -1,3 +1,7 @@
+/*
+	Abstract Renderer
+	Dev: John Honkanen
+*/
 #pragma once
 namespace Render {
 	class Renderer
