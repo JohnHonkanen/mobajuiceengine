@@ -1,3 +1,8 @@
+/*
+	OpenGL implementation facade for Shaders
+	Dev: John Honkanen
+*/
+
 #pragma once
 #include<GL\glew.h>
 #include "Shader.h"

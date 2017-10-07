@@ -1,3 +1,7 @@
+/*
+	Shader Interface
+	Dev: John Honkanen
+*/
 #pragma once
 #include<utility>
 #include<string>
