@@ -82,10 +82,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\glm-0.9.8.5\glm;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\assimp-3.3.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\glm-0.9.8.5\glm;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\assimp-3.3.1\include;C:\dev\mj_ext\boost-1.65.1\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\dev\mj_ext\glew-2.1.0\lib\Debug\x64;C:\dev\mj_ext\SDL2-2.0.6\lib\Debug\x64;C:\dev\mj_ext\irrKlang-1.5.0\lib\x64;C:\dev\mj_ext\DevIL-1.8.0\lib\x64\Release;C:\dev\mj_ext\assimp-3.3.1\lib\Debug\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\dev\mj_ext\glew-2.1.0\lib\Debug\x64;C:\dev\mj_ext\SDL2-2.0.6\lib\Debug\x64;C:\dev\mj_ext\irrKlang-1.5.0\lib\x64;C:\dev\mj_ext\DevIL-1.8.0\lib\x64\Release;C:\dev\mj_ext\assimp-3.3.1\lib\Debug\x64;C:\dev\mj_ext\boost-1.65.1\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc140-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;glew32d.lib;irrKlang.lib;SDL2d.lib;SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -116,7 +116,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Transform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Serializable.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
