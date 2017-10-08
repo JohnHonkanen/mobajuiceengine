@@ -120,6 +120,7 @@
     <ClCompile Include="Dictionary.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Render\AiModel.cpp" />
     <ClCompile Include="Render\OGLShader.cpp" />
     <ClCompile Include="Render\Renderer.cpp" />
     <ClCompile Include="Render\Shader.cpp" />
@@ -129,6 +130,8 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Render\AiModel.h" />
+    <ClInclude Include="Render\MeshData.h" />
     <ClInclude Include="Render\Material.h" />
     <ClInclude Include="Render\OGLShader.h" />
     <ClInclude Include="Render\Renderer.h" />
