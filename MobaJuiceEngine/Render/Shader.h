@@ -1,5 +1,5 @@
 /*
-	Shader Interface
+	Shader Interface v0.1
 	Dev: John Honkanen
 */
 #pragma once

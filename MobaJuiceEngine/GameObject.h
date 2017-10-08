@@ -14,9 +14,9 @@ class GameObject : std::enable_shared_from_this<GameObject>
 public:
 	GameObject();
 	~GameObject();
-	void addComponent(std::shared_ptr<Component> component);
+	void AddComponent(std::shared_ptr<Component> component);
 	template<class T>
-	std::unique_ptr<T> GetComponent();
+	std::shared_ptr<T> GetComponent();
 
 	template<class Archive>
 	void serialize(Archive & archive);
@@ -25,14 +25,12 @@ public:
 	int id;
 	std::string name;
 	
-
-private:
 	std::vector<std::shared_ptr<Component>> components;
 };
 
 //Loops Through the Component vector, and returns the first Component of same type if found.
 template<class T>
-inline std::unique_ptr<T> GameObject::GetComponent()
+inline std::shared_ptr<T> GameObject::GetComponent()
 {
 	bool found = false;
 	std::unique_ptr<T> component = nullptr;

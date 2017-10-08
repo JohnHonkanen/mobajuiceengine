@@ -14,6 +14,7 @@ public:
 	void Use();
 protected:
 	void Load(const char *vertexPath, const char *fragmentPath);
+private:
 	GLuint program;
 };
 

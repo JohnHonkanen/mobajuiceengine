@@ -9,7 +9,7 @@ namespace Render {
 	public:
 		Renderer();
 		~Renderer();
-		virtual void render() = 0;
+		virtual void Render() = 0;
 	};
 }
 
