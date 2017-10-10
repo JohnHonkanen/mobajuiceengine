@@ -7,6 +7,9 @@ AiModel::AiModel()
 AiModel::~AiModel()
 {
 }
+/*
+	Intializes our Model. Load and extracts its mesh data.
+*/
 void AiModel::Init()
 {
 	if (AiModel::path.empty()) {
@@ -42,6 +45,11 @@ aiMesh * AiModel::LoadModel(const std::string & pFile)
 	//Note: This only returns the first Mesh. For multiple meshes, will need to fix this in the future
 	return AiModel::scene->mMeshes[0];
 }
+/*
+	Extract the mesh data from an AiMesh
+	@param mesh			aiMesh of the model
+	@return MeshData	MeshData of the mesh	
+*/
 
 MeshData AiModel::LoadData(aiMesh * mesh)
 {

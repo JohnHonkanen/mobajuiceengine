@@ -2,7 +2,12 @@
 #include <SDL.h>
 #include <iostream>
 
-
+/* 
+	Intializes the SDLWindow, with window name and resolution size.
+	@param windowName	Name of the window
+	@param width		width of the window
+	@param height		height of the window
+*/
 SDLWindow::SDLWindow(const std::string windowName, unsigned int width, unsigned int height)
 {
 	SDLWindow::windowName = windowName;
@@ -15,23 +20,33 @@ SDLWindow::~SDLWindow()
 {
 }
 
+/*
+	Initializes and setups the render scene
+*/
 void SDLWindow::Initialize()
 {
 	SetupRC(SDLWindow::glContext);
 }
-
+/*
+	Calls the SDL swap buffers
+*/
 void SDLWindow::SwapBuffers()
 {
 	SDL_GL_SwapWindow(window);
 }
-
+/*
+	Delete the current context and window. Ask SDL to quit and close the application window
+*/
 void SDLWindow::Destroy()
 {
 	SDL_GL_DeleteContext(SDLWindow::glContext);
 	SDL_DestroyWindow(SDLWindow::window);
 	SDL_Quit();
 }
-
+/*
+	Setups the Render Scene using OpenGL 3.3.
+	@param context		OpenGL window context
+*/
 void SDLWindow::SetupRC(SDL_GLContext & context)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){ // Initialize video

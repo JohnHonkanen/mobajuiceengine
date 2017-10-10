@@ -17,9 +17,12 @@ public:
 	AiModel();
 	~AiModel();
 	void Init();
+	//Sets the filepath to thee model
 	void SetModelPath(const std::string& p) { path = p; };	
 private:
+	//Calls the Assimp loadmodel
 	aiMesh *LoadModel(const std::string& pFile);
+	//Extract the mesh data from ai mesh
 	MeshData LoadData(aiMesh *mesh);
 
 	std::string directory;

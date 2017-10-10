@@ -14,10 +14,12 @@ class GameObject : std::enable_shared_from_this<GameObject>
 public:
 	GameObject();
 	~GameObject();
+	//Add a component to the object
 	void AddComponent(std::shared_ptr<Component> component);
+	//Get the first component of the type
 	template<class T>
 	std::shared_ptr<T> GetComponent();
-
+	//Serialization method
 	template<class Archive>
 	void serialize(Archive & archive);
 

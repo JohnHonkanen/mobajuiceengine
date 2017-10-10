@@ -9,6 +9,10 @@ OGLGraphicHandler::~OGLGraphicHandler()
 {
 }
 
+/*
+	Calls the Window Intialize Method to start initalization of the window.
+	Initalizes Glew and setup the OpenGL Functions
+*/
 void OGLGraphicHandler::Initialize()
 {
 	window->Initialize();
@@ -28,17 +32,27 @@ void OGLGraphicHandler::Initialize()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
+/*
+	Clears the Screen of the previous render loop. Ensures that there is no leftover rendering.
+*/
 void OGLGraphicHandler::Start()
 {
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Color to clear with (Background color of active scene)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
 }
 
+/*
+	Asks the window to swapbuffers.
+*/
 void OGLGraphicHandler::End()
 {
 	// Swap the buffers (Update Scene)
 	window->SwapBuffers();
 }
+
+/*
+	Ask the window to destroy itself.
+*/
 
 void OGLGraphicHandler::Destroy()
 {

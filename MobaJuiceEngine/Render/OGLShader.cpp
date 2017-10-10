@@ -3,7 +3,12 @@
 #include <sstream>
 #include <iostream>
 using namespace std;
-
+/*
+	Intialize the class, with a shader name and specify the path the vertex and fragment shaders.
+	@param name			name of the shader
+	@param vertexPath	path to the vertex shader
+	@param fragmentPath	path to the fragment shader
+*/
 OGLShader::OGLShader(std::string name, const char * vertexPath, const char * fragmentPath) : Shader(name)
 {
 	OGLShader::Load(vertexPath, fragmentPath);
@@ -18,7 +23,11 @@ void OGLShader::Use()
 	glUseProgram(this->program);
 }
 
-//Reads and Load our Shaders into a shader program.
+/*
+	Reads and Load our Shaders into a shader program.
+	@param vertexPath	path to the vertex shader
+	@param fragmentPath	path to the fragment shader
+*/
 void OGLShader::Load(const char * vertexPath, const char * fragmentPath)
 {
 	// 1. Retrieve the vertex/fragment source code from destination file path.

@@ -10,12 +10,17 @@
 
 class SDLWindow : public Window {
 public:
+	// Intializes the SDLWindow, with window name and resolution size.
 	SDLWindow(const std::string windowName, unsigned int width,  unsigned int height);
 	virtual ~SDLWindow();
+	//Initialize and set up the SDL library
 	void Initialize();
+	//Swap buffers using SDL
 	void SwapBuffers();
+	//Destory SDL instance and window
 	void Destroy();
 private:
+	//Create SDL GL Context and assigns it.
 	void SetupRC(SDL_GLContext &context);
 
 	unsigned int width;
