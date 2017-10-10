@@ -86,7 +86,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\dev\mj_ext\glew-2.1.0\lib\Debug\x64;C:\dev\mj_ext\SDL2-2.0.6\lib\Debug\x64;C:\dev\mj_ext\irrKlang-1.5.0\lib\x64;C:\dev\mj_ext\DevIL-1.8.0\lib\x64\Release;C:\dev\mj_ext\assimp-3.3.1\lib\Debug\x64;C:\dev\mj_ext\boost-1.65.1\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc140-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;glew32d.lib;irrKlang.lib;SDL2d.lib;SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;opengl32.lib;glew32d.lib;irrKlang.lib;SDL2d.lib;SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,9 +121,11 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Render\AiModel.cpp" />
+    <ClCompile Include="Render\GraphicsHandlers\OGLGraphicHandler.cpp" />
     <ClCompile Include="Render\OGLShader.cpp" />
     <ClCompile Include="Render\Renderer.cpp" />
     <ClCompile Include="Render\Shader.cpp" />
+    <ClCompile Include="Render\Window\SDLWindow.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -131,11 +133,15 @@
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Render\AiModel.h" />
+    <ClInclude Include="Render\GraphicsHandlers\GraphicHandler.h" />
+    <ClInclude Include="Render\GraphicsHandlers\OGLGraphicHandler.h" />
     <ClInclude Include="Render\MeshData.h" />
     <ClInclude Include="Render\Material.h" />
     <ClInclude Include="Render\OGLShader.h" />
     <ClInclude Include="Render\Renderer.h" />
     <ClInclude Include="Render\Shader.h" />
+    <ClInclude Include="Render\Window\SDLWindow.h" />
+    <ClInclude Include="Render\Window\Window.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
