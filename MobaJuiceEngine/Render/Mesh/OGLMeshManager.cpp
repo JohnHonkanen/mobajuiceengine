@@ -83,20 +83,20 @@ GLuint OGLMeshManager::GenerateVAO(MeshData data)
 	glEnableVertexAttribArray(0);
 
 	// TexCoord attribute
-	if (&data.uvArray != nullptr) {
+	if (!data.uvArray.empty()) {
 		glGenBuffers(1, &uvBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-		glBufferData(GL_ARRAY_BUFFER, 2 * data.numVerts * sizeof(GLfloat), &data.uvArray, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, 2 * data.numVerts * sizeof(GLfloat), &data.uvArray[0], GL_STATIC_DRAW);
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
 		glEnableVertexAttribArray(2);
 		meshBuffers[STORED_UV] = uvBuffer;
 	}
 
 	// Normals attribute
-	if (&data.normalArray != nullptr) {
+	if (!data.normalArray.empty()) {
 		glGenBuffers(1, &normalBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-		glBufferData(GL_ARRAY_BUFFER, 3 * data.numVerts * sizeof(GLfloat), &data.normalArray, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, 3 * data.numVerts * sizeof(GLfloat), &data.normalArray[0], GL_STATIC_DRAW);
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0); //3 * sizeof(GLfloat)
 		glEnableVertexAttribArray(3); // Set location in shader
 		meshBuffers[STORED_NORMAL] = normalBuffer;
