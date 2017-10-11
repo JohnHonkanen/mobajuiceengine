@@ -14,10 +14,11 @@ public:
 	~OGLShader();
 	//Use the shader
 	void Use();
+	GLuint program;
 protected:
 	//Load the vertex and fragment shader into memory
 	void Load(const char *vertexPath, const char *fragmentPath);
 private:
-	GLuint program;
+	
 };
 

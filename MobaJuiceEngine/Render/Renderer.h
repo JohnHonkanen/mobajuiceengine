@@ -3,14 +3,10 @@
 	Dev: John Honkanen
 */
 #pragma once
-namespace Render {
-	class Renderer
-	{
-	public:
-		Renderer();
-		~Renderer();
-		virtual void Render() = 0;
-	};
-}
+class Renderer
+{
+public:
+	virtual void Render() = 0;
+};
 
 

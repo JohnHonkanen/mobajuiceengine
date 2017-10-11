@@ -29,6 +29,7 @@ private:
 template<class T>
 inline T Dictionary<T>::Get(std::string index)
 {
+
 	return dictionary[index];
 }
 
