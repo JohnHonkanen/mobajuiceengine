@@ -5,6 +5,7 @@ Transform Class: TO be filled in later
 #include <glm\glm.hpp>
 #include <glm\gtc\quaternion.hpp>
 #include <memory>
+#include <vector>
 
 using namespace glm;
 using namespace std;
@@ -63,11 +64,54 @@ public:
 	*/
 	mat4 GetModelMatrix();
 
+	/*
+		Gets the local to world matrix transformation
+	*/
+	mat4 GetLocalToWorldMatrix();
+
+	/*
+		Set the Parent Transform
+		@parem _parent The parent transform the attach to
+	*/
+	void SetParent(shared_ptr<Transform> _parent);
+
+	/*
+		Get the parent Transfor Read Only
+	*/
+	const Transform* const GetParent();
+
+	/*
+		Add Children to this transform
+	*/
+	void AddChildren(shared_ptr<Transform> transform);
+	/*
+		Remove Children from this transform
+		@param slot to remove;
+	*/
+	void RemoveChildren(int slot);
+
+	/*
+		Sets the Index of this Transform
+		@param slot	Index
+	*/
+	void SetSlot(int _slot);
+
+	/*
+		Detach this transform from the parent
+	*/
+	void Detach();
 private:
+	int slot = -1;
+	int numOfChildren = 0;
+	shared_ptr<Transform> parent;
+	vector<shared_ptr<Transform>> children;
+
 	vec3 localPosition;
 	vec3 localScale;
 	vec3 localRotation;
 
 	quat rotation;
+
+	mat4 localToWorld;
 };
 

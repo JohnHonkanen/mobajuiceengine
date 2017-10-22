@@ -8,7 +8,7 @@ Transform::Transform()
 	localPosition = vec3(0);
 	localScale = vec3(1);
 	localRotation = vec3(0);
-
+	localToWorld = mat4(1);
 	rotation = quat();
 }
 
@@ -76,5 +76,47 @@ mat4 Transform::GetModelMatrix(mat4 modelMatrix)
 
 mat4 Transform::GetModelMatrix()
 {
-	return GetModelMatrix(mat4(1.0));
+	return GetModelMatrix(localToWorld);
+}
+
+mat4 Transform::GetLocalToWorldMatrix()
+{
+	return localToWorld;
+}
+
+void Transform::SetParent(shared_ptr<Transform> _parent)
+{
+	parent = _parent;
+}
+
+const Transform * const Transform::GetParent()
+{
+	return parent.get();
+}
+
+void Transform::AddChildren(shared_ptr<Transform> transform)
+{
+	transform->slot = numOfChildren;
+	children.push_back(transform);
+	numOfChildren++;
+}
+
+void Transform::RemoveChildren(int slot)
+{
+	children.erase(children.begin() + slot);
+}
+
+void Transform::SetSlot(int _slot)
+{
+	slot = _slot;
+}
+
+void Transform::Detach()
+{
+	if (parent == nullptr)
+		return;
+
+	parent->numOfChildren--;
+	parent->RemoveChildren(slot);
+	parent == nullptr;
 }

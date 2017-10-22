@@ -15,7 +15,7 @@
 #include "Render\Mesh\OGLMeshManager.h"
 #include "Render\OGLShader.h"
 #include "Render\Mesh\Cube.h"
-#include "Transform.h"
+#include "GameObject.h"
 using namespace std;
 using namespace glm;
 
@@ -40,6 +40,9 @@ int main(int argc, char *argv[]){
 	Transform pTransform;
 	pTransform.SetPosition(glm::vec3(0.0f, 0.0f, -0.0f));
 	transform.SetEulerAngle(glm::vec3(-0.0f, 0.0f, 0.0f));
+
+	GameObject object;
+
 
 
 	//Temp Loop
