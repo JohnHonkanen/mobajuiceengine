@@ -35,23 +35,29 @@ int main(int argc, char *argv[]){
 
 	Transform transform;
 	//transform.SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
-	transform.SetPosition(glm::vec3(-0.0f, -3.0f, -7.0f));
-	transform.SetEulerAngle(glm::vec3(0.0f, -50.0f, 0.0f));
+	transform.SetPosition(glm::vec3(-0.0f, -0.0f, -0.0f));
+	transform.SetEulerAngle(glm::vec3(0.0f, -180.0f, 0.0f));
 
 	Transform pTransform;
-	pTransform.SetPosition(glm::vec3(-2.0f, -3.0, -0.0f));
+	pTransform.SetPosition(glm::vec3(-0.0f, -0.0, -0.0f));
 	pTransform.SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
 	pTransform.SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
 	
 	transform.AddChildren(pTransform);
 
-	GameObject object;
+	GameObject cameraWrapper;
+	Camera *camera = new Camera("Camera 1");
+	//No need to delete camera because we give the GameObject ownership
+	cameraWrapper.AddComponent(camera);
+
+	cameraWrapper.transform->SetPosition(vec3(0.0f,-5.0f, -5.0f));
+	cameraWrapper.transform->SetEulerAngle(vec3(0.0f, 0.0f, 0.0f));
 
 
-
+	vec3 pos;
 	//Temp Loop
 	//genTris();
-	float r = 180.0f;
+	float r = 0.0f;
 	SDL_Event sdlEvent;  // variable to detect SDL events
 	bool running = true; // set running to true
 	while (running) {
@@ -59,7 +65,9 @@ int main(int argc, char *argv[]){
 			if (sdlEvent.type == SDL_QUIT)
 				running = false;
 		}
-		r += 0.1;
+		r += 1;
+		cameraWrapper.transform->SetEulerAngle(vec3(-r, 0.0f, 0.0f));
+		cameraWrapper.Update();
 		//Loop for Graphics
 		graphicsHandler.Start();
 		baseProgram.Use();
@@ -67,19 +75,19 @@ int main(int argc, char *argv[]){
 		//drawVAO();
 		//SetMVPS
 		glm::mat4 projection(1.0);
-		projection = glm::perspective(float(60.0f*DEG_TO_RAD), 800.0f / 600.0f, 1.0f, 1000.0f);
+		projection = Camera::mainCamera->GetProjectionMatrix();
 		glm::mat4 model(1.0);
-		glm::mat4 view(1.0);
+		glm::mat4 view = Camera::mainCamera->GetViewMatrix();
 
 		glm::vec3 angle;
 
 		Transform* parent = pTransform.GetParent();
 		angle = parent->GetRotation();
-		parent->SetEulerAngle(glm::vec3(r, r, angle.z));
+		//parent->SetEulerAngle(glm::vec3(r, r, angle.z));
 		model = parent->GetLocalToWorldMatrix(model);
 
 		angle = pTransform.GetRotation();
-		pTransform.SetEulerAngle(glm::vec3(angle.x,r*2, angle.z));
+		//pTransform.SetEulerAngle(glm::vec3(angle.x,r*2, angle.z));
 		
 		
 		model = pTransform.GetLocalToWorldMatrix();

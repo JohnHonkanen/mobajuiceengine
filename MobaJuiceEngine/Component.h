@@ -22,9 +22,18 @@ public:
 	//Rendering Loop
 	virtual void Draw() {};
 
-	virtual void SetGameObject(std::shared_ptr<GameObject> gameObject);
-	std::weak_ptr<GameObject> gameObject;
-	std::shared_ptr<Transform> transform;
+	//Serialization method
+	template<class Archive>
+	void serialize(Archive & archive);
+
+	virtual void SetGameObject(GameObject * gameObject);
+	GameObject *gameObject;
+	Transform *transform;
 	std::string name;
 };
 
+template<class Archive>
+inline void Component::serialize(Archive & archive)
+{
+	archive(name);
+}

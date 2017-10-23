@@ -1,12 +1,12 @@
 #include "Camera.h"
 #include <glm\gtc\matrix_transform.hpp>
 #include "..\Transform.h"
-Camera * Camera::main = nullptr;
+Camera * Camera::mainCamera = nullptr;
 
 Camera::Camera(std::string name) : Behaviour(name)
 {
-	if (Camera::main == nullptr)
-		Camera::main = this;
+	if (Camera::mainCamera == nullptr)
+		Camera::mainCamera = this;
 
 	SetPerspective(fov, aspectRatio, near, far);
 }

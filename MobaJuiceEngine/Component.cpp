@@ -11,8 +11,8 @@ Component::~Component()
 {
 }
 //Sets the GameoObject
-void Component::SetGameObject(std::shared_ptr<GameObject> gameObject)
+void Component::SetGameObject(GameObject * gameObject)
 {
 	Component::gameObject = gameObject;
-	Component::transform = std::make_shared<Transform>(&gameObject->transform);
+	Component::transform = gameObject->transform.get();
 }

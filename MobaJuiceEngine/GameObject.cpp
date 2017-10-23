@@ -5,6 +5,7 @@
 GameObject::GameObject()
 {
 	GameObject::id = -1;
+	transform = make_unique<Transform>();
 }
 
 
@@ -12,9 +13,16 @@ GameObject::~GameObject()
 {
 }
 
-//Adds a Component to the GameObject.
-void GameObject::AddComponent(Component &component)
+void GameObject::Update()
 {
-	component.SetGameObject(shared_from_this());
-	GameObject::components.push_back(std::make_shared<Component>(component));
+	for (int i = 0; i < components.size(); i++) {
+		components.at(i)->Update();
+	}
+}
+
+//Adds a Component to the GameObject.
+void GameObject::AddComponent(Component *component)
+{
+	component->SetGameObject(this);
+	GameObject::components.push_back(ComponentUP(component));
 }

@@ -16,7 +16,7 @@ public:
 	~Camera();
 
 	//Current Active camera
-	static Camera* main;
+	static Camera* mainCamera;
 	/*
 		Creates a perspective matrix for the camera
 		@param _fov			Field of view of the camara
@@ -57,7 +57,7 @@ public:
 
 	mat4 GetProjectionMatrix();
 
-	void Update() override;
+	void Update();
 
 private:
 	/*

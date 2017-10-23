@@ -7,39 +7,43 @@
 #include <memory>
 #include <cereal\types\vector.hpp>
 #include "Transform.h"
-class Component;
 
+
+class Component;
+typedef std::unique_ptr<Component> ComponentUP;
 class GameObject : std::enable_shared_from_this<GameObject>
 {
 public:
 	GameObject();
 	~GameObject();
-	//Add a component to the object
-	void AddComponent(Component &component);
+	void Update();
+	/*
+		Add a Component and gives the GameObject a Sole Ownership of the component
+	*/
+	void AddComponent(Component *component);
 	//Get the first component of the type
 	template<class T>
-	std::shared_ptr<T> GetComponent();
+	T* GetComponent();
 	//Serialization method
 	template<class Archive>
 	void serialize(Archive & archive);
 
-	Transform transform;
+	std::unique_ptr<Transform> transform;
 	int id;
 	std::string name;
 	
-	std::vector<std::shared_ptr<Component>> components;
+	std::vector<ComponentUP> components;
 };
 
 //Loops Through the Component vector, and returns the first Component of same type if found.
 template<class T>
-inline std::shared_ptr<T> GameObject::GetComponent()
+inline T* GameObject::GetComponent()
 {
 	bool found = false;
-	std::unique_ptr<T> component = nullptr;
+	T* component = nullptr;
 	int i = 0;
 
 	while (!found) {
-
 		//Checks if we have found Component
 		if (component = dynamic_cast<T*>(components[i]))
 			found = true;
