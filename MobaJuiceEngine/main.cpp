@@ -36,13 +36,11 @@ int main(int argc, char *argv[]){
 	//transform.SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
 	transform.SetPosition(glm::vec3(-0.0f, -3.0f, -7.0f));
 	transform.SetEulerAngle(glm::vec3(0.0f, -50.0f, 0.0f));
-	transform.calculateLocalToWorldMatrix();
 
 	Transform pTransform;
 	pTransform.SetPosition(glm::vec3(-2.0f, -3.0, -0.0f));
 	pTransform.SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
 	pTransform.SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
-	pTransform.calculateLocalToWorldMatrix();
 	
 	transform.AddChildren(pTransform);
 
@@ -81,7 +79,6 @@ int main(int argc, char *argv[]){
 
 		angle = pTransform.GetRotation();
 		pTransform.SetEulerAngle(glm::vec3(angle.x,r*2, angle.z));
-		pTransform.calculateLocalToWorldMatrix(model);
 		
 		
 		model = pTransform.GetLocalToWorldMatrix();

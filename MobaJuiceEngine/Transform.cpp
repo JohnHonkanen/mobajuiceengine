@@ -64,7 +64,7 @@ quat Transform::GetQuaternion()
 	return rotation;
 }
 
-mat4 Transform::calculateLocalToWorldMatrix(mat4 matrixStack)
+mat4 Transform::CalculateLocalToWorldMatrix(mat4 matrixStack)
 {
 	mat4 transformMatrix(1.0f);
 	transformMatrix = translate(transformMatrix, localPosition);
@@ -76,27 +76,27 @@ mat4 Transform::calculateLocalToWorldMatrix(mat4 matrixStack)
 	return localToWorld;
 }
 
-mat4 Transform::calculateLocalToWorldMatrix()
+mat4 Transform::CalculateLocalToWorldMatrix()
 {
 	if (parent == nullptr)
-		return calculateLocalToWorldMatrix(mat4(1.0));
+		return CalculateLocalToWorldMatrix(mat4(1.0));
 	else
-		return calculateLocalToWorldMatrix(Transform::parent->GetLocalToWorldMatrix());
+		return CalculateLocalToWorldMatrix(Transform::parent->GetLocalToWorldMatrix());
 }
 
 mat4 Transform::GetLocalToWorldMatrix()
 {
 	if (parent) {
-		return parent->calculateLocalToWorldMatrix(mat4(1.0)) * calculateLocalToWorldMatrix(mat4(1.0));
+		return parent->CalculateLocalToWorldMatrix(mat4(1.0)) * CalculateLocalToWorldMatrix(mat4(1.0));
 	}
 	else {
-		return calculateLocalToWorldMatrix(mat4(1.0));
+		return CalculateLocalToWorldMatrix(mat4(1.0));
 	}
 }
 
 mat4 Transform::GetLocalToWorldMatrix(mat4 matrixStack)
 {
-	return matrixStack * calculateLocalToWorldMatrix(mat4(1.0));
+	return matrixStack * CalculateLocalToWorldMatrix(mat4(1.0));
 }
 
 void Transform::SetParent(const Transform& _parent)
@@ -113,7 +113,7 @@ void Transform::AddChildren(Transform& transform)
 {
 	transform.slot = numOfChildren;
 	transform.SetParent(*this);
-	transform.calculateLocalToWorldMatrix();
+	transform.CalculateLocalToWorldMatrix();
 	children.push_back(make_shared<Transform>(transform));
 	numOfChildren++;
 }

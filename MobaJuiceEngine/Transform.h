@@ -58,12 +58,12 @@ public:
 		Calculates this Local To World Matrix using a matrixStack to build upon
 		@param matrixStack	Stack to build upon;
 	*/
-	mat4 calculateLocalToWorldMatrix(mat4 matrixStack);
+	mat4 CalculateLocalToWorldMatrix(mat4 matrixStack);
 
 	/*
 	Calculates this Local To World Matrix
 	*/
-	mat4 calculateLocalToWorldMatrix();
+	mat4 CalculateLocalToWorldMatrix();
 	/*
 		Gets the local to world matrix transformation
 	*/
