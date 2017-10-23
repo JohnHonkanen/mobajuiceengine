@@ -9,7 +9,6 @@ Transform Class: TO be filled in later
 
 using namespace glm;
 using namespace std;
-class Transform;
 class Transform : std::enable_shared_from_this<Transform>
 {
 public:
@@ -105,6 +104,18 @@ public:
 		Detach this transform from the parent
 	*/
 	void Detach();
+	/*
+		Get the front vector
+	*/
+	vec3 Front();
+	/*
+		Get the right vector
+	*/
+	vec3 Right();
+	/*
+		Get the top vector
+	*/
+	vec3 Up();
 private:
 	int slot = -1;
 	int numOfChildren = 0;
@@ -114,6 +125,10 @@ private:
 	vec3 localPosition;
 	vec3 localScale;
 	vec3 localRotation;
+
+	vec3 front;
+	vec3 right;
+	vec3 up;
 
 	quat rotation;
 
