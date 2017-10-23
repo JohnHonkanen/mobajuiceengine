@@ -9,7 +9,6 @@ Transform Class: TO be filled in later
 
 using namespace glm;
 using namespace std;
-class Transform;
 class Transform : std::enable_shared_from_this<Transform>
 {
 public:
@@ -118,10 +117,6 @@ public:
 	*/
 	vec3 Up();
 private:
-	/*
-		Calculate the directional vectors
-	*/
-	void CalculateDirVectors();
 	int slot = -1;
 	int numOfChildren = 0;
 	shared_ptr<Transform> parent;

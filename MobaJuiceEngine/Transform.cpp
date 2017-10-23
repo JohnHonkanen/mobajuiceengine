@@ -145,18 +145,20 @@ void Transform::Detach()
 
 vec3 Transform::Front()
 {
-	vec4 f = rotation * vec4(front, 0);
-	return vec3(f.x, f.y, f.z);
+	vec4 v = rotation * vec4(front, 1);
+	return vec3(v.x, v.y, v.z);
 }
 
 vec3 Transform::Right()
 {
-	return vec3();
+	vec4 v = rotation * vec4(right, 1);
+	return vec3(v.x, v.y, v.z);
 }
 
 vec3 Transform::Up()
 {
-	return vec3();
+	vec4 v = rotation * vec4(up, 1);
+	return vec3(v.x, v.y, v.z);
 }
 
 
