@@ -47,6 +47,18 @@ public:
 	*/
 	void SetNearClippingPlane(float _near);
 
+	/*
+		Get the view matrix
+	*/
+	mat4 GetViewMatrix();
+	/*
+		Get the projection matrix
+	*/
+
+	mat4 GetProjectionMatrix();
+
+	void Update() override;
+
 private:
 	/*
 		Calculates the view matrix of the camera
@@ -58,9 +70,9 @@ private:
 	vec3 front;
 	vec3 up;
 
-	float fov;
-	float aspectRatio;
-	float near;
-	float far;
+	float fov = 45.0f;
+	float aspectRatio = float(4/3);
+	float near = 0.01f;
+	float far = 100.0f;
 
 };

@@ -14,4 +14,5 @@ Component::~Component()
 void Component::SetGameObject(std::shared_ptr<GameObject> gameObject)
 {
 	Component::gameObject = gameObject;
+	Component::transform = std::make_shared<Transform>(&gameObject->transform);
 }

@@ -16,6 +16,7 @@
 #include "Render\OGLShader.h"
 #include "Render\Mesh\Cube.h"
 #include "GameObject.h"
+#include "Component\Camera.h"
 using namespace std;
 using namespace glm;
 
