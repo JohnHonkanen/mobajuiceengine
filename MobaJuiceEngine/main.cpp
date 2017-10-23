@@ -33,13 +33,18 @@ int main(int argc, char *argv[]){
 	Mesh *mesh = meshManager->GetMesh(path).get();
 
 	Transform transform;
-	transform.SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
+	//transform.SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
 	transform.SetPosition(glm::vec3(-0.0f, -3.0f, -7.0f));
-	transform.SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
+	transform.SetEulerAngle(glm::vec3(0.0f, -50.0f, 0.0f));
+	transform.calculateLocalToWorldMatrix();
 
 	Transform pTransform;
-	pTransform.SetPosition(glm::vec3(0.0f, 0.0f, -0.0f));
-	transform.SetEulerAngle(glm::vec3(-0.0f, 0.0f, 0.0f));
+	pTransform.SetPosition(glm::vec3(-2.0f, -3.0, -0.0f));
+	pTransform.SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
+	pTransform.SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
+	pTransform.calculateLocalToWorldMatrix();
+	
+	transform.AddChildren(pTransform);
 
 	GameObject object;
 
@@ -63,16 +68,25 @@ int main(int argc, char *argv[]){
 		//drawVAO();
 		//SetMVPS
 		glm::mat4 projection(1.0);
-		projection = glm::perspective(float(60.0f*DEG_TO_RAD), 800.0f / 600.0f, 1.0f, 6000.0f);
+		projection = glm::perspective(float(60.0f*DEG_TO_RAD), 800.0f / 600.0f, 1.0f, 1000.0f);
 		glm::mat4 model(1.0);
 		glm::mat4 view(1.0);
 
-		model = transform.GetModelMatrix(pTransform.GetModelMatrix());
+		glm::vec3 angle;
 
-		glm::vec3 angle = transform.GetRotation();
-		transform.SetEulerAngle(glm::vec3(angle.x, r, angle.z));
-		glm::vec3 p = pTransform.GetPosition();
-		pTransform.SetPosition(glm::vec3(p.x, p.y, p.z - 0.1f));
+		Transform* parent = pTransform.GetParent();
+		angle = parent->GetRotation();
+		parent->SetEulerAngle(glm::vec3(r, r, angle.z));
+		model = parent->GetLocalToWorldMatrix(model);
+
+		angle = pTransform.GetRotation();
+		pTransform.SetEulerAngle(glm::vec3(angle.x,r*2, angle.z));
+		pTransform.calculateLocalToWorldMatrix(model);
+		
+		
+		model = pTransform.GetLocalToWorldMatrix();
+
+		
 
 		glm::vec3 objectColor(1.0f,0.5f,0.31f);
 		glm::vec3 lightColor(1.0f,1.0f,1.0f);

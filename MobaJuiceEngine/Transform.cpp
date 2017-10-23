@@ -64,40 +64,57 @@ quat Transform::GetQuaternion()
 	return rotation;
 }
 
-mat4 Transform::GetModelMatrix(mat4 modelMatrix)
+mat4 Transform::calculateLocalToWorldMatrix(mat4 matrixStack)
 {
+	mat4 transformMatrix(1.0f);
+	transformMatrix = translate(transformMatrix, localPosition);
+	transformMatrix = transformMatrix * toMat4(rotation);
+	transformMatrix = scale(transformMatrix, localScale);
 
-	modelMatrix = translate(modelMatrix, localPosition);
-	modelMatrix = modelMatrix * toMat4(rotation);
-	modelMatrix = scale(modelMatrix, localScale);
+	localToWorld = matrixStack * transformMatrix;
 
-	return modelMatrix;
+	return localToWorld;
 }
 
-mat4 Transform::GetModelMatrix()
+mat4 Transform::calculateLocalToWorldMatrix()
 {
-	return GetModelMatrix(localToWorld);
+	if (parent == nullptr)
+		return calculateLocalToWorldMatrix(mat4(1.0));
+	else
+		return calculateLocalToWorldMatrix(Transform::parent->GetLocalToWorldMatrix());
 }
 
 mat4 Transform::GetLocalToWorldMatrix()
 {
-	return localToWorld;
+	if (parent) {
+		return parent->calculateLocalToWorldMatrix(mat4(1.0)) * calculateLocalToWorldMatrix(mat4(1.0));
+	}
+	else {
+		return calculateLocalToWorldMatrix(mat4(1.0));
+	}
 }
 
-void Transform::SetParent(shared_ptr<Transform> _parent)
+mat4 Transform::GetLocalToWorldMatrix(mat4 matrixStack)
 {
-	parent = _parent;
+	return matrixStack * calculateLocalToWorldMatrix(mat4(1.0));
 }
 
-const Transform * const Transform::GetParent()
+void Transform::SetParent(const Transform& _parent)
+{
+	parent = make_shared<Transform>(_parent);
+}
+
+Transform * Transform::GetParent()
 {
 	return parent.get();
 }
 
-void Transform::AddChildren(shared_ptr<Transform> transform)
+void Transform::AddChildren(Transform& transform)
 {
-	transform->slot = numOfChildren;
-	children.push_back(transform);
+	transform.slot = numOfChildren;
+	transform.SetParent(*this);
+	transform.calculateLocalToWorldMatrix();
+	children.push_back(make_shared<Transform>(transform));
 	numOfChildren++;
 }
 
@@ -119,4 +136,9 @@ void Transform::Detach()
 	parent->numOfChildren--;
 	parent->RemoveChildren(slot);
 	parent == nullptr;
+
+	localToWorld = mat4(1.0);
 }
+
+
+//Privates

@@ -10,7 +10,7 @@ Transform Class: TO be filled in later
 using namespace glm;
 using namespace std;
 class Transform;
-class Transform
+class Transform : std::enable_shared_from_this<Transform>
 {
 public:
 	Transform();
@@ -55,35 +55,40 @@ public:
 	quat GetQuaternion();
 
 	/*
-		Calculate the Model Matrix using the matrix provided
-		@param modelMatrix		Matrix to stack transformation on
+		Calculates this Local To World Matrix using a matrixStack to build upon
+		@param matrixStack	Stack to build upon;
 	*/
-	mat4 GetModelMatrix(mat4 modelMatrix);
-	/*
-		Calculat the MOdel matrix using an identity matrix
-	*/
-	mat4 GetModelMatrix();
+	mat4 calculateLocalToWorldMatrix(mat4 matrixStack);
 
+	/*
+	Calculates this Local To World Matrix
+	*/
+	mat4 calculateLocalToWorldMatrix();
 	/*
 		Gets the local to world matrix transformation
 	*/
 	mat4 GetLocalToWorldMatrix();
 
 	/*
+		Get Local to World Matrix Transformation passing in a parent stack
+	*/
+	mat4 GetLocalToWorldMatrix(mat4 matrixStack);
+
+	/*
 		Set the Parent Transform
 		@parem _parent The parent transform the attach to
 	*/
-	void SetParent(shared_ptr<Transform> _parent);
+	void SetParent(const Transform& _parent);
 
 	/*
 		Get the parent Transfor Read Only
 	*/
-	const Transform* const GetParent();
+	Transform* GetParent();
 
 	/*
 		Add Children to this transform
 	*/
-	void AddChildren(shared_ptr<Transform> transform);
+	void AddChildren(Transform& transform);
 	/*
 		Remove Children from this transform
 		@param slot to remove;
@@ -113,5 +118,6 @@ private:
 	quat rotation;
 
 	mat4 localToWorld;
+	mat4 localToParent;
 };
 
