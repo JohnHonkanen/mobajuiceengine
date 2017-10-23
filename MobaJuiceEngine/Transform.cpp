@@ -10,6 +10,9 @@ Transform::Transform()
 	localRotation = vec3(0);
 	localToWorld = mat4(1);
 	rotation = quat();
+	front = vec3(0, 0, 1);
+	right = vec3(1, 0, 0);
+	up = vec3(0, 1, 0);
 }
 
 
@@ -138,6 +141,22 @@ void Transform::Detach()
 	parent == nullptr;
 
 	localToWorld = mat4(1.0);
+}
+
+vec3 Transform::Front()
+{
+	vec4 f = rotation * vec4(front, 0);
+	return vec3(f.x, f.y, f.z);
+}
+
+vec3 Transform::Right()
+{
+	return vec3();
+}
+
+vec3 Transform::Up()
+{
+	return vec3();
 }
 
 

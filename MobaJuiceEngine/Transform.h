@@ -105,7 +105,23 @@ public:
 		Detach this transform from the parent
 	*/
 	void Detach();
+	/*
+		Get the front vector
+	*/
+	vec3 Front();
+	/*
+		Get the right vector
+	*/
+	vec3 Right();
+	/*
+		Get the top vector
+	*/
+	vec3 Up();
 private:
+	/*
+		Calculate the directional vectors
+	*/
+	void CalculateDirVectors();
 	int slot = -1;
 	int numOfChildren = 0;
 	shared_ptr<Transform> parent;
@@ -114,6 +130,10 @@ private:
 	vec3 localPosition;
 	vec3 localScale;
 	vec3 localRotation;
+
+	vec3 front;
+	vec3 right;
+	vec3 up;
 
 	quat rotation;
 
