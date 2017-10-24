@@ -1,3 +1,7 @@
+/*
+	Base Class for all behaviour scripts. More functionality will be filled in the future
+	Dev: John Honkanen (B00291253)
+*/
 #pragma once
 #include "Component.h"
 class Behaviour :

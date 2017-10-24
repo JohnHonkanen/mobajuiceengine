@@ -1,5 +1,6 @@
 /*
-Transform Class: TO be filled in later
+	Transform class used for the generation of the model matrix. Also holds the heirachy information fór the game object.
+	Dev: B00291253
 */
 #pragma once
 #include <glm\glm.hpp>
