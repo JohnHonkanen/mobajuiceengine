@@ -16,6 +16,7 @@
 #include "Render\OGLShader.h"
 #include "Render\Mesh\Cube.h"
 #include "GameObject.h"
+#include "GameObjectManager.h"
 #include "Component\Camera.h"
 #include "Component\MeshRenderer.h"
 using namespace std;
@@ -31,24 +32,27 @@ int main(int argc, char *argv[]){
 	std::string path = "Assets/Crate/deer.fbx";
 	OGLMeshManager *meshManager = new OGLMeshManager();
 
-	GameObject cameraWrapper;
+	GameObjectManager gameObjects;
+	GameObject * cameraWrapper = new GameObject();;
 	Camera *camera = new Camera("Camera 1");
 	//No need to delete camera because we give the GameObject ownership, when game object is out of scope it will be destroyed
-	cameraWrapper.AddComponent(camera);
+	cameraWrapper->AddComponent(camera);
 
-	cameraWrapper.transform->SetPosition(vec3(0.0f,-0.0f, -10.0f));
-	cameraWrapper.transform->SetEulerAngle(vec3(0.0f, 0.0f, 0.0f));
+	cameraWrapper->transform->SetPosition(vec3(0.0f,-0.0f, -10.0f));
+	cameraWrapper->transform->SetEulerAngle(vec3(0.0f, 0.0f, 0.0f));
 
-	GameObject deer;
+	GameObject *deer = new GameObject();
 	MeshRenderer *renderer = new MeshRenderer();
 	renderer->meshPath = path;
 	renderer->SetShader(&baseProgram);
 	renderer->SetUpMesh(meshManager);
-	deer.AddComponent(renderer);
-	deer.transform->SetPosition(glm::vec3(-0.0f, -2.0, -0.0f));
-	deer.transform->SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
-	deer.transform->SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
+	deer->AddComponent(renderer);
+	deer->transform->SetPosition(glm::vec3(-0.0f, -2.0, -0.0f));
+	deer->transform->SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
+	deer->transform->SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
 
+	gameObjects.RegisterGameObject(deer);
+	gameObjects.RegisterGameObject(cameraWrapper);
 
 	vec3 pos;
 	//Temp Loop
@@ -68,13 +72,13 @@ int main(int argc, char *argv[]){
 		}
 		r += rv;
 		rd += 1.0f;
-		cameraWrapper.transform->SetEulerAngle(vec3(0.0f, r, 0.0f));
-		cameraWrapper.Update();
+		cameraWrapper->transform->SetEulerAngle(vec3(0.0f, r, 0.0f));
+		gameObjects.Update();
 
-		deer.transform->SetEulerAngle(vec3(-90.0f, rd, 0.0f));
+		deer->transform->SetEulerAngle(vec3(-90.0f, rd, 0.0f));
 		//Loop for Graphics
 		graphicsHandler.Start();
-		deer.Draw();
+		gameObjects.Draw();
 		
 		graphicsHandler.End();
 	}

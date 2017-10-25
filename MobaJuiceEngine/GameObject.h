@@ -31,7 +31,7 @@ public:
 
 	std::unique_ptr<Transform> transform;
 	int id;
-	std::string name;
+	std::string name = "";
 	
 	std::vector<ComponentUP> components;
 };

@@ -126,6 +126,7 @@
     <ClCompile Include="Component\MeshRenderer.cpp" />
     <ClCompile Include="Dictionary.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Render\GraphicsHandlers\OGLGraphicHandler.cpp" />
     <ClCompile Include="Render\Mesh\AiModel.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Component\MeshRenderer.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="Render\GraphicsHandlers\GraphicHandler.h" />
     <ClInclude Include="Render\GraphicsHandlers\OGLGraphicHandler.h" />
     <ClInclude Include="Render\Material.h" />
