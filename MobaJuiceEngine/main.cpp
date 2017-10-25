@@ -17,6 +17,7 @@
 #include "Render\Mesh\Cube.h"
 #include "GameObject.h"
 #include "Component\Camera.h"
+#include "Component\MeshRenderer.h"
 using namespace std;
 using namespace glm;
 
@@ -30,34 +31,31 @@ int main(int argc, char *argv[]){
 	std::string path = "Assets/Crate/deer.fbx";
 	OGLMeshManager *meshManager = new OGLMeshManager();
 
-	meshManager->CreateMesh("Cube", new Cube());
-	Mesh *mesh = meshManager->GetMesh(path).get();
-
-	Transform transform;
-	//transform.SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
-	transform.SetPosition(glm::vec3(-0.0f, -0.0f, -0.0f));
-	transform.SetEulerAngle(glm::vec3(0.0f, -180.0f, 0.0f));
-
-	Transform pTransform;
-	pTransform.SetPosition(glm::vec3(-0.0f, -0.0, -0.0f));
-	pTransform.SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
-	pTransform.SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
-	
-	transform.AddChildren(pTransform);
-
 	GameObject cameraWrapper;
 	Camera *camera = new Camera("Camera 1");
-	//No need to delete camera because we give the GameObject ownership
+	//No need to delete camera because we give the GameObject ownership, when game object is out of scope it will be destroyed
 	cameraWrapper.AddComponent(camera);
 
-	cameraWrapper.transform->SetPosition(vec3(0.0f,-5.0f, -5.0f));
+	cameraWrapper.transform->SetPosition(vec3(0.0f,-0.0f, -10.0f));
 	cameraWrapper.transform->SetEulerAngle(vec3(0.0f, 0.0f, 0.0f));
+
+	GameObject deer;
+	MeshRenderer *renderer = new MeshRenderer();
+	renderer->meshPath = path;
+	renderer->SetShader(&baseProgram);
+	renderer->SetUpMesh(meshManager);
+	deer.AddComponent(renderer);
+	deer.transform->SetPosition(glm::vec3(-0.0f, -2.0, -0.0f));
+	deer.transform->SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
+	deer.transform->SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
 
 
 	vec3 pos;
 	//Temp Loop
 	//genTris();
-	float r = 0.0f;
+	float r = -10.0f;
+	float rd = 0.0f;
+	float rv = 0.1f;
 	SDL_Event sdlEvent;  // variable to detect SDL events
 	bool running = true; // set running to true
 	while (running) {
@@ -65,53 +63,22 @@ int main(int argc, char *argv[]){
 			if (sdlEvent.type == SDL_QUIT)
 				running = false;
 		}
-		r += 1;
-		cameraWrapper.transform->SetEulerAngle(vec3(-r, 0.0f, 0.0f));
+		if (r < -20.0f || r > 20.0f) {
+			rv = -rv;
+		}
+		r += rv;
+		rd += 1.0f;
+		cameraWrapper.transform->SetEulerAngle(vec3(0.0f, r, 0.0f));
 		cameraWrapper.Update();
+
+		deer.transform->SetEulerAngle(vec3(-90.0f, rd, 0.0f));
 		//Loop for Graphics
 		graphicsHandler.Start();
-		baseProgram.Use();
-		//PlaceHolder Code
-		//drawVAO();
-		//SetMVPS
-		glm::mat4 projection(1.0);
-		projection = Camera::mainCamera->GetProjectionMatrix();
-		glm::mat4 model(1.0);
-		glm::mat4 view = Camera::mainCamera->GetViewMatrix();
-
-		glm::vec3 angle;
-
-		Transform* parent = pTransform.GetParent();
-		angle = parent->GetRotation();
-		//parent->SetEulerAngle(glm::vec3(r, r, angle.z));
-		model = parent->GetLocalToWorldMatrix(model);
-
-		angle = pTransform.GetRotation();
-		//pTransform.SetEulerAngle(glm::vec3(angle.x,r*2, angle.z));
+		deer.Draw();
 		
-		
-		model = pTransform.GetLocalToWorldMatrix();
-
-		
-
-		glm::vec3 objectColor(1.0f,0.5f,0.31f);
-		glm::vec3 lightColor(1.0f,1.0f,1.0f);
-		glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-		glUniformMatrix4fv(glGetUniformLocation(baseProgram.program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(glGetUniformLocation(baseProgram.program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(glGetUniformLocation(baseProgram.program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		glUniform3fv(glGetUniformLocation(baseProgram.program, "objectColor"), 1, glm::value_ptr(objectColor));
-		glUniform3fv(glGetUniformLocation(baseProgram.program, "lightColor"), 1, glm::value_ptr(lightColor));
-		glUniform3fv(glGetUniformLocation(baseProgram.program, "lightPos"), 1, glm::value_ptr(lightPos));
-		//ENDOFMVP
-		mesh->Render();
-		//EndOfPlaceHolder
 		graphicsHandler.End();
 	}
 	
-	//glDeleteVertexArrays(1, &VAO);
-	//glDeleteBuffers(1, &VBO);
-	//glDeleteBuffers(1, &EBO);
 	graphicsHandler.Destroy();
 	delete meshManager;
 	return 0;

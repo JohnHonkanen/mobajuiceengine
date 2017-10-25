@@ -1,6 +1,5 @@
 #pragma once
-#include "../Renderer.h"
-class Mesh : public Renderer {
+class Mesh {
 public:
 	virtual void Render() = 0;
 };

@@ -17,6 +17,7 @@ public:
 	GameObject();
 	~GameObject();
 	void Update();
+	void Draw();
 	/*
 		Add a Component and gives the GameObject a Sole Ownership of the component
 	*/

@@ -23,16 +23,16 @@ OGLMeshManager::~OGLMeshManager()
 
 }
 
-std::shared_ptr<Mesh> OGLMeshManager::GetMesh(std::string path)
+Mesh * OGLMeshManager::GetMesh(std::string path)
 {
 	auto it = meshDictionary.find(path);
 	if (it != meshDictionary.end()) {
-		return meshDictionary[path];
+		return meshDictionary[path].get();
 	}
 
 	OGLMeshManager::CreateMesh(path);
 
-	return meshDictionary[path];
+	return meshDictionary[path].get();
 }
 
 /*
@@ -41,10 +41,10 @@ std::shared_ptr<Mesh> OGLMeshManager::GetMesh(std::string path)
 */
 void OGLMeshManager::CreateMesh(std::string path)
 {
-	OGLMesh *oglMesh = new OGLMesh(path, new AiModel(path)); //Sets up the AIModle and MeshData
+	OGLMesh *oglMesh = new OGLMesh(path, new AiModel(path)); //Sets up the AIModel and MeshData
 	oglMesh->SetVAO(GenerateVAO(oglMesh->GetMeshData()));
 
-	meshDictionary.insert(std::pair<std::string, std::shared_ptr<Mesh> >(path, std::shared_ptr<Mesh>(oglMesh)));
+	meshDictionary.insert(std::pair<std::string, MeshUniqPtr >(path, MeshUniqPtr(oglMesh)));
 }
 
 void OGLMeshManager::CreateMesh(std::string path, Shape * shape)
@@ -52,7 +52,7 @@ void OGLMeshManager::CreateMesh(std::string path, Shape * shape)
 	OGLMesh *oglMesh = new OGLMesh(path, shape); //Sets up the AIModle and MeshData
 	oglMesh->SetVAO(GenerateVAO(oglMesh->GetMeshData()));
 
-	meshDictionary.insert(std::pair<std::string, std::shared_ptr<Mesh> >(path, std::shared_ptr<Mesh>(oglMesh)));
+	meshDictionary.insert(std::pair<std::string, MeshUniqPtr >(path, MeshUniqPtr(oglMesh)));
 }
 
 

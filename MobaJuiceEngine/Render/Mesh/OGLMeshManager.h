@@ -15,17 +15,18 @@
 #define STORED_TANGENT		5
 #define STORED_BITANGENT	6
 
+typedef std::unique_ptr<Mesh> MeshUniqPtr;
 class OGLMeshManager {
 public:
 	OGLMeshManager() {};
 	~OGLMeshManager();
-	std::shared_ptr<Mesh> GetMesh(std::string path);
+	Mesh* GetMesh(std::string path);
 	void CreateMesh(std::string path);
 	void CreateMesh(std::string path, Shape *shape);
 private:
 	
 	GLuint GenerateVAO(MeshData data);
 
-	std::map<std::string, std::shared_ptr<Mesh>> meshDictionary;
+	std::map<std::string, MeshUniqPtr> meshDictionary;
 	std::map<GLuint, GLuint*> VAOMap;
 };

@@ -5,9 +5,9 @@
 #pragma once
 #include <memory>
 #include <string>
+#include "Transform.h"
 //Predefinition of a the GameObject Class
 class GameObject;
-class Transform;
 
 class Component
 {

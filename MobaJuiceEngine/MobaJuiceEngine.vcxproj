@@ -123,6 +123,7 @@
     <ClCompile Include="Behaviour.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Component\Camera.cpp" />
+    <ClCompile Include="Component\MeshRenderer.cpp" />
     <ClCompile Include="Dictionary.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Behaviour.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Component\Camera.h" />
+    <ClInclude Include="Component\MeshRenderer.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Render\GraphicsHandlers\GraphicHandler.h" />
