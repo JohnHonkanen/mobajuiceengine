@@ -8,20 +8,23 @@
 #include "glm\gtc\matrix_transform.hpp"
 #include "glm\gtc\type_ptr.hpp"
 
-class MeshRenderer : public Behaviour, Renderer
-{
-public:
-	MeshRenderer();
-	~MeshRenderer();
+namespace Engine {
 
-	void Start();
-	void Draw();
+	class MeshRenderer : public Behaviour, Renderer
+	{
+	public:
+		MeshRenderer();
+		~MeshRenderer();
 
-	//Temp Function
-	void SetUpMesh(OGLMeshManager * manager);
-	void SetShader(OGLShader *s);
-	std::string meshPath;
-private:
-	Mesh *mesh;
-	OGLShader *shader;
-};
+		void Start();
+		void Draw();
+
+		//Temp Function
+		void SetUpMesh(OGLMeshManager * manager);
+		void SetShader(OGLShader *s);
+		std::string meshPath;
+	private:
+		Mesh *mesh;
+		OGLShader *shader;
+	};
+}

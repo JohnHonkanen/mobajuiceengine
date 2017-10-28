@@ -7,9 +7,9 @@
 #include <string>
 #include "Transform.h"
 //Predefinition of a the GameObject Class
-class GameObject;
 
 namespace Engine {
+	class GameObject;
 	class Component
 	{
 	public:

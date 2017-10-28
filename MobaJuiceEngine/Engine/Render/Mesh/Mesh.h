@@ -1,5 +1,7 @@
 #pragma once
-class Mesh {
-public:
-	virtual void Render() = 0;
-};
+namespace Engine {
+	class Mesh {
+	public:
+		virtual void Render() = 0;
+	};
+}

@@ -3,9 +3,11 @@
 	Dev: John Honkanen
 */
 #pragma once
-class Renderer
-{
-public:
-};
+namespace Engine {
+	class Renderer
+	{
+	public:
+	};
+}
 
 

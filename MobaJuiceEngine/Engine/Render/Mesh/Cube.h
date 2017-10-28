@@ -1,8 +1,9 @@
 #pragma once
 #include "Shape.h"
-
-class Cube: public Shape {
-public:
-	Cube();
-	void Init();
-};
+namespace Engine {
+	class Cube : public Shape {
+	public:
+		Cube();
+		void Init();
+	};
+}

@@ -147,6 +147,8 @@
   <ItemGroup>
     <ClInclude Include="Engine\Behaviour.h" />
     <ClInclude Include="Engine\Component.h" />
+    <ClInclude Include="Engine\Component\Camera.h" />
+    <ClInclude Include="Engine\Component\MeshRenderer.h" />
     <ClInclude Include="Engine\Dictionary.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\GameObjectManager.h" />

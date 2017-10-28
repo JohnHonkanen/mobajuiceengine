@@ -4,11 +4,13 @@
 */
 #include <vector>
 #pragma once
-struct MeshData {
-	std::vector<float> vertexArray;
-	std::vector<float> normalArray;
-	std::vector<float> uvArray;
-	std::vector<unsigned int> indices;
-	unsigned int numVerts;
-	unsigned int indexCount;
-};
+namespace Engine {
+	struct MeshData {
+		std::vector<float> vertexArray;
+		std::vector<float> normalArray;
+		std::vector<float> uvArray;
+		std::vector<unsigned int> indices;
+		unsigned int numVerts;
+		unsigned int indexCount;
+	};
+}

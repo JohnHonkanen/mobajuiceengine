@@ -1,11 +1,13 @@
 #pragma once
 #include "MeshData.h"
-class Shape {
-public:
-	virtual void Init() = 0;
-	const MeshData getMeshData() {
-		return data;
+namespace Engine {
+	class Shape {
+	public:
+		virtual void Init() = 0;
+		const MeshData getMeshData() {
+			return data;
+		};
+	protected:
+		MeshData data;
 	};
-protected:
-	MeshData data;
-};
+}
