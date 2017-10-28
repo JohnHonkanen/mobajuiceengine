@@ -120,54 +120,52 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Behaviour.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Component\Camera.cpp" />
-    <ClCompile Include="Component\MeshRenderer.cpp" />
-    <ClCompile Include="Dictionary.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameObjectManager.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Render\GraphicsHandlers\OGLGraphicHandler.cpp" />
-    <ClCompile Include="Render\Mesh\AiModel.cpp" />
-    <ClCompile Include="Render\Mesh\Cube.cpp" />
-    <ClCompile Include="Render\Mesh\OGLMesh.cpp" />
-    <ClCompile Include="Render\Mesh\OGLMeshManager.cpp" />
-    <ClCompile Include="Render\OGLShader.cpp" />
-    <ClCompile Include="Render\Shader.cpp" />
-    <ClCompile Include="Render\Window\SDLWindow.cpp" />
-    <ClCompile Include="Transform.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Behaviour.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Component\Camera.h" />
-    <ClInclude Include="Component\MeshRenderer.h" />
-    <ClInclude Include="Dictionary.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameObjectManager.h" />
-    <ClInclude Include="Render\GraphicsHandlers\GraphicHandler.h" />
-    <ClInclude Include="Render\GraphicsHandlers\OGLGraphicHandler.h" />
-    <ClInclude Include="Render\Material.h" />
-    <ClInclude Include="Render\Mesh\AiModel.h" />
-    <ClInclude Include="Render\Mesh\Cube.h" />
-    <ClInclude Include="Render\Mesh\Mesh.h" />
-    <ClInclude Include="Render\Mesh\MeshData.h" />
-    <ClInclude Include="Render\Mesh\OGLMesh.h" />
-    <ClInclude Include="Render\Mesh\OGLMeshManager.h" />
-    <ClInclude Include="Render\Mesh\Shape.h" />
-    <ClInclude Include="Render\OGLShader.h" />
-    <ClInclude Include="Render\Renderer.h" />
-    <ClInclude Include="Render\Shader.h" />
-    <ClInclude Include="Render\Window\SDLWindow.h" />
-    <ClInclude Include="Render\Window\Window.h" />
-    <ClInclude Include="Transform.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Assets\Shaders\phong-tex.frag" />
     <None Include="Assets\Shaders\phong-tex.vert" />
     <None Include="Assets\Shaders\textured.frag" />
     <None Include="Assets\Shaders\textured.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\Behaviour.cpp" />
+    <ClCompile Include="Engine\Component.cpp" />
+    <ClCompile Include="Engine\Component\Camera.cpp" />
+    <ClCompile Include="Engine\Component\MeshRenderer.cpp" />
+    <ClCompile Include="Engine\Dictionary.cpp" />
+    <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\GameObjectManager.cpp" />
+    <ClCompile Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.cpp" />
+    <ClCompile Include="Engine\Render\Mesh\AiModel.cpp" />
+    <ClCompile Include="Engine\Render\Mesh\Cube.cpp" />
+    <ClCompile Include="Engine\Render\Mesh\OGLMesh.cpp" />
+    <ClCompile Include="Engine\Render\Mesh\OGLMeshManager.cpp" />
+    <ClCompile Include="Engine\Render\OGLShader.cpp" />
+    <ClCompile Include="Engine\Render\Shader.cpp" />
+    <ClCompile Include="Engine\Render\Window\SDLWindow.cpp" />
+    <ClCompile Include="Engine\Transform.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Behaviour.h" />
+    <ClInclude Include="Engine\Component.h" />
+    <ClInclude Include="Engine\Dictionary.h" />
+    <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\GameObjectManager.h" />
+    <ClInclude Include="Engine\Render\GraphicsHandlers\GraphicHandler.h" />
+    <ClInclude Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.h" />
+    <ClInclude Include="Engine\Render\Material.h" />
+    <ClInclude Include="Engine\Render\Mesh\AiModel.h" />
+    <ClInclude Include="Engine\Render\Mesh\Cube.h" />
+    <ClInclude Include="Engine\Render\Mesh\Mesh.h" />
+    <ClInclude Include="Engine\Render\Mesh\MeshData.h" />
+    <ClInclude Include="Engine\Render\Mesh\OGLMesh.h" />
+    <ClInclude Include="Engine\Render\Mesh\OGLMeshManager.h" />
+    <ClInclude Include="Engine\Render\Mesh\Shape.h" />
+    <ClInclude Include="Engine\Render\OGLShader.h" />
+    <ClInclude Include="Engine\Render\Renderer.h" />
+    <ClInclude Include="Engine\Render\Shader.h" />
+    <ClInclude Include="Engine\Render\Window\SDLWindow.h" />
+    <ClInclude Include="Engine\Render\Window\Window.h" />
+    <ClInclude Include="Engine\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

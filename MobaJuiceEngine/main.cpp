@@ -10,15 +10,15 @@
 #include "glm\gtc\matrix_transform.hpp"
 #include "glm\gtc\type_ptr.hpp"
 
-#include "Render\GraphicsHandlers\OGLGraphicHandler.h"
-#include "Render\Window\SDLWindow.h"
-#include "Render\Mesh\OGLMeshManager.h"
-#include "Render\OGLShader.h"
-#include "Render\Mesh\Cube.h"
-#include "GameObject.h"
-#include "GameObjectManager.h"
-#include "Component\Camera.h"
-#include "Component\MeshRenderer.h"
+#include "Engine\Render\GraphicsHandlers\OGLGraphicHandler.h"
+#include "Engine\Render\Window\SDLWindow.h"
+#include "Engine\Render\Mesh\OGLMeshManager.h"
+#include "Engine\Render\OGLShader.h"
+#include "Engine\Render\Mesh\Cube.h"
+#include "Engine\GameObject.h"
+#include "Engine\GameObjectManager.h"
+#include "Engine\Component\Camera.h"
+#include "Engine\Component\MeshRenderer.h"
 using namespace std;
 using namespace glm;
 
