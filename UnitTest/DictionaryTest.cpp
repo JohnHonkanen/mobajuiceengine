@@ -1,6 +1,7 @@
 #include "catch.hpp"
-#include "../MobaJuiceEngine/Dictionary.h"
+#include "../MobaJuiceEngine/Engine/Dictionary.h"
 
+using namespace Engine;
 TEST_CASE("Dictionary Save and Get", "[Dictionary Save Get]") {
 	Dictionary<int> dict;
 	dict.Save("number1", 1);
