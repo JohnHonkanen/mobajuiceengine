@@ -15,6 +15,7 @@ namespace Engine {
 	{
 	public:
 		GameObject();
+		GameObject(std::string name);
 		~GameObject();
 		void Update();
 		void Draw();

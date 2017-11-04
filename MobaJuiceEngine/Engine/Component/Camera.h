@@ -14,10 +14,17 @@ namespace Engine {
 	{
 	public:
 		Camera(std::string name);
+		Camera();
 		~Camera();
 
 		//Current Active camera
 		static Camera* mainCamera;
+		/*
+			Sets up the Camera and its dependicies. Make the gameObject the owner of this component
+			@param gameObject	Object that owns this Behaviour
+			@return				The created Camera gameObject
+		*/
+		static Camera* Create(GameObject *gameObject);
 		/*
 			Creates a perspective matrix for the camera
 			@param _fov			Field of view of the camara

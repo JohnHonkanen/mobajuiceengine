@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include <glm\gtc\matrix_transform.hpp>
 #include "..\Transform.h"
+#include "..\GameObject.h"
 namespace Engine {
 	Camera * Camera::mainCamera = nullptr;
 
@@ -12,8 +13,23 @@ namespace Engine {
 		SetPerspective(fov, aspectRatio, near, far);
 	}
 
+	Camera::Camera()
+	{
+		if (Camera::mainCamera == nullptr)
+			Camera::mainCamera = this;
+
+		SetPerspective(fov, aspectRatio, near, far);
+	}
+
 	Camera::~Camera()
 	{
+	}
+
+	Camera * Camera::Create(GameObject * gameObject)
+	{
+		Camera *c = new Camera();
+		gameObject->AddComponent(c);
+		return c;
 	}
 
 	void Camera::SetFOV(float _fov)

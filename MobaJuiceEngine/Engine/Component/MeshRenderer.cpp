@@ -1,5 +1,6 @@
 #include "MeshRenderer.h"
 #include "Camera.h"
+#include "../GameObject.h"
 namespace Engine {
 	MeshRenderer::MeshRenderer()
 	{
@@ -7,6 +8,18 @@ namespace Engine {
 
 	MeshRenderer::~MeshRenderer()
 	{
+	}
+
+	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path, OGLShader * shader, OGLMeshManager * manager)
+	{
+		MeshRenderer *r = new MeshRenderer();
+		r->meshPath = path;
+		r->shader = shader;
+		r->mesh = manager->GetMesh(path);
+		//Adds ownership
+		gameObject->AddComponent(r);
+
+		return r;
 	}
 
 	void MeshRenderer::Start()
@@ -37,15 +50,5 @@ namespace Engine {
 		glUniform3fv(glGetUniformLocation(shader->program, "lightPos"), 1, glm::value_ptr(lightPos));
 		//ENDOFMVP
 		mesh->Render();
-	}
-
-	void MeshRenderer::SetUpMesh(OGLMeshManager * manager)
-	{
-		mesh = manager->GetMesh(meshPath);
-	}
-
-	void MeshRenderer::SetShader(OGLShader * s)
-	{
-		shader = s;
 	}
 }

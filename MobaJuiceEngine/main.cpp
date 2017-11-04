@@ -34,26 +34,20 @@ int main(int argc, char *argv[]){
 	OGLMeshManager *meshManager = new OGLMeshManager();
 
 	GameObjectManager gameObjects;
-	GameObject * cameraWrapper = new GameObject();;
-	Camera *camera = new Camera("Camera 1");
-	//No need to delete camera because we give the GameObject ownership, when game object is out of scope it will be destroyed
-	cameraWrapper->AddComponent(camera);
+	GameObject * cameraWrapper = gameObjects.createGameObject("Camera");
+	Camera::Create(cameraWrapper);
 
 	cameraWrapper->transform->SetPosition(vec3(0.0f,-0.0f, -10.0f));
 	cameraWrapper->transform->SetEulerAngle(vec3(0.0f, 0.0f, 0.0f));
 
-	GameObject *deer = new GameObject();
-	MeshRenderer *renderer = new MeshRenderer();
-	renderer->meshPath = path;
-	renderer->SetShader(&baseProgram);
-	renderer->SetUpMesh(meshManager);
-	deer->AddComponent(renderer);
+	GameObject *deer = gameObjects.createGameObject("deer");
+	//Create and attaches it the deer
+	MeshRenderer::Create(deer, path, &baseProgram, meshManager);
+
 	deer->transform->SetPosition(glm::vec3(-0.0f, -2.0, -0.0f));
 	deer->transform->SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
 	deer->transform->SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
 
-	gameObjects.RegisterGameObject(deer);
-	gameObjects.RegisterGameObject(cameraWrapper);
 
 	vec3 pos;
 	//Temp Loop

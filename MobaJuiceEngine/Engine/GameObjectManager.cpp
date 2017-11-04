@@ -28,13 +28,29 @@ namespace Engine {
 			int count = gameObjects.size();
 			gameObject->name = "GameObject" + count;
 		}
+		//If already exist
+		if (gameObjects.find(gameObject->name) == gameObjects.end()) {
+			gameObject->name = gameObject->name + "_1";
+		}
+		
 
 		gameObjects.insert(std::pair<std::string, GameObjUniqPtr>(gameObject->name, GameObjUniqPtr(gameObject)));
 	}
 
-	void GameObjectManager::DeregisterGameObject(std::string name)
+	GameObject * GameObjectManager::DeregisterGameObject(std::string name)
 	{
+		GameObject * gameObject = Find(name);
+		gameObjects[name].release();
 		gameObjects.erase(name);
+		return gameObject;
+	}
+
+	GameObject * GameObjectManager::createGameObject(std::string name)
+	{
+		GameObject *object = new GameObject(name);
+		RegisterGameObject(object);
+
+		return object;
 	}
 
 	GameObject * GameObjectManager::Find(std::string name)
