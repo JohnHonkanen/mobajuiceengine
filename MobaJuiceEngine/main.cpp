@@ -29,23 +29,22 @@ int main(int argc, char *argv[]){
 
 	OGLShader baseProgram("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
 
-	std::string path = "Assets/Crate/deer.fbx";
+	std::string path = "Assets/Models/arissa/Arissa.dae";
 	OGLMeshManager *meshManager = new OGLMeshManager();
 
 	GameObjectManager gameObjects;
 	GameObject * cameraWrapper = gameObjects.createGameObject("Camera");
 	Camera::Create(cameraWrapper);
 
-	cameraWrapper->transform->SetPosition(vec3(0.0f,-0.0f, -10.0f));
+	cameraWrapper->transform->SetPosition(vec3(0.0f, 2.0f, 0.0f));
 	cameraWrapper->transform->SetEulerAngle(vec3(0.0f, 0.0f, 0.0f));
 
 	GameObject *deer = gameObjects.createGameObject("deer");
 	//Create and attaches it the deer
 	MeshRenderer::Create(deer, path, &baseProgram, meshManager);
 
-	deer->transform->SetPosition(glm::vec3(-0.0f, -2.0, -0.0f));
-	deer->transform->SetEulerAngle(glm::vec3(-90.0f, 0.0f, 0.0f));
-	deer->transform->SetScale(glm::vec3(0.003f, 0.003f, 0.003f));
+	deer->transform->SetPosition(glm::vec3(-0.0f, -0.0, 20.0f));
+	deer->transform->SetScale(glm::vec3(0.05f));
 
 
 	vec3 pos;
@@ -66,10 +65,9 @@ int main(int argc, char *argv[]){
 		}
 		r += rv;
 		rd += 1.0f;
-		cameraWrapper->transform->SetEulerAngle(vec3(0.0f, r, 0.0f));
 		gameObjects.Update();
 
-		deer->transform->SetEulerAngle(vec3(-90.0f, rd, 0.0f));
+		deer->transform->SetEulerAngle(vec3(0.0f, rd, 0.0f));
 		//Loop for Graphics
 		graphicsHandler.Start();
 		gameObjects.Draw();

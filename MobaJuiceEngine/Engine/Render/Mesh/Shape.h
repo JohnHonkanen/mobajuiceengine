@@ -11,6 +11,9 @@ namespace Engine {
 		const vector<MeshData> getMeshData() {
 			return data;
 		};
+		const vector<Material> getMaterials() {
+			return material;
+		}
 
 	protected:
 		vector<MeshData> data;

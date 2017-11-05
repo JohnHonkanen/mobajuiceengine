@@ -27,6 +27,7 @@ namespace Engine {
 		//Extract the mesh data from ai mesh
 		MeshData LoadData(aiMesh *mesh);
 		Material LoadMaterial(const aiScene *scene, int index);
+		std::string getTexturePath(aiMaterial *material, aiTextureType type);
 
 		std::string directory;
 		std::string path;

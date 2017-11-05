@@ -129,8 +129,30 @@ namespace Engine {
 	Material AiModel::LoadMaterial(const aiScene * scene, int index)
 	{
 		aiMesh *mesh = scene->mMeshes[index];
+		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+		Material mat;
+		mat.diffuseMap = getTexturePath(material, aiTextureType_DIFFUSE);
+		mat.specularMap = getTexturePath(material, aiTextureType_SPECULAR);
+		mat.normalMap = getTexturePath(material, aiTextureType_NORMALS);
+		mat.emissionMap = getTexturePath(material, aiTextureType_EMISSIVE);
+		mat.alphaMap = getTexturePath(material, aiTextureType_OPACITY);
+		mat.occulusionMap = getTexturePath(material, aiTextureType_LIGHTMAP);
 
-		return Material();
+		return mat;
+	}
+
+	std::string AiModel::getTexturePath(aiMaterial * material, aiTextureType type)
+	{
+		//Might have to change of there are multiple texture of 1 type
+		string path = "";
+		if (material->GetTextureCount(type) > 0) {
+			aiString str;
+			material->GetTexture(type, 0, &str);
+
+			path = directory + '/' + str.C_Str();
+		}
+
+		return path;
 	}
 }
 

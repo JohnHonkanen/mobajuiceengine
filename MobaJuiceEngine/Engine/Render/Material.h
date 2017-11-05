@@ -10,8 +10,9 @@ namespace Engine {
 	{
 	public:
 		std::string shader;
-		std::string albedoMap; //Color Map
+		std::string diffuseMap; //Color Map
 		std::string normalMap;
+		std::string specularMap;
 		std::string occulusionMap;
 		std::string emissionMap;
 		std::string alphaMap;
