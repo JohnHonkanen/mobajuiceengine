@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <GL\glew.h>
 namespace Engine {
 
 	AiModel::AiModel()
@@ -72,13 +73,13 @@ namespace Engine {
 
 	MeshData AiModel::LoadData(aiMesh * mesh)
 	{
-		std::vector<float> vertexArray;
-		std::vector<float> normalArray;
-		std::vector<float> uvArray;
-		std::vector<unsigned int> indexArray;
+		std::vector<GLfloat> vertexArray;
+		std::vector<GLfloat> normalArray;
+		std::vector<GLfloat> uvArray;
+		std::vector<GLuint> indexArray;
 
-		unsigned int numVerts;
-		unsigned int indexCount = 0;
+		GLuint numVerts;
+		GLuint indexCount = 0;
 
 		numVerts = mesh->mNumFaces * 3;
 		indexCount = mesh->mNumFaces;

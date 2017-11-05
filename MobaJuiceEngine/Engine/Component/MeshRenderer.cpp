@@ -10,12 +10,12 @@ namespace Engine {
 	{
 	}
 
-	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path, OGLShader * shader, OGLMeshManager * manager)
+	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path, OGLMeshManager * manager)
 	{
 		MeshRenderer *r = new MeshRenderer();
 		r->meshPath = path;
-		r->shader = shader;
 		r->mesh = manager->GetMesh(path);
+		r->meshManager = manager;
 		//Adds ownership
 		gameObject->AddComponent(r);
 
@@ -28,26 +28,24 @@ namespace Engine {
 
 	void MeshRenderer::Draw()
 	{
-		shader->Use();
+		string shaderString = mesh->GetShader();
+		GLuint shader = meshManager->getShaderManager()->GetShader(shaderString);
+		glUseProgram(shader);
 		//SetMVPS
 		glm::mat4 projection(1.0);
 		projection = Camera::mainCamera->GetProjectionMatrix();
 		glm::mat4 model(1.0);
+		Camera::mainCamera->CalculateViewMatrix();
 		glm::mat4 view = Camera::mainCamera->GetViewMatrix();
 
 		model = transform->GetLocalToWorldMatrix();
+		/*glDepthMask(GL_TRUE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glDisable(GL_CULL_FACE);*/
 
-
-		/*Temp Code to be move to Materials*/
-		glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
-		glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
-		glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-		glUniformMatrix4fv(glGetUniformLocation(shader->program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(glGetUniformLocation(shader->program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(glGetUniformLocation(shader->program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		glUniform3fv(glGetUniformLocation(shader->program, "objectColor"), 1, glm::value_ptr(objectColor));
-		glUniform3fv(glGetUniformLocation(shader->program, "lightColor"), 1, glm::value_ptr(lightColor));
-		glUniform3fv(glGetUniformLocation(shader->program, "lightPos"), 1, glm::value_ptr(lightPos));
+		glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		//ENDOFMVP
 		mesh->Render();
 	}

@@ -14,7 +14,8 @@ namespace Engine {
 		ShaderManager();
 		~ShaderManager();
 
-		OGLShader * CreateShader();
+		OGLShader * CreateShader(std::string name, const char *vertexPath, const char *fragmentPath);
+		GLuint GetShader(std::string name);
 	private:
 		map<string, ShaderUptr> shaders;
 	};

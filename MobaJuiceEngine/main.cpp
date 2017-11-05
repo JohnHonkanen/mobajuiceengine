@@ -13,7 +13,7 @@
 #include "Engine\Render\GraphicsHandlers\OGLGraphicHandler.h"
 #include "Engine\Render\Window\SDLWindow.h"
 #include "Engine\Render\Mesh\OGLMeshManager.h"
-#include "Engine\Render\OGLShader.h"
+#include "Engine\Render\ShaderManager.h"
 #include "Engine\GameObject.h"
 #include "Engine\GameObjectManager.h"
 #include "Engine\Component\Camera.h"
@@ -27,10 +27,16 @@ int main(int argc, char *argv[]){
 	OGLGraphicHandler graphicsHandler(new SDLWindow("MobaJuice", 800, 800));
 	graphicsHandler.Initialize();
 
-	OGLShader baseProgram("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
+	ShaderManager shaderManager;
+	
+	OGLShader *baseProgram = shaderManager.CreateShader("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
 
 	std::string path = "Assets/Models/arissa/Arissa.dae";
-	OGLMeshManager *meshManager = new OGLMeshManager();
+	//std::string path = "Assets/Crate/deer.dae";
+	TextureManager texureManager;
+	OGLMeshManager meshManager;
+	meshManager.SetShaderProgram("phong", &shaderManager);
+	meshManager.SetTextureManager(&texureManager);
 
 	GameObjectManager gameObjects;
 	GameObject * cameraWrapper = gameObjects.createGameObject("Camera");
@@ -40,16 +46,15 @@ int main(int argc, char *argv[]){
 	cameraWrapper->transform->SetEulerAngle(vec3(0.0f, 0.0f, 0.0f));
 
 	GameObject *deer = gameObjects.createGameObject("deer");
-	//Create and attaches it the deer
-	MeshRenderer::Create(deer, path, &baseProgram, meshManager);
+	//Create and attaches it the arissa (deer)
+	MeshRenderer::Create(deer, path, &meshManager);
 
-	deer->transform->SetPosition(glm::vec3(-0.0f, -0.0, 20.0f));
+	deer->transform->SetPosition(glm::vec3(-0.0f, -3.0, 20.0f));
 	deer->transform->SetScale(glm::vec3(0.05f));
 
 
 	vec3 pos;
-	//Temp Loop
-	//genTris();
+
 	float r = -10.0f;
 	float rd = 0.0f;
 	float rv = 0.1f;
@@ -74,8 +79,6 @@ int main(int argc, char *argv[]){
 		
 		graphicsHandler.End();
 	}
-	
 	graphicsHandler.Destroy();
-	delete meshManager;
 	return 0;
 }

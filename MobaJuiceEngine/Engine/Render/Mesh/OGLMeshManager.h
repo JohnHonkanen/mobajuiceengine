@@ -3,6 +3,8 @@
 #include "MeshData.h"
 #include "../../Dictionary.h"
 #include "Shape.h"
+#include "../ShaderManager.h"
+#include "../Texture/TextureManager.h"
 #include <memory>
 #include <GL\glew.h>
 #include <map>
@@ -22,14 +24,34 @@ namespace Engine {
 	public:
 		OGLMeshManager() {};
 		~OGLMeshManager();
+		/*
+			Get the Mesh with this path. If not already loaded load it.
+			@param path	Path to the mesh/ ID.
+			@return	The mesh requested,
+
+		*/
 		Mesh* GetMesh(std::string path);
+
+		/*
+			Sets the shader program to be used by all the meshes by default.
+			@param	string name of the shader program in the shader manager
+			@param shaderManager	shaderManger that holds the list of shaders
+		*/
+		void SetShaderProgram(string program, ShaderManager *shaderManager);
+		/*
+			
+		*/
+		void SetTextureManager(TextureManager *textureManger);
+		ShaderManager *getShaderManager();
+	private:	
 		void CreateMesh(std::string path);
 		void CreateMesh(std::string path, Shape *shape);
-	private:
-
 		GLuint GenerateVAO(MeshData data);
 
 		std::map<std::string, MeshUniqPtr> meshDictionary;
 		std::map<GLuint, GLuint*> VAOMap;
+		std::string shaderProgram;
+		ShaderManager *shaderManager;
+		TextureManager *textureManager;
 	};
 }

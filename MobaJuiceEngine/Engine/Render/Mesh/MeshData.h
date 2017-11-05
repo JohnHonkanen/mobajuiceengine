@@ -3,14 +3,15 @@
 	Dev: John Honkanen
 */
 #include <vector>
+#include <GL\glew.h>
 #pragma once
 namespace Engine {
 	struct MeshData {
-		std::vector<float> vertexArray;
-		std::vector<float> normalArray;
-		std::vector<float> uvArray;
-		std::vector<unsigned int> indices;
-		unsigned int numVerts;
-		unsigned int indexCount;
+		std::vector<GLfloat> vertexArray;
+		std::vector<GLfloat> normalArray;
+		std::vector<GLfloat> uvArray;
+		std::vector<GLuint> indices;
+		GLuint numVerts;
+		GLuint indexCount;
 	};
 }

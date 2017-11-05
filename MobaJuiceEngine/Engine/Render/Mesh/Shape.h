@@ -14,7 +14,9 @@ namespace Engine {
 		const vector<Material> getMaterials() {
 			return material;
 		}
-
+		void setShaderProgram(string program) {
+			material[0].shader = program;
+		}
 	protected:
 		vector<MeshData> data;
 		vector<Material> material;

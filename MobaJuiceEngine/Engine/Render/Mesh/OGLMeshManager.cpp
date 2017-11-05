@@ -1,6 +1,7 @@
 #include "OGLMeshManager.h"
 #include "OGLMesh.h"
 namespace Engine {
+
 	OGLMeshManager::~OGLMeshManager()
 	{
 		//Properly de-allocate all resources once they've outlived their purpose
@@ -43,6 +44,8 @@ namespace Engine {
 	void OGLMeshManager::CreateMesh(std::string path)
 	{
 		OGLMesh *oglMesh = new OGLMesh(path, new AiModel(path)); //Sets up the AIModel and MeshData
+		oglMesh->SetShaderProgram(shaderProgram, shaderManager);
+		oglMesh->SetTextureManager(textureManager);
 		std::vector<MeshData> data = oglMesh->GetMeshData();
 
 		for (int i = 0; i < data.size(); i++) {
@@ -56,12 +59,30 @@ namespace Engine {
 	void OGLMeshManager::CreateMesh(std::string path, Shape * shape)
 	{
 		OGLMesh *oglMesh = new OGLMesh(path, shape); //Sets up the AIModle and MeshData
+		oglMesh->SetShaderProgram(shaderProgram, shaderManager);
+		oglMesh->SetTextureManager(textureManager);
 		std::vector<MeshData> data = oglMesh->GetMeshData();
 		for (int i = 0; i < data.size(); i++) {
 			oglMesh->SetVAO(GenerateVAO(data[i]));
 		}
 
 		meshDictionary.insert(std::pair<std::string, MeshUniqPtr >(path, MeshUniqPtr(oglMesh)));
+	}
+
+	void OGLMeshManager::SetShaderProgram(string program, ShaderManager *shaderManager)
+	{
+		shaderProgram = program;
+		OGLMeshManager::shaderManager = shaderManager;
+	}
+
+	void OGLMeshManager::SetTextureManager(TextureManager * textureManager)
+	{
+		OGLMeshManager::textureManager = textureManager;
+	}
+
+	ShaderManager * OGLMeshManager::getShaderManager()
+	{
+		return shaderManager;
 	}
 
 
@@ -78,12 +99,12 @@ namespace Engine {
 		glBindVertexArray(VAO);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-		glBufferData(GL_ARRAY_BUFFER, 3 * data.numVerts * sizeof(GLfloat), &data.vertexArray[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, data.vertexArray.size() * sizeof(GLfloat), &data.vertexArray[0], GL_STATIC_DRAW);
 
 		meshBuffers[STORED_VERTEX] = vertexBuffer;
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.indexCount * sizeof(GLuint), &data.indices[0], GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.indices.size() * sizeof(GLfloat), &data.indices[0], GL_STATIC_DRAW);
 
 		meshBuffers[STORED_INDEX] = elementBuffer;
 
@@ -95,9 +116,9 @@ namespace Engine {
 		if (!data.uvArray.empty()) {
 			glGenBuffers(1, &uvBuffer);
 			glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-			glBufferData(GL_ARRAY_BUFFER, 2 * data.numVerts * sizeof(GLfloat), &data.uvArray[0], GL_STATIC_DRAW);
-			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
-			glEnableVertexAttribArray(2);
+			glBufferData(GL_ARRAY_BUFFER, data.uvArray.size() * sizeof(GLfloat), &data.uvArray[0], GL_STATIC_DRAW);
+			glVertexAttribPointer(STORED_UV, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+			glEnableVertexAttribArray(STORED_UV);
 			meshBuffers[STORED_UV] = uvBuffer;
 		}
 
@@ -105,9 +126,9 @@ namespace Engine {
 		if (!data.normalArray.empty()) {
 			glGenBuffers(1, &normalBuffer);
 			glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-			glBufferData(GL_ARRAY_BUFFER, 3 * data.numVerts * sizeof(GLfloat), &data.normalArray[0], GL_STATIC_DRAW);
-			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0); //3 * sizeof(GLfloat)
-			glEnableVertexAttribArray(3); // Set location in shader
+			glBufferData(GL_ARRAY_BUFFER, data.normalArray.size() * sizeof(GLfloat), &data.normalArray[0], GL_STATIC_DRAW);
+			glVertexAttribPointer(STORED_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0); //3 * sizeof(GLfloat)
+			glEnableVertexAttribArray(STORED_NORMAL); // Set location in shader
 			meshBuffers[STORED_NORMAL] = normalBuffer;
 		}
 

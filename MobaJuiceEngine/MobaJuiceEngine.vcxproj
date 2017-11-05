@@ -139,6 +139,7 @@
     <ClCompile Include="Engine\Render\Mesh\OGLMeshManager.cpp" />
     <ClCompile Include="Engine\Render\OGLShader.cpp" />
     <ClCompile Include="Engine\Render\Shader.cpp" />
+    <ClCompile Include="Engine\Render\ShaderManager.cpp" />
     <ClCompile Include="Engine\Render\Texture\TextureManager.cpp" />
     <ClCompile Include="Engine\Render\Window\SDLWindow.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Engine\Render\OGLShader.h" />
     <ClInclude Include="Engine\Render\Renderer.h" />
     <ClInclude Include="Engine\Render\Shader.h" />
+    <ClInclude Include="Engine\Render\ShaderManager.h" />
     <ClInclude Include="Engine\Render\Texture\Texture.h" />
     <ClInclude Include="Engine\Render\Texture\TextureManager.h" />
     <ClInclude Include="Engine\Render\Window\SDLWindow.h" />

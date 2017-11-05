@@ -1,5 +1,6 @@
 #include "OGLGraphicHandler.h"
 #include <GL\glew.h>
+#include <IL\il.h>
 namespace Engine {
 	OGLGraphicHandler::OGLGraphicHandler(Window *window)
 	{
@@ -24,11 +25,14 @@ namespace Engine {
 		// Initialize GLEW to setup the OpenGL Function pointers
 		glewInit();
 
+		//Initialize DevIL
+		ilInit();
+
 		// Setup OpenGL options
 
-		//glEnable(GL_CULL_FACE);
-		//glCullFace(GL_BACK);
-		//glFrontFace(GL_CCW);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CCW);
 		glEnable(GL_DEPTH_TEST); // Enable Z Buffer
 		glEnable(GL_BLEND); // Enable Blending
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -31,14 +31,14 @@ namespace Engine {
 			@param manager		Manager used for storing mesh data
 			@return				The created mesh renderer object
 		*/
-		static MeshRenderer *Create(GameObject *gameObject, std::string path, OGLShader *shader, OGLMeshManager *manager);
+		static MeshRenderer *Create(GameObject *gameObject, std::string path, OGLMeshManager *manager);
 		void Start();
 		void Draw();
 
-		Material material;
+		Material *material;
 		std::string meshPath;
+		OGLMeshManager * meshManager;
 	private:
 		Mesh *mesh;
-		OGLShader *shader;
 	};
 }

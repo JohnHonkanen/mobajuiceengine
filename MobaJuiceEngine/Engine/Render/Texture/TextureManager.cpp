@@ -34,7 +34,10 @@ namespace Engine {
 		ilGenImages(1, &image);
 		ilBindImage(image);
 
-		if (!ilLoadImage((const ILstring) texture.c_str())) {
+		if (ilLoadImage((const ILstring) texture.c_str())) {
+		
+		}
+		else {
 			cout << ilGetError() << endl;
 			cout << "Failed to load image: " << texture.c_str() << endl;
 		}

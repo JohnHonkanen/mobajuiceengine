@@ -67,11 +67,13 @@ namespace Engine {
 
 		void Update();
 
-	private:
 		/*
-			Calculates the view matrix of the camera
+		Calculates the view matrix of the camera
 		*/
 		void CalculateViewMatrix();
+
+	private:
+		
 		mat4 projection;
 		mat4 view;
 
