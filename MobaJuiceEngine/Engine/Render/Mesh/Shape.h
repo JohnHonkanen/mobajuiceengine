@@ -1,5 +1,6 @@
 #pragma once
 #include "MeshData.h"
+#include "../Material.h"
 namespace Engine {
 	class Shape {
 	public:
@@ -7,6 +8,8 @@ namespace Engine {
 		const MeshData getMeshData() {
 			return data;
 		};
+
+		Material material;
 	protected:
 		MeshData data;
 	};

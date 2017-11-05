@@ -9,6 +9,7 @@
 #include "../Render/Mesh/OGLMeshManager.h"
 #include "../Render/Renderer.h"
 #include "../Render/OGLShader.h"
+#include "../Render/Material.h"
 #include <glm\glm.hpp>
 #include "glm\gtc\matrix_transform.hpp"
 #include "glm\gtc\type_ptr.hpp"
@@ -34,6 +35,7 @@ namespace Engine {
 		void Start();
 		void Draw();
 
+		Material material;
 		std::string meshPath;
 	private:
 		Mesh *mesh;

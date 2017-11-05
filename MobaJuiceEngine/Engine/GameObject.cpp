@@ -10,6 +10,7 @@ namespace Engine {
 
 	GameObject::GameObject(std::string name): name(name)
 	{
+		transform = make_unique<Transform>();
 	}
 
 
