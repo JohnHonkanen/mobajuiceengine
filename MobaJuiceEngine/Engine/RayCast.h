@@ -1,6 +1,6 @@
 #pragma once
 #include <glm\glm.hpp>
-
+#include "Component\Camera.h"
 
 using namespace std;
 
@@ -10,13 +10,14 @@ namespace Engine {
 	private:
 
 		bool isColision = false;
-		int rayDirX;
-		float rayLength;
-		float currentRayAngle;
+		float rayLength = 10.0f;
 
+		glm::vec3 p1PoS; // Point 1 Position <--- The camera
+		glm::vec3 p2Pos; // Point 2 Position <--- Intersection 
 
-		glm::vec3 p1PoS; // Point 1 Position
-		glm::vec3 p2Pos; // Point 2 Position
+		double curTime = 0; // Time of current frame
+		double prevTime = 0; // Time of previous frame
+		double currentRayAngle = 0;
 
 	public:
 		RayCast();
@@ -25,8 +26,8 @@ namespace Engine {
 		float getRayAngle(float currentRayAngle);
 		float getRayLength(float rayLength);
 
-		float getP1Posi(glm::vec3 p1Pos);
-		float getP2Posi(glm::vec3 p2Pos);
+		glm::vec3 getP1Posi(glm::vec3 p1Pos); // Position of point1 is at Camera position.
+		glm::vec3 getP2Posi(glm::vec3 p2Pos); // Position of intersection
 	};
 }
 
