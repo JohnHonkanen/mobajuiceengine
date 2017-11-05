@@ -135,7 +135,6 @@
     <ClCompile Include="Engine\GameObjectManager.cpp" />
     <ClCompile Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.cpp" />
     <ClCompile Include="Engine\Render\Mesh\AiModel.cpp" />
-    <ClCompile Include="Engine\Render\Mesh\Cube.cpp" />
     <ClCompile Include="Engine\Render\Mesh\OGLMesh.cpp" />
     <ClCompile Include="Engine\Render\Mesh\OGLMeshManager.cpp" />
     <ClCompile Include="Engine\Render\OGLShader.cpp" />
@@ -157,7 +156,6 @@
     <ClInclude Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.h" />
     <ClInclude Include="Engine\Render\Material.h" />
     <ClInclude Include="Engine\Render\Mesh\AiModel.h" />
-    <ClInclude Include="Engine\Render\Mesh\Cube.h" />
     <ClInclude Include="Engine\Render\Mesh\Mesh.h" />
     <ClInclude Include="Engine\Render\Mesh\MeshData.h" />
     <ClInclude Include="Engine\Render\Mesh\OGLMesh.h" />

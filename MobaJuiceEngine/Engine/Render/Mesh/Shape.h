@@ -1,16 +1,19 @@
 #pragma once
+#include <vector>
 #include "MeshData.h"
 #include "../Material.h"
+
+using namespace std;
 namespace Engine {
 	class Shape {
 	public:
 		virtual void Init() = 0;
-		const MeshData getMeshData() {
+		const vector<MeshData> getMeshData() {
 			return data;
 		};
 
-		Material material;
 	protected:
-		MeshData data;
+		vector<MeshData> data;
+		vector<Material> material;
 	};
 }

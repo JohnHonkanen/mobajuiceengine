@@ -43,7 +43,12 @@ namespace Engine {
 	void OGLMeshManager::CreateMesh(std::string path)
 	{
 		OGLMesh *oglMesh = new OGLMesh(path, new AiModel(path)); //Sets up the AIModel and MeshData
-		oglMesh->SetVAO(GenerateVAO(oglMesh->GetMeshData()));
+		std::vector<MeshData> data = oglMesh->GetMeshData();
+
+		for (int i = 0; i < data.size(); i++) {
+			oglMesh->SetVAO(GenerateVAO(data[i]));
+		}
+		
 
 		meshDictionary.insert(std::pair<std::string, MeshUniqPtr >(path, MeshUniqPtr(oglMesh)));
 	}
@@ -51,7 +56,10 @@ namespace Engine {
 	void OGLMeshManager::CreateMesh(std::string path, Shape * shape)
 	{
 		OGLMesh *oglMesh = new OGLMesh(path, shape); //Sets up the AIModle and MeshData
-		oglMesh->SetVAO(GenerateVAO(oglMesh->GetMeshData()));
+		std::vector<MeshData> data = oglMesh->GetMeshData();
+		for (int i = 0; i < data.size(); i++) {
+			oglMesh->SetVAO(GenerateVAO(data[i]));
+		}
 
 		meshDictionary.insert(std::pair<std::string, MeshUniqPtr >(path, MeshUniqPtr(oglMesh)));
 	}

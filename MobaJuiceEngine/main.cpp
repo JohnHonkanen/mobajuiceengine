@@ -14,7 +14,6 @@
 #include "Engine\Render\Window\SDLWindow.h"
 #include "Engine\Render\Mesh\OGLMeshManager.h"
 #include "Engine\Render\OGLShader.h"
-#include "Engine\Render\Mesh\Cube.h"
 #include "Engine\GameObject.h"
 #include "Engine\GameObjectManager.h"
 #include "Engine\Component\Camera.h"

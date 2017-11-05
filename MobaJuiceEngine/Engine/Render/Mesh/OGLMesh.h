@@ -1,6 +1,7 @@
 #pragma once
 #include <GL\glew.h>
 #include <memory>
+#include <vector>
 #include "Mesh.h"
 #include "AiModel.h"
 namespace Engine {
@@ -10,10 +11,10 @@ namespace Engine {
 		~OGLMesh();
 		void Render();
 		void SetVAO(GLuint VAO);
-		const MeshData GetMeshData();
+		const std::vector<MeshData> GetMeshData();
 	private:
 		std::string name;
 		std::unique_ptr<Shape> model;
-		GLuint VAO;
+		std::vector<GLuint> VAO;
 	};
 }

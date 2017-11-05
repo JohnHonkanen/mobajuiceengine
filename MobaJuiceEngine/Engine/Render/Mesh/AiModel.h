@@ -26,6 +26,7 @@ namespace Engine {
 		void LoadModel(const std::string& pFile);
 		//Extract the mesh data from ai mesh
 		MeshData LoadData(aiMesh *mesh);
+		Material LoadMaterial(const aiScene *scene, int index);
 
 		std::string directory;
 		std::string path;

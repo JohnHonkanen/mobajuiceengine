@@ -38,9 +38,6 @@
     <ClCompile Include="Engine\Render\Mesh\AiModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Render\Mesh\Cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Render\Mesh\OGLMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Render\Mesh\AiModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Render\Mesh\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Render\Mesh\Mesh.h">

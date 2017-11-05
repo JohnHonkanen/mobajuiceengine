@@ -51,8 +51,18 @@ namespace Engine {
 		const aiScene *scene = importer.ReadFile(pFile, aiProcess_Triangulate | aiProcess_CalcTangentSpace | aiProcess_FlipUVs);
 		AiModel::directory = pFile.substr(0, pFile.find_last_of('/'));
 
-		//Note: This only returns the first Mesh. For multiple meshes, will need to fix this in the future
-		AiModel::data = AiModel::LoadData(scene->mMeshes[0]);
+		for (int i = 0; i < scene->mNumMeshes; i++) {
+			MeshData mData = AiModel::LoadData(scene->mMeshes[i]);
+			data.push_back(mData);
+
+			Material mat;
+			if (scene->mMeshes[i]->mMaterialIndex >= 0) {
+				mat = AiModel::LoadMaterial(scene, i);
+			}
+			material.push_back(mat);
+		}
+		
+		
 	}
 	/*
 		Extract the mesh data from an AiMesh
@@ -79,11 +89,11 @@ namespace Engine {
 
 			for (int j = 0; j < 3; j++)
 			{
-				/*if (mesh->HasTextureCoords(0)) {
+				if (mesh->HasTextureCoords(0)) {
 					aiVector3D uv = mesh->mTextureCoords[0][face.mIndices[j]];
 					uvArray.push_back(uv.x);
 					uvArray.push_back(uv.y);
-				}*/
+				}
 
 
 				if (mesh->HasNormals()) {
@@ -115,6 +125,12 @@ namespace Engine {
 		data.indexCount = indexArray.size();
 
 		return data;
+	}
+	Material AiModel::LoadMaterial(const aiScene * scene, int index)
+	{
+		aiMesh *mesh = scene->mMeshes[index];
+
+		return Material();
 	}
 }
 

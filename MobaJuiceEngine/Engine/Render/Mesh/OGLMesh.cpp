@@ -13,18 +13,21 @@ namespace Engine {
 
 	void OGLMesh::Render()
 	{
-		MeshData data = OGLMesh::GetMeshData();
-		glBindVertexArray(OGLMesh::VAO);
-		glDrawElements(GL_TRIANGLES, data.indexCount, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
+		std::vector<MeshData> data = OGLMesh::GetMeshData();
+		for (int i = 0; i < data.size(); i++) {
+			glBindVertexArray(OGLMesh::VAO[i]);
+			glDrawElements(GL_TRIANGLES, data[i].indexCount, GL_UNSIGNED_INT, 0);
+			glBindVertexArray(0);
+		}
+		
 	}
 
-	void OGLMesh::SetVAO(GLuint VAO)
+	void OGLMesh::SetVAO(GLuint vao)
 	{
-		OGLMesh::VAO = VAO;
+		VAO.push_back(vao);
 	}
 
-	const MeshData OGLMesh::GetMeshData()
+	const std::vector<MeshData> OGLMesh::GetMeshData()
 	{
 		return model->getMeshData();
 	}
