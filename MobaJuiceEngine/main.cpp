@@ -24,7 +24,7 @@ using namespace Engine;
 
 int main(int argc, char *argv[]){
 
-	OGLGraphicHandler graphicsHandler(new SDLWindow("MobaJuice", 800, 800));
+	OGLGraphicHandler graphicsHandler(new SDLWindow("MobaJuice", 1280, 720));
 	graphicsHandler.Initialize();
 
 	ShaderManager shaderManager;
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
 	//Create and attaches it the arissa (deer)
 	MeshRenderer::Create(deer, path, &meshManager);
 
-	deer->transform->SetPosition(glm::vec3(-0.0f, -3.0, 20.0f));
+	deer->transform->SetPosition(glm::vec3(-0.0f, -3.0, 40.0f));
 	deer->transform->SetScale(glm::vec3(0.05f));
 
 

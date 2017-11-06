@@ -82,6 +82,6 @@ namespace Engine {
 		aspectRatio = _aspectRatio;
 		near = _near;
 		far = _far;
-		projection = perspective(_fov, _aspectRatio, _near, _far);
+		projection = perspective(radians(_fov), (float)_aspectRatio, _near, _far);
 	}
 }
