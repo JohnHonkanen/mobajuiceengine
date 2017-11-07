@@ -22,7 +22,7 @@ namespace Engine{
 		{
 			glm::vec4 rayEyeCoords = glm::inverse(projectionMatrix) * homogeneousCoords;
 
-			return glm::vec4(rayEyeCoords.x, rayEyeCoords.y, -1.0f, 1.0f);
+			return glm::vec4(rayEyeCoords.x, rayEyeCoords.y, -1.0f, 0.0f);
 		}
 
 		glm::vec4 ConvertPointToWorldCoords(glm::vec4 viewCoords, glm::mat4 viewMatrix)

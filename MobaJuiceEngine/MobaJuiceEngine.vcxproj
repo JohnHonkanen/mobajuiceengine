@@ -133,7 +133,9 @@
     <ClCompile Include="Engine\Dictionary.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\GameObjectManager.cpp" />
+    <ClCompile Include="Engine\InputManager.cpp" />
     <ClCompile Include="Engine\Physics\RayCast.cpp" />
+    <ClCompile Include="Engine\Physics\RaycastUtility.cpp" />
     <ClCompile Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.cpp" />
     <ClCompile Include="Engine\Render\Mesh\AiModel.cpp" />
     <ClCompile Include="Engine\Render\Mesh\OGLMesh.cpp" />
@@ -154,7 +156,9 @@
     <ClInclude Include="Engine\Dictionary.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\GameObjectManager.h" />
+    <ClInclude Include="Engine\InputManager.h" />
     <ClInclude Include="Engine\Physics\RayCast.h" />
+    <ClInclude Include="Engine\Physics\RaycastUtility.h" />
     <ClInclude Include="Engine\Render\GraphicsHandlers\GraphicHandler.h" />
     <ClInclude Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.h" />
     <ClInclude Include="Engine\Render\Material.h" />

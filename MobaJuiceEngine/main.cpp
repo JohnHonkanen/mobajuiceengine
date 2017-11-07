@@ -9,6 +9,9 @@
 #include <glm\glm.hpp>
 #include "glm\gtc\matrix_transform.hpp"
 #include "glm\gtc\type_ptr.hpp"
+#include "Engine\Physics\RayCast.h"
+#include "Engine\InputManager.h"
+#include "Engine\Physics\RaycastUtility.h"
 
 #include "Engine\Render\GraphicsHandlers\OGLGraphicHandler.h"
 #include "Engine\Render\Window\SDLWindow.h"
@@ -35,15 +38,17 @@ int main(int argc, char *argv[]){
 	//std::string path = "Assets/Crate/deer.dae";
 	TextureManager texureManager;
 	OGLMeshManager meshManager;
+	InputManager inputManager;
 	meshManager.SetShaderProgram("phong", &shaderManager);
 	meshManager.SetTextureManager(&texureManager);
 
 	GameObjectManager gameObjects;
 	GameObject * cameraWrapper = gameObjects.createGameObject("Camera");
 	Camera::Create(cameraWrapper);
+	Camera::mainCamera->SetFarClippingPlane(1000.0f);
 
-	cameraWrapper->transform->SetPosition(vec3(0.0f, 14.0f, 0.0f));
-	cameraWrapper->transform->SetEulerAngle(vec3(0.0f, 0.0f, 0.0f));
+	cameraWrapper->transform->SetPosition(vec3(0.0f, 75.0f, 0.0f));
+	cameraWrapper->transform->SetEulerAngle(vec3(45.0f, 0.0f, 0.0f));
 
 	GameObject *deer = gameObjects.createGameObject("deer");
 	//Create and attaches it the arissa (deer)
@@ -53,7 +58,9 @@ int main(int argc, char *argv[]){
 	deer->transform->SetScale(glm::vec3(0.1f));
 
 
-	vec3 pos;
+	int mousePositionX, mousePositionY;
+	glm::vec3 mousePos3D = vec3(0);
+	RayCast raycaster(mousePos3D);
 
 	float r = -10.0f;
 	float rd = 0.0f;
@@ -62,8 +69,20 @@ int main(int argc, char *argv[]){
 	bool running = true; // set running to true
 	while (running) {
 		while (SDL_PollEvent(&sdlEvent)) {
-			if (sdlEvent.type == SDL_QUIT)
+			if (sdlEvent.type == SDL_QUIT) {
 				running = false;
+			}
+			// Input loop
+			inputManager.Update();
+			inputManager.GetMousePos(mousePositionX, mousePositionY);
+			glm::vec3 rayNormalizedDevSpace = RaycastUtility::ConvertPointToNormalizeCoords(mousePositionX, mousePositionY, 1280, 720);
+			vec4 rayDirection = RaycastUtility::ConvertNormalizedCoordsToWorldCoords(rayNormalizedDevSpace, Camera::mainCamera->GetProjectionMatrix(), Camera::mainCamera->GetViewMatrix());
+			glm::vec3 cameraPosition = Camera::mainCamera->transform->GetPosition();
+			float steps = glm::abs(cameraPosition.y / rayDirection.y);
+			mousePos3D = cameraPosition + glm::vec3(rayDirection * steps);
+
+			cout << mousePos3D.x << " ,  " << mousePos3D.y << " ,  " << mousePos3D.z << endl;
+
 		}
 		if (r < -20.0f || r > 20.0f) {
 			rv = -rv;
@@ -71,7 +90,7 @@ int main(int argc, char *argv[]){
 		r += rv;
 		rd += 1.0f;
 		gameObjects.Update();
-
+		deer->transform->SetPosition(mousePos3D);
 		deer->transform->SetEulerAngle(vec3(0.0f, rd, 0.0f));
 		//Loop for Graphics
 		graphicsHandler.Start();
