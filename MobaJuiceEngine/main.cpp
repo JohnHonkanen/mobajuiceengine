@@ -35,7 +35,8 @@ int main(int argc, char *argv[]){
 	OGLShader *baseProgram = shaderManager.CreateShader("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
 
 	std::string path = "Assets/Models/arissa/Arissa.dae";
-	//std::string path = "Assets/Crate/deer.dae";
+	std::string path2 = "Assets/Models/boletus/boletus.dae";
+	std::string path3 = "Assets/Crate/deer.dae";
 	TextureManager texureManager;
 	OGLMeshManager meshManager;
 	InputManager inputManager;
@@ -54,9 +55,20 @@ int main(int argc, char *argv[]){
 	//Create and attaches it the arissa (deer)
 	MeshRenderer::Create(deer, path, &meshManager);
 
-	deer->transform->SetPosition(glm::vec3(-0.0f, -0.0f, 40.0f));
+	GameObject *arissa = gameObjects.createGameObject("arissa");
+	//Create and attaches it the arissa (deer)
+	MeshRenderer::Create(arissa, path3, &meshManager);
+	arissa->transform->SetScale(vec3(0.02f));
+	arissa->transform->SetPosition(vec3(20.0f, 0.0f, 60.0f));
+	arissa->transform->SetEulerAngle(vec3(-90.0f, 0.0f,0.0f));
+
+	deer->transform->SetPosition(glm::vec3(-0.0f, -0.0f, 80.0f));
 	deer->transform->SetScale(glm::vec3(0.1f));
 
+	GameObject *boletus = gameObjects.createGameObject("Boletus");
+	MeshRenderer::Create(boletus, path2, &meshManager);
+	boletus->transform->SetEulerAngle(vec3(-90.0f, 0,0));
+	boletus->transform->SetScale(vec3(0.25f));
 
 	int mousePositionX, mousePositionY;
 	glm::vec3 mousePos3D = vec3(0);
@@ -90,7 +102,7 @@ int main(int argc, char *argv[]){
 		r += rv;
 		rd += 1.0f;
 		gameObjects.Update();
-		deer->transform->SetPosition(mousePos3D);
+		boletus->transform->SetPosition(mousePos3D);
 		deer->transform->SetEulerAngle(vec3(0.0f, rd, 0.0f));
 		//Loop for Graphics
 		graphicsHandler.Start();
