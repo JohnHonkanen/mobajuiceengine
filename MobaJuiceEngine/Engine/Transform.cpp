@@ -71,9 +71,11 @@ namespace Engine {
 	mat4 Transform::CalculateLocalToWorldMatrix(mat4 matrixStack)
 	{
 		mat4 transformMatrix(1.0f);
-		transformMatrix = translate(transformMatrix, localPosition);
-		transformMatrix = transformMatrix * toMat4(rotation);
-		transformMatrix = scale(transformMatrix, localScale);
+		mat4 translationMatrix = translate(mat4(1.0), localPosition);
+		mat4 rotationMatrix = toMat4(rotation);
+		mat4 scaleMatrix = scale(mat4(1.0), localScale);
+
+		transformMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 
 		localToWorld = matrixStack * transformMatrix;
 

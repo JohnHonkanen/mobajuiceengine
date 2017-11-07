@@ -28,7 +28,7 @@ namespace Engine {
 			glBindVertexArray(0);
 		}
 
-		/*int test = 0;
+		/*int test = 1;
 		if (materials[test].diffuseMap != "") {
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(materials[test].diffuseMap));

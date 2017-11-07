@@ -39,7 +39,8 @@ namespace Engine {
 		glm::mat4 view = Camera::mainCamera->GetViewMatrix();
 
 		model = transform->GetLocalToWorldMatrix();
-		/*glDepthMask(GL_TRUE);
+		glDepthMask(GL_TRUE);
+		/*
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDisable(GL_CULL_FACE);*/
 
@@ -53,6 +54,7 @@ namespace Engine {
 		glUniform3fv(glGetUniformLocation(shader, "lightColor"), 1, glm::value_ptr(lightColor));
 		glUniform3fv(glGetUniformLocation(shader, "lightPos"), 1, glm::value_ptr(lightPos));
 		//ENDOFMVP
+
 		mesh->Render();
 	}
 }

@@ -42,15 +42,15 @@ int main(int argc, char *argv[]){
 	GameObject * cameraWrapper = gameObjects.createGameObject("Camera");
 	Camera::Create(cameraWrapper);
 
-	cameraWrapper->transform->SetPosition(vec3(0.0f, 2.0f, 0.0f));
+	cameraWrapper->transform->SetPosition(vec3(0.0f, 14.0f, 0.0f));
 	cameraWrapper->transform->SetEulerAngle(vec3(0.0f, 0.0f, 0.0f));
 
 	GameObject *deer = gameObjects.createGameObject("deer");
 	//Create and attaches it the arissa (deer)
 	MeshRenderer::Create(deer, path, &meshManager);
 
-	deer->transform->SetPosition(glm::vec3(-0.0f, -3.0, 40.0f));
-	deer->transform->SetScale(glm::vec3(0.05f));
+	deer->transform->SetPosition(glm::vec3(-0.0f, -0.0f, 40.0f));
+	deer->transform->SetScale(glm::vec3(0.1f));
 
 
 	vec3 pos;
