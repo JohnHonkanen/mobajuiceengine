@@ -1,5 +1,6 @@
 /*
 	The ShaderManager class used to control and manage shaders.
+	Dev: John Honkanen (B00291253)
 */
 #pragma once
 #include <map>
