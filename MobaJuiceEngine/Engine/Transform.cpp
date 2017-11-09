@@ -68,6 +68,22 @@ namespace Engine {
 		return rotation;
 	}
 
+	void Transform::Translate(vec3 translation)
+	{
+		localPosition += translation;
+	}
+
+	void Transform::Rotate(vec3 rotation)
+	{
+		localRotation += rotation;
+		Transform::rotation = quat(vec3(float(localRotation.x * DEG_TO_RAD), float(localRotation.y * DEG_TO_RAD), float(localRotation.z * DEG_TO_RAD)));
+	}
+
+	void Transform::Scale(vec3 scale)
+	{
+		localScale += scale;
+	}
+
 	mat4 Transform::CalculateLocalToWorldMatrix(mat4 matrixStack)
 	{
 		mat4 transformMatrix(1.0f);

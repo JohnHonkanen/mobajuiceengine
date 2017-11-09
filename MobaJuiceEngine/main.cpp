@@ -96,14 +96,10 @@ int main(int argc, char *argv[]){
 			cout << mousePos3D.x << " ,  " << mousePos3D.y << " ,  " << mousePos3D.z << endl;
 
 		}
-		if (r < -20.0f || r > 20.0f) {
-			rv = -rv;
-		}
-		r += rv;
-		rd += 1.0f;
 		gameObjects.Update();
-		boletus->transform->SetPosition(mousePos3D);
-		deer->transform->SetEulerAngle(vec3(0.0f, rd, 0.0f));
+		vec3 dir = normalize(mousePos3D - boletus->transform->GetPosition());
+		boletus->transform->Translate(dir);
+		deer->transform->Rotate(vec3(0.0f, 1.0f, 0.0f));
 		//Loop for Graphics
 		graphicsHandler.Start();
 		gameObjects.Draw();

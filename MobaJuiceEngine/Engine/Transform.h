@@ -56,6 +56,22 @@ namespace Engine {
 		quat GetQuaternion();
 
 		/*
+			Translate the position by translational distance
+			@param translation	translational distance
+		*/
+		void Translate(vec3 translation);
+		/*
+			Rotate the rotation by an Euler Angle
+			@param rotation	Euler angle
+		*/
+		void Rotate(vec3 rotation);
+		/*
+			Scale by a scaling value
+			@param scale scaling value
+		*/
+		void Scale(vec3 scale);
+
+		/*
 			Calculates this Local To World Matrix using a matrixStack to build upon
 			@param matrixStack	Stack to build upon;
 		*/
