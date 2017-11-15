@@ -21,6 +21,12 @@
     <None Include="Assets\Shaders\phong-tex.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Assets\Shaders\text2D.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shaders\text2D.vert">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="Assets\Shaders\textured.frag">
       <Filter>Resource Files</Filter>
     </None>
@@ -90,6 +96,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Physics\RaycastUtility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component\TextObjLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component\Text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component\Text2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -178,5 +193,19 @@
     <ClInclude Include="Engine\Physics\RaycastUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Component\TextObjLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\Text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\Text2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Fonts\MavenPro-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

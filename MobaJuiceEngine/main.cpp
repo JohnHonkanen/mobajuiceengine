@@ -21,6 +21,8 @@
 #include "Engine\GameObjectManager.h"
 #include "Engine\Component\Camera.h"
 #include "Engine\Component\MeshRenderer.h"
+#include "Engine\Component\Text2D.h"
+
 using namespace std;
 using namespace glm;
 using namespace Engine;
@@ -33,6 +35,19 @@ int main(int argc, char *argv[]){
 	ShaderManager shaderManager;
 	
 	OGLShader *baseProgram = shaderManager.CreateShader("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
+
+	OGLShader *textureProgram= shaderManager.CreateShader("text2D", "Assets/Shaders/text2D.vert", "Assets/Shaders/text2D.frag");
+	// set up TrueType / SDL_ttf
+	if (TTF_Init() == -1)
+	{
+		cout << "TTF failed to initialise." << endl;
+	}
+	// a catch for failure of initialisation of the Font
+	TTF_Font *textFont = TTF_OpenFont("Assets/Fonts/MavenPro-Regular.ttf", 36); // sets the font to the desired type and font size if the font file has the option
+	if ( textFont == NULL)
+	{
+		cout << "Failed to open font." << endl;
+	}
 
 	std::string path = "Assets/Models/arissa/Arissa.dae";
 	std::string path2 = "Assets/Models/boletus/boletus.dae";
@@ -69,6 +84,10 @@ int main(int argc, char *argv[]){
 	MeshRenderer::Create(boletus, path2, &meshManager);
 	boletus->transform->SetEulerAngle(vec3(-90.0f, 0,0));
 	boletus->transform->SetScale(vec3(0.25f));
+
+	GameObject *text = gameObjects.createGameObject("TextTest");
+	text->transform->SetPosition(vec3(0.0f,0.0f,80.0f));
+	Text2D::Create(text, &shaderManager, "Hello World", { 255,255,255 }, textFont);
 
 	int mousePositionX, mousePositionY;
 	glm::vec3 mousePos3D = vec3(0);
