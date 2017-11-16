@@ -20,7 +20,7 @@ namespace Engine {
 		static unsigned int mainVAO;
 		Text2D(string stringText, SDL_Color stringColour, TTF_Font *textFont);
 		void Start();
-		void Render();
+		void Draw();
 		void Update();
 		static Text2D* Create(GameObject* gameObject, ShaderManager* shaderManager, string stringText, SDL_Color stringColour, TTF_Font *textFont);
 	};

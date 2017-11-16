@@ -66,28 +66,29 @@ int main(int argc, char *argv[]){
 	cameraWrapper->transform->SetPosition(vec3(0.0f, 75.0f, 0.0f));
 	cameraWrapper->transform->SetEulerAngle(vec3(45.0f, 0.0f, 0.0f));
 
-	GameObject *deer = gameObjects.createGameObject("deer");
-	//Create and attaches it the arissa (deer)
-	MeshRenderer::Create(deer, path, &meshManager);
-
-	GameObject *arissa = gameObjects.createGameObject("arissa");
+	GameObject *arissa = gameObjects.createGameObject("Arissa");
 	//Create and attaches it the arissa (deer)
 	MeshRenderer::Create(arissa, path3, &meshManager);
 	arissa->transform->SetScale(vec3(0.02f));
 	arissa->transform->SetPosition(vec3(20.0f, 0.0f, 60.0f));
 	arissa->transform->SetEulerAngle(vec3(-90.0f, 0.0f,0.0f));
 
-	deer->transform->SetPosition(glm::vec3(-0.0f, -0.0f, 80.0f));
-	deer->transform->SetScale(glm::vec3(0.1f));
-
 	GameObject *boletus = gameObjects.createGameObject("Boletus");
 	MeshRenderer::Create(boletus, path2, &meshManager);
 	boletus->transform->SetEulerAngle(vec3(-90.0f, 0,0));
 	boletus->transform->SetScale(vec3(0.25f));
 
+	GameObject *deer = gameObjects.createGameObject("deer");
+	//Create and attaches it the arissa (deer)
+	MeshRenderer::Create(deer, path, &meshManager);
+	deer->transform->SetPosition(glm::vec3(-0.0f, -0.0f, 80.0f));
+	deer->transform->SetScale(glm::vec3(0.1f));
+
 	GameObject *text = gameObjects.createGameObject("TextTest");
-	text->transform->SetPosition(vec3(0.0f,0.0f,80.0f));
-	Text2D::Create(text, &shaderManager, "Hello World", { 255,255,255 }, textFont);
+	Text2D::Create(text, &shaderManager, "Hello World", { 0,255,0 }, textFont);
+	text->transform->SetPosition(vec3(0.0f, 0.0f, -50.0f));
+	text->transform->SetScale(vec3(15.0f,10.0f,0.0f));
+	
 
 	int mousePositionX, mousePositionY;
 	glm::vec3 mousePos3D = vec3(0);

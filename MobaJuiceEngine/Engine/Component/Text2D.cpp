@@ -42,6 +42,8 @@ namespace Engine {
 			textVAO = mainVAO;
 		}
 		glBindVertexArray(0);
+
+
 	}
 	void Text2D::SetupTexture()
 	{
@@ -77,7 +79,7 @@ namespace Engine {
 	void Text2D::Start()
 	{
 	}
-	void Text2D::Render()
+	void Text2D::Draw()
 	{
 		unsigned int shader = shaderManager->GetShader("text2D");
 		glUseProgram(shader);
@@ -86,7 +88,7 @@ namespace Engine {
 		projection = Camera::mainCamera->GetProjectionMatrix();
 
 		Camera::mainCamera->CalculateViewMatrix();
-		glm::mat4 view = Camera::mainCamera->GetViewMatrix();
+		glm::mat4 view(1.0);
 
 		glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
