@@ -20,6 +20,7 @@
 #include "Engine\GameObject.h"
 #include "Engine\GameObjectManager.h"
 #include "Engine\Component\Camera.h"
+#include "Engine\Component\Tile.h"
 #include "Engine\Component\MeshRenderer.h"
 using namespace std;
 using namespace glm;
@@ -50,6 +51,14 @@ int main(int argc, char *argv[]){
 
 	cameraWrapper->transform->SetPosition(vec3(0.0f, 75.0f, 0.0f));
 	cameraWrapper->transform->SetEulerAngle(vec3(45.0f, 0.0f, 0.0f));
+
+	///////////////////Tile//////////////////////Tile//////////////////////Tile////////////////////////
+
+	GameObject * tileSystem = gameObjects.createGameObject("Grid");
+	Tile::Create(tileSystem);
+	Tile::Tile(100.0f,100.0f,10.0f,10.0f,1.0f);
+
+	///////////////////Tile//////////////////////Tile//////////////////////Tile////////////////////////
 
 	GameObject *deer = gameObjects.createGameObject("deer");
 	//Create and attaches it the arissa (deer)

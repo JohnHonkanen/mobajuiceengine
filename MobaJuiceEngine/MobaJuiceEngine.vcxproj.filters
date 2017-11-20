@@ -92,6 +92,9 @@
     <ClCompile Include="Engine\Physics\RaycastUtility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Component\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Behaviour.h">
@@ -176,6 +179,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Physics\RaycastUtility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

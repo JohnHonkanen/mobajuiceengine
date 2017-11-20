@@ -130,6 +130,7 @@
     <ClCompile Include="Engine\Component.cpp" />
     <ClCompile Include="Engine\Component\Camera.cpp" />
     <ClCompile Include="Engine\Component\MeshRenderer.cpp" />
+    <ClCompile Include="Engine\Component\Tile.cpp" />
     <ClCompile Include="Engine\Dictionary.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\GameObjectManager.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Engine\Component.h" />
     <ClInclude Include="Engine\Component\Camera.h" />
     <ClInclude Include="Engine\Component\MeshRenderer.h" />
+    <ClInclude Include="Engine\Component\Tile.h" />
     <ClInclude Include="Engine\Dictionary.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\GameObjectManager.h" />
