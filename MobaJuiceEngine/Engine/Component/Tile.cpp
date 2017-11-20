@@ -21,9 +21,9 @@ namespace Engine {
 		planeHeight = pHeight;
 	}
 
-	Tile * Tile::Create(GameObject * gameObject)
+	Tile * Tile::Create(GameObject * gameObject, float gWidth, float gHeight, float cWidth, float cHeight, float pHeight)
 	{
-		Tile *t = new Tile();
+		Tile *t = new Tile( gWidth,  gHeight,  cWidth,  cHeight,  pHeight);
 		gameObject->AddComponent(t);
 		return t;
 	}
@@ -38,11 +38,11 @@ namespace Engine {
 		}
 	}
 
-	vec3 Tile::GetCell(vec2 mousePosition)
+	vec3 Tile::GetCell(vec3 mousePosition)
 	{								
-		cell.x = mousePosition.x / cellWidth;		//Stores mouse cell position
-		cell.y = planeHeight+0.1f;
-		cell.z = mousePosition.y/ cellHeight;;
+		cell.x = int(mousePosition.x / cellWidth);		//Stores mouse cell position
+		cell.y = planeHeight;
+		cell.z = int(mousePosition.y/ cellHeight);
 		return cell;
 	}
 
@@ -53,6 +53,11 @@ namespace Engine {
 	vec3 Tile::GetSnapPos(vec3 cell) {
 		vec3 snapPos = vec3(cell.x*cellWidth + (cellWidth / 2.0f), 1.0f, cell.z*cellHeight + (cellHeight / 2.0f));
 		return snapPos;
+	}
+
+	vec3 Tile::GetMouseSnapPos(vec3 mousePosition) {
+		vec3 cell = GetCell(mousePosition);
+		return GetSnapPos(cell);
 	}
 }
 

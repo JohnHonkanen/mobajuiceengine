@@ -28,7 +28,7 @@ namespace Engine {
 		@param gameObject	Object that owns this Behaviour
 		@return				The created Tile System gameObject
 		*/
-		static Tile* Create(GameObject *gameObject);
+		static Tile* Create(GameObject * gameObject, float gWidth, float gHeight, float cWidth, float cHeight, float pHeight);
 		/*default constructor*/
 		Tile();
 		/*destructor*/
@@ -57,13 +57,15 @@ namespace Engine {
 		@param mousePosition	Uses mouse position in calculation of cell
 		@return					Grid cell the mouse is on
 		*/
-		vec3 GetCell(vec2 mousePosition);
+		vec3 GetCell(vec3 mousePosition);
 		/*
 		Defines where the central snap to position is on a cell, pass in Tile::getCell
 		@param cell				Requires cell to set center position for object snapping
 		@return					Center of the highlighted tile
 		*/
 		vec3 GetSnapPos(vec3 cell);
+		/**/
+		vec3 Tile::GetMouseSnapPos(vec3 mousePosition);
 
 	};
 }

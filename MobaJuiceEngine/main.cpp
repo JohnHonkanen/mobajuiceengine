@@ -55,8 +55,7 @@ int main(int argc, char *argv[]){
 	///////////////////Tile//////////////////////Tile//////////////////////Tile////////////////////////
 
 	GameObject * tileSystem = gameObjects.createGameObject("Grid");
-	Tile::Create(tileSystem);
-	Tile::Tile(100.0f,100.0f,10.0f,10.0f,1.0f);
+	Tile* tile = Tile::Create(tileSystem, 100, 100, 10, 10, 0);
 
 	///////////////////Tile//////////////////////Tile//////////////////////Tile////////////////////////
 
@@ -83,6 +82,8 @@ int main(int argc, char *argv[]){
 	glm::vec3 mousePos3D = vec3(0);
 	RayCast raycaster(mousePos3D);
 
+	vec3 snapPosition;
+
 	float r = -10.0f;
 	float rd = 0.0f;
 	float rv = 0.1f;
@@ -101,13 +102,15 @@ int main(int argc, char *argv[]){
 			glm::vec3 cameraPosition = Camera::mainCamera->transform->GetPosition();
 			float steps = glm::abs(cameraPosition.y / rayDirection.y);
 			mousePos3D = cameraPosition + glm::vec3(rayDirection * steps);
+			snapPosition = tile->GetMouseSnapPos(mousePos3D);///////////////////
 
 			cout << mousePos3D.x << " ,  " << mousePos3D.y << " ,  " << mousePos3D.z << endl;
 
 		}
 		gameObjects.Update();
 		vec3 dir = normalize(mousePos3D - boletus->transform->GetPosition());
-		boletus->transform->Translate(dir);
+		boletus->transform->SetPosition(snapPosition);
+
 		deer->transform->Rotate(vec3(0.0f, 1.0f, 0.0f));
 		//Loop for Graphics
 		graphicsHandler.Start();
