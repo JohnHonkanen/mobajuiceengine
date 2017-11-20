@@ -114,6 +114,7 @@
   <ItemGroup>
     <ClCompile Include="DictionaryTest.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="TileTest.cpp" />
     <ClCompile Include="TransformationTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

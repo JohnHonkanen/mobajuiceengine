@@ -51,7 +51,7 @@ namespace Engine {
 	}
 
 	vec3 Tile::GetSnapPos(vec3 cell) {
-		vec3 snapPos = vec3(cell.x*cellWidth + (cellWidth / 2.0f), 1.0f, cell.z*cellHeight + (cellHeight / 2.0f));
+		vec3 snapPos = vec3(cell.x*cellWidth , cell.y, cell.z*cellHeight);
 		return snapPos;
 	}
 
