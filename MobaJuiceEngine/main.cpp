@@ -104,7 +104,7 @@ int main(int argc, char *argv[]){
 			mousePos3D = cameraPosition + glm::vec3(rayDirection * steps);
 			snapPosition = tile->GetMouseSnapPos(mousePos3D);///////////////////
 
-			cout << mousePos3D.x << " ,  " << mousePos3D.y << " ,  " << mousePos3D.z << endl;
+			cout << snapPosition.x << " ,  " << snapPosition.y << " ,  " << snapPosition.z << endl;
 
 		}
 		gameObjects.Update();

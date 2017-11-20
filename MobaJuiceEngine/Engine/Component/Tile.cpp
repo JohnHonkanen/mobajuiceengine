@@ -42,7 +42,7 @@ namespace Engine {
 	{								
 		cell.x = int(mousePosition.x / cellWidth);		//Stores mouse cell position
 		cell.y = planeHeight;
-		cell.z = int(mousePosition.y/ cellHeight);
+		cell.z = int(mousePosition.z/ cellHeight);
 		return cell;
 	}
 
