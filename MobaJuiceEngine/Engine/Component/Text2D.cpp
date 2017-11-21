@@ -1,19 +1,26 @@
-#include "Text2D.h"
-#include <GL\glew.h>
-#include <iostream>		
-#include "glm\gtc\type_ptr.hpp"
-#include "../GameObject.h"
-#include "Camera.h"
+/*
+	Contains methods to setup and render Text2D objects.
+	Dev: Jack Smith - (B00308927)
+*/
+
+#include "Text2D.h"						// Includes the Text2d header
+#include <GL\glew.h>					// Uses glew for 
+#include "glm\gtc\type_ptr.hpp"			// Allows the use of glm::value_ptr() to pass uniforms into shaders
+#include "glm\gtc\matrix_transform.hpp" // Allows for orthographic projections to be created
+#include "../GameObject.h"				// GameObject is used to apply gameObject methods to the text objects
+#include "Camera.h"						// Includes Camera to access its methods
 
 using namespace std;
 
 namespace Engine {
 
-	unsigned int Text2D::mainVAO = 0;
+	unsigned int Text2D::mainVAO = 0;	// static field is initialised
 
+	/*
+	Sets up the VAO (textVAO) for the quad and generates and binds the buffer object textVBO
+	*/
 	void Text2D::SetupVAO()
 	{
-
 		if (mainVAO == 0)
 		{
 			float textVertices[] = {
@@ -34,22 +41,35 @@ namespace Engine {
 			glEnableVertexAttribArray(1);
 			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 
+			// Pass the VAO to the mainVAO
 			mainVAO = textVAO;
 
 		}
 		else
 		{
+			// If the VAO has already been created then reuse it
 			textVAO = mainVAO;
 		}
+		// Bind the vertex array
 		glBindVertexArray(0);
-
-
 	}
+
+	/*
+	Converts the string into a texture to be placed on the quad
+	*/
 	void Text2D::SetupTexture()
 	{
-		SDL_Surface * stringImage = TTF_RenderText_Blended(textFont, stringText.c_str(), stringColour);
-		// uses a stringImage to render the text with appropriate font, output and colour
+		/*
+		Uses a stringImage to render the text with appropriate font, output and colour
+		@param   textFont	  - The font type of the text
+		@param   stringText	  - The string of text to be converted
+		@param   stringColour - The colour of the text
 
+		@returns SDL_Surface  - The text texture to be drawn
+		*/
+		SDL_Surface * stringImage = TTF_RenderText_Blended(textFont, stringText.c_str(), stringColour);
+
+		// a catch for failure of initialisation of the Font
 		if (stringImage == NULL)
 		{
 			std::cout << "String surface not created." << std::endl;
@@ -71,14 +91,30 @@ namespace Engine {
 
 		SDL_FreeSurface(stringImage); // This frees the RGB surface of the texture
 	}
-	Text2D::Text2D(string stringText, SDL_Color stringColour, TTF_Font *textFont) :stringText(stringText), stringColour(stringColour), textFont(textFont) 
+
+	/*
+	Constructs a Text2D object by calling setup methods - This makes the passed in fields available to these methods
+	@param   stringText	  - The string of text to be converted
+	@param   stringColour - The colour of the text
+	@param   *textFont	  - The font type of the text
+
+	@returns Text2D      - A constructed Text2D object 
+	*/
+	Text2D::Text2D(string stringText, SDL_Color stringColour, TTF_Font *textFont) :stringText(stringText), stringColour(stringColour), textFont(textFont)
 	{
 		SetupVAO();
 		SetupTexture();
 	}
+
 	void Text2D::Start()
 	{
 	}
+
+	/*
+	Renders the text texture to the sceen
+	Tells the program which shader to use and sets up the matricies to be passed into a shader
+	Draws the quad 
+	*/
 	void Text2D::Draw()
 	{
 		unsigned int shader = shaderManager->GetShader("text2D");
@@ -86,10 +122,9 @@ namespace Engine {
 		glm::mat4 model = transform->GetLocalToWorldMatrix();
 		glm::mat4 projection(1.0);
 		projection = Camera::mainCamera->GetProjectionMatrix();
-
+		//projection = glm::ortho(0, 1280, 720, 0, -5, -100); // Projection set to a 2D orthographic view. 
 		Camera::mainCamera->CalculateViewMatrix();
 		glm::mat4 view(1.0);
-
 		glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
@@ -100,18 +135,45 @@ namespace Engine {
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		glBindVertexArray(0);
 
-			}
-	void Text2D::Update()
-	{
 	}
 
+	/*
+	Updates the text object with two input values
+	@param - value  A user defined float
+	@param - value2 A user defined float
+	*/
+	void Text2D::Update(float value, float value2)
+	{
+		stringText = to_string(value) + to_string(value2);
+	}
+
+	/*
+	Creates a new GameObject and assigns a shaderManager object
+	Gives gameObject ownership of the Text2D object
+
+	@param - *gameObject    - The Text2D GameObject
+	@param - *shaderManager - The shader 
+	@param - stringText     - The text to be displayed
+	@param - stringColour   - The colour of the text
+	@param - *textFont	    - The font of the text
+
+	@returns Text2D - Text2D object 
+	*/
 	Text2D * Text2D::Create(GameObject * gameObject, ShaderManager * shaderManager, string stringText, SDL_Color stringColour, TTF_Font * textFont)
 	{
-		Text2D* text = new Text2D(stringText, stringColour, textFont);
+		/*
+		Creates a new Text2D object
+		@param - stringText     - The text to be displayed
+		@param - stringColour   - The colour of the text
+		@param - *textFont	    - The font of the text
 
-		text->shaderManager = shaderManager;
-		gameObject->AddComponent(text);
+		@returns - Text2D - A new Text2D object
+		*/
+		Text2D* textObject = new Text2D(stringText, stringColour, textFont);
 
-		return text;
+		textObject->shaderManager = shaderManager;
+		gameObject->AddComponent(textObject);
+
+		return textObject;
 	}
 }

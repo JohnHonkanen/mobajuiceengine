@@ -84,15 +84,23 @@ int main(int argc, char *argv[]){
 	deer->transform->SetPosition(glm::vec3(-0.0f, -0.0f, 80.0f));
 	deer->transform->SetScale(glm::vec3(0.1f));
 
-	GameObject *text = gameObjects.createGameObject("TextTest");
-	Text2D::Create(text, &shaderManager, "Hello World", { 0,255,0 }, textFont);
-	text->transform->SetPosition(vec3(0.0f, 0.0f, -50.0f));
-	text->transform->SetScale(vec3(15.0f,10.0f,0.0f));
-	
-
-	int mousePositionX, mousePositionY;
+	int mousePositionX=0, mousePositionY=0;
+	inputManager.GetMousePos(mousePositionX, mousePositionY);
 	glm::vec3 mousePos3D = vec3(0);
 	RayCast raycaster(mousePos3D);
+
+	// Text object creation //
+	GameObject *text = gameObjects.createGameObject("TextTest");
+	Text2D::Create(text, &shaderManager, to_string(mousePositionX) + "," + to_string(mousePositionY)/*"Hello World"*/ , { 0,255,0 }, textFont);
+	text->transform->SetPosition(vec3(0.0f, 12.0f, -50.0f)); // Text position set.
+	//text->transform->SetPosition(vec3(0.0f, 0.0f, -2.0f)); // Text position set for the glm::ortho projection.
+	text->transform->SetScale(vec3(15.0f, 10.0f, 0.0f));
+
+	GameObject *text2 = gameObjects.createGameObject("TextTestTwo");
+	//Text2D::Create(text2, &shaderManager, "Testing", { 0,255,0 }, textFont); // The second create will create the access violation
+	text2->transform->SetPosition(vec3(0.0f, 10.0f, -50.0f)); // Text position set.
+	text2->transform->SetScale(vec3(15.0f, 10.0f, 0.0f));
+	// Text object ends //
 
 	float r = -10.0f;
 	float rd = 0.0f;
@@ -107,6 +115,7 @@ int main(int argc, char *argv[]){
 			// Input loop
 			inputManager.Update();
 			inputManager.GetMousePos(mousePositionX, mousePositionY);
+			//text->Update(mousePos3D.x, mousePos3D.y); //Will update the mouse position for the text, currently the gameObjects funtion is overriding. Why it do dis?
 			glm::vec3 rayNormalizedDevSpace = RaycastUtility::ConvertPointToNormalizeCoords(mousePositionX, mousePositionY, 1280, 720);
 			vec4 rayDirection = RaycastUtility::ConvertNormalizedCoordsToWorldCoords(rayNormalizedDevSpace, Camera::mainCamera->GetProjectionMatrix(), Camera::mainCamera->GetViewMatrix());
 			glm::vec3 cameraPosition = Camera::mainCamera->transform->GetPosition();
