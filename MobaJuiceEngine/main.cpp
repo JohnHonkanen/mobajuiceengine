@@ -91,15 +91,14 @@ int main(int argc, char *argv[]){
 
 	// Text object creation //
 	GameObject *text = gameObjects.createGameObject("TextTest");
-	Text2D::Create(text, &shaderManager, to_string(mousePositionX) + "," + to_string(mousePositionY)/*"Hello World"*/ , { 0,255,0 }, textFont);
-	text->transform->SetPosition(vec3(0.0f, 12.0f, -50.0f)); // Text position set.
-	//text->transform->SetPosition(vec3(0.0f, 0.0f, -2.0f)); // Text position set for the glm::ortho projection.
-	text->transform->SetScale(vec3(15.0f, 10.0f, 0.0f));
+	Text2D::Create(text, &shaderManager, to_string(mousePositionX) + "," + to_string(mousePositionY), { 0,255,0 }, textFont);
+	text->transform->SetPosition(vec3(110.0f, 700.0f, -1.0f)); // These coordinates are referenced to the glm::ortho coords
+	text->transform->SetScale(vec3(100.0f, 25.0f, 0.0f));
 
 	GameObject *text2 = gameObjects.createGameObject("TextTestTwo");
-	//Text2D::Create(text2, &shaderManager, "Testing", { 0,255,0 }, textFont); // The second create will create the access violation
-	text2->transform->SetPosition(vec3(0.0f, 10.0f, -50.0f)); // Text position set.
-	text2->transform->SetScale(vec3(15.0f, 10.0f, 0.0f));
+	Text2D::Create(text2, &shaderManager, "Testing", { 0,255,0 }, textFont);
+	text2->transform->SetPosition(vec3(110.0f, 660.0f, -50.0f)); // Text position set.
+	text2->transform->SetScale(vec3(100.0f, 25.0f, 0.0f));
 	// Text object ends //
 
 	float r = -10.0f;

@@ -24,12 +24,12 @@ namespace Engine {
 		if (mainVAO == 0)
 		{
 			float textVertices[] = {
-				// positions        // texture Coords
-				-1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-				-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-				1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
-				1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-			};
+                // positions        // texture Coords
+                -1.0f,  1.0f, 0.0f, 0.0f, 0.0f,
+                -1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+                1.0f,  1.0f, 0.0f, 1.0f, 0.0f,
+                1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+            };
 			// setup plane VAO
 			glGenVertexArrays(1, &textVAO);
 			glGenBuffers(1, &textVBO);
@@ -89,7 +89,7 @@ namespace Engine {
 		glBindTexture(GL_TEXTURE_2D, NULL);
 		// This creates a texture from the string using stingImage width and height along with the BindTexture and TextParemeteri and TextImage2D methods
 
-		SDL_FreeSurface(stringImage); // This frees the RGB surface of the texture
+		//SDL_FreeSurface(stringImage); // This frees the RGB surface of the texture
 	}
 
 	/*
@@ -121,8 +121,7 @@ namespace Engine {
 		glUseProgram(shader);
 		glm::mat4 model = transform->GetLocalToWorldMatrix();
 		glm::mat4 projection(1.0);
-		projection = Camera::mainCamera->GetProjectionMatrix();
-		//projection = glm::ortho(0, 1280, 720, 0, -5, -100); // Projection set to a 2D orthographic view. 
+		projection = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, 0.0f, 100.0f); // Projection set to a 2D orthographic view. 
 		Camera::mainCamera->CalculateViewMatrix();
 		glm::mat4 view(1.0);
 		glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -134,7 +133,6 @@ namespace Engine {
 		glBindVertexArray(textVAO);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		glBindVertexArray(0);
-
 	}
 
 	/*
