@@ -5,6 +5,7 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <cereal\cereal.hpp>
 #include "Transform.h"
 //Predefinition of a the GameObject Class
 
@@ -25,17 +26,12 @@ namespace Engine {
 
 		//Serialization method
 		template<class Archive>
-		void serialize(Archive & archive);
+		void serialize(Archive & ar) {
+		};
 
 		virtual void SetGameObject(GameObject * gameObject);
 		GameObject *gameObject;
 		Transform *transform;
 		std::string name;
 	};
-
-	template<class Archive>
-	inline void Component::serialize(Archive & archive)
-	{
-		archive(name);
-	}
 }

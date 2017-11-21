@@ -7,6 +7,7 @@
 #include <glm\gtc\quaternion.hpp>
 #include <memory>
 #include <vector>
+#include <cereal\cereal.hpp>
 
 using namespace glm;
 using namespace std;
@@ -134,6 +135,15 @@ namespace Engine {
 			Get the top vector
 		*/
 		vec3 Up();
+
+		template<class Archive>
+		void serialize(Archive & ar)
+		{
+			ar(CEREAL_NVP(localPosition.x), CEREAL_NVP(localPosition.y) CEREAL_NVP(localPosition.z),
+				CEREAL_NVP(localScale.x), CEREAL_NVP(localScale.y), CEREAL_NVP(localScale.z),
+				CEREAL_NVP(localRotation.x), CEREAL_NVP(localRotation.y), CEREAL_NVP(localRotation.z), 
+				);
+		}
 	private:
 		int slot = -1;
 		int numOfChildren = 0;
@@ -152,6 +162,8 @@ namespace Engine {
 
 		mat4 localToWorld;
 		mat4 localToParent;
+
+		void InitializeQuat();
 	};
 }
 

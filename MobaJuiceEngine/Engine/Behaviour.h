@@ -3,6 +3,8 @@
 	Dev: John Honkanen (B00291253)
 */
 #pragma once
+#include <cereal\cereal.hpp>
+#include <cereal\types\polymorphic.hpp>
 #include "Component.h"
 namespace Engine {
 	class Behaviour :
@@ -18,7 +20,19 @@ namespace Engine {
 		virtual void Update() {};
 		//Rendering Loop
 		virtual void Draw() {};
+
+		template<class Archive>
+		void serialize(Archive & ar)
+		{
+		}
+
 		bool isEnabled;
 	};
 }
+
+//Register camera as a derived class
+CEREAL_REGISTER_TYPE(Behaviour);
+
+//Bind it to the Behaviour
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, Behaviour);
 

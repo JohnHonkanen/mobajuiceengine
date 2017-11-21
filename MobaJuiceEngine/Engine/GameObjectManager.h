@@ -5,6 +5,7 @@
 #include <memory>
 #include <map>
 #include <cereal\cereal.hpp>
+#include <cereal\types\map.hpp>
 #include "GameObject.h"
 namespace Engine {
 	typedef std::unique_ptr<GameObject> GameObjUniqPtr;

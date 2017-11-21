@@ -13,6 +13,8 @@
 #include <glm\glm.hpp>
 #include "glm\gtc\matrix_transform.hpp"
 #include "glm\gtc\type_ptr.hpp"
+#include <cereal\cereal.hpp>
+#include <cereal\types\polymorphic.hpp>
 
 namespace Engine {
 
@@ -35,6 +37,12 @@ namespace Engine {
 		void Start();
 		void Draw();
 
+		template<class Archive>
+		void serialize(Archive & ar)
+		{
+			ar(CEREAL_NVP(meshPath));
+		}
+
 		Material *material;
 		std::string meshPath;
 		OGLMeshManager * meshManager;
@@ -42,3 +50,9 @@ namespace Engine {
 		Mesh *mesh;
 	};
 }
+
+//Register camera as a derived class
+CEREAL_REGISTER_TYPE(MeshRenderer);
+
+//Bind it to the Behaviour
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Behaviour, MeshRenderer);

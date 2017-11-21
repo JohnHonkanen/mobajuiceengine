@@ -7,6 +7,8 @@
 #include "../Behaviour.h"
 #include <memory>
 #include<glm\glm.hpp>
+#include <cereal\cereal.hpp>
+#include <cereal\types\polymorphic.hpp>
 
 using namespace glm;
 namespace Engine {
@@ -72,6 +74,12 @@ namespace Engine {
 		*/
 		void CalculateViewMatrix();
 
+		template<class Archive>
+		void serialize(Archive & ar)
+		{
+			ar(CEREAL_NVP(fov), CEREAL_NVP(aspectRatio), CEREAL_NVP(near), CEREAL_NVP(far));
+		}
+
 	private:
 		
 		mat4 projection;
@@ -87,3 +95,10 @@ namespace Engine {
 
 	};
 }
+
+using namespace Engine;
+//Register camera as a derived class
+CEREAL_REGISTER_TYPE(Camera);
+
+//Bind it to the Behaviour
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Behaviour, Camera);

@@ -179,4 +179,8 @@ namespace Engine {
 		vec4 v = rotation * vec4(up, 1);
 		return vec3(v.x, v.y, v.z);
 	}
+	void Transform::InitializeQuat()
+	{
+		Transform::rotation = quat(vec3(float(localRotation.x * DEG_TO_RAD), float(localRotation.y * DEG_TO_RAD), float(localRotation.z * DEG_TO_RAD)));
+	}
 }
