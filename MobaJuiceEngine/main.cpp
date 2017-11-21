@@ -41,6 +41,9 @@ int main(int argc, char *argv[]){
 	TextureManager texureManager;
 	OGLMeshManager meshManager;
 	InputManager inputManager;
+	inputManager.AddKey("Horizontal", "d", "a");
+	inputManager.AddKey("Vertical", "w", "s");
+
 	meshManager.SetShaderProgram("phong", &shaderManager);
 	meshManager.SetTextureManager(&texureManager);
 
@@ -83,17 +86,18 @@ int main(int argc, char *argv[]){
 	while (running) {
 		// Input loop
 		inputManager.Update(running);
-		//	inputManager.Update(running);
-		//	inputManager.GetMousePos(mousePositionX, mousePositionY);
-		//	glm::vec3 rayNormalizedDevSpace = RaycastUtility::ConvertPointToNormalizeCoords(mousePositionX, mousePositionY, 1280, 720);
-		//	vec4 rayDirection = RaycastUtility::ConvertNormalizedCoordsToWorldCoords(rayNormalizedDevSpace, Camera::mainCamera->GetProjectionMatrix(), Camera::mainCamera->GetViewMatrix());
-		//	glm::vec3 cameraPosition = Camera::mainCamera->transform->GetPosition();
-		//	float steps = glm::abs(cameraPosition.y / rayDirection.y);
-		//	mousePos3D = cameraPosition + glm::vec3(rayDirection * steps);
+		inputManager.GetMousePos(mousePositionX, mousePositionY);
+		glm::vec3 rayNormalizedDevSpace = RaycastUtility::ConvertPointToNormalizeCoords(mousePositionX, mousePositionY, 1280, 720);
+		vec4 rayDirection = RaycastUtility::ConvertNormalizedCoordsToWorldCoords(rayNormalizedDevSpace, Camera::mainCamera->GetProjectionMatrix(), Camera::mainCamera->GetViewMatrix());
+		glm::vec3 cameraPosition = Camera::mainCamera->transform->GetPosition();
+		float steps = glm::abs(cameraPosition.y / rayDirection.y);
+		mousePos3D = cameraPosition + glm::vec3(rayDirection * steps);
 
 		//	cout << mousePos3D.x << " ,  " << mousePos3D.y << " ,  " << mousePos3D.z << endl;
 
-		//}
+		int pressedHori = inputManager.GetKey("Horizontal");
+		int pressedVert = inputManager.GetKey("Vertical");
+		cout << pressedHori << " , " << pressedVert << endl;
 		gameObjects.Update();
 		vec3 dir = normalize(mousePos3D - boletus->transform->GetPosition());
 		boletus->transform->Translate(dir);

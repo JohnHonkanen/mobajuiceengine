@@ -1,11 +1,13 @@
 #include "InputManager.h"
 #include <iostream>
+#include "SDLKeyMapper.h"
+#include <assert.h>
 
 using namespace std;
 
-Engine::InputManager::InputManager(string k)
+Engine::InputManager::InputManager()
 {
-	k = key;
+	InitKeyMap();
 }
 
 Engine::InputManager::~InputManager()
@@ -14,8 +16,8 @@ Engine::InputManager::~InputManager()
 
 void Engine::InputManager::Update(bool & running)
 {
-	const Uint8 *keys = SDL_GetKeyboardState(NULL);
-
+	SDL_Event sdlEvent;
+	
 	SDL_GetMouseState(&mouseX, &mouseY);
 
 	while (SDL_PollEvent(&sdlEvent)) {
@@ -30,15 +32,10 @@ void Engine::InputManager::Update(bool & running)
 				cout << "Program exit" << endl;
 				running = false;
 				break;
-			case SDLK_a:
-				cout << "A pressed" << endl;
-				break;
-
-			default:
-				cout << "Default called" << endl;
-				break;
 			}
 		}
+		const Uint8 *keys = SDL_GetKeyboardState(NULL);
+		QueryKeys(keys);
 	}
 }
 
@@ -50,22 +47,47 @@ void Engine::InputManager::GetMousePos(int &x, int &y)
 
 int Engine::InputManager::GetKey(string key)
 {
-	auto iterator = keys.find(key);
 
-	if (iterator != keys.end()) {
-		return keys[key];
+	// If exists
+	if (axis.find(key) != axis.end()) {
+		return axis[key].GetValue();
 	}
 
-	// Create new key
-
-	SetKey(key); // Save it
-	return keys[key];
+	assert(0); // Key not found
+	return 0;
 }
 
-void Engine::InputManager::SetKey(const string key)
+void Engine::InputManager::AddKey(string name, string positive, string negative)
 {
-	int keyString; 
+	// If exists
+	if (axis.find(name) != axis.end()) {
+		assert(0); // Already exists (Duplicate)
+	}
 
-	keys.insert(keys.end(), pair<string, int>(key, keyString));
+	// Else, create
+	KeyAxis keyAxis = KeyAxis(name, positive, negative);
 
+	axis[name] = keyAxis;
+}
+
+void Engine::InputManager::QueryKeys(const Uint8 *keys)
+{
+	for (auto it = axis.begin(); it != axis.end(); ++it) {
+		string positive, negative;
+		it->second.GetKeys(positive, negative);
+
+		int pos, neg;
+		pos = 0;
+		neg = 0;
+
+		if (keys[keyMap[positive]]) {
+			pos = 1;
+		}
+
+		if (keys[keyMap[negative]]) {
+			neg = 1;
+		}
+
+		it->second.SetPress(pos, neg);
+	}
 }

@@ -3,26 +3,32 @@
 #include <SDL.h>
 #include <map>
 #include <string>
+#include "KeyAxis.h"
+
 
 namespace Engine {
 
 	class InputManager
 	{
 	public:
-		InputManager(std::string key);
+		InputManager();
 		~InputManager();
 
 		void Update(bool &running);
 		void GetMousePos(int &x, int &y);
 
-		int GetKey(std::string key);
-		void SetKey(const std::string key);
+		int GetKey(std::string name);
+		void AddKey(string name, string positive, string negative);
+		
 	private:
 
+		void QueryKeys(const Uint8 *keys);
+		
 		std::string key;
 		int mouseX, mouseY;
+		
+		std::map<std::string, KeyAxis> axis;
+		
 
-		std::map<std::string, int> keys;
-		SDL_Event sdlEvent;
 	};
 }
