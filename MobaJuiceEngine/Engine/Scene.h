@@ -3,10 +3,11 @@
 #include <memory>
 #include <cereal\cereal.hpp>
 
+#include "GameObjectManager.h"
+
 
 using namespace std;
 namespace Engine {
-	class GameObjectManager;
 	class Scene {
 	private:
 		string name;

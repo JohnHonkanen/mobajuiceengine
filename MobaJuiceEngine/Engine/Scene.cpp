@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include "GameObjectManager.h"
+
 namespace Engine {
 
 	Scene::Scene() : Scene("Default")

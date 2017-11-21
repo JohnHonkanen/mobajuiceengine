@@ -50,7 +50,7 @@ namespace Engine {
 		Mesh *mesh;
 	};
 }
-
+using namespace Engine;
 //Register camera as a derived class
 CEREAL_REGISTER_TYPE(MeshRenderer);
 

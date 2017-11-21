@@ -8,9 +8,9 @@
 #include <cereal\cereal.hpp>
 #include <cereal\types\vector.hpp>
 #include "Transform.h"
+#include "Component.h"
 
 namespace Engine {
-	class Component;
 	typedef std::unique_ptr<Component> ComponentUP;
 	class GameObject : std::enable_shared_from_this<GameObject>
 	{

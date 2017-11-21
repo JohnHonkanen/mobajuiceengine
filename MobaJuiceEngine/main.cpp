@@ -22,6 +22,8 @@
 #include "Engine\Component\Camera.h"
 #include "Engine\Component\MeshRenderer.h"
 #include "Engine\Scene.h"
+#include "Engine\GameEngine.h"
+
 using namespace std;
 using namespace glm;
 using namespace Engine;
@@ -43,9 +45,9 @@ int main(int argc, char *argv[]){
 	InputManager inputManager;
 	meshManager.SetShaderProgram("phong", &shaderManager);
 	meshManager.SetTextureManager(&texureManager);
-
-	Scene scene;
-	GameObjectManager *gameObjects = scene.GetGameObjectManager();
+	GameEngine engine;
+	Scene * scene = engine.CreateScene();
+	GameObjectManager *gameObjects = scene->GetGameObjectManager();
 	GameObject * cameraWrapper = gameObjects->createGameObject("Camera");
 	Camera::Create(cameraWrapper);
 	Camera::mainCamera->SetFarClippingPlane(1000.0f);
@@ -98,13 +100,13 @@ int main(int argc, char *argv[]){
 			cout << mousePos3D.x << " ,  " << mousePos3D.y << " ,  " << mousePos3D.z << endl;
 
 		}
-		scene.Update();
+		scene->Update();
 		vec3 dir = normalize(mousePos3D - boletus->transform->GetPosition());
 		boletus->transform->Translate(dir);
 		deer->transform->Rotate(vec3(0.0f, 1.0f, 0.0f));
 		//Loop for Graphics
 		graphicsHandler.Start();
-		scene.Draw();
+		scene->Draw();
 		
 		graphicsHandler.End();
 	}

@@ -139,9 +139,9 @@ namespace Engine {
 		template<class Archive>
 		void serialize(Archive & ar)
 		{
-			ar(CEREAL_NVP(localPosition.x), CEREAL_NVP(localPosition.y) CEREAL_NVP(localPosition.z),
+			ar(CEREAL_NVP(localPosition.x), CEREAL_NVP(localPosition.y), CEREAL_NVP(localPosition.z),
 				CEREAL_NVP(localScale.x), CEREAL_NVP(localScale.y), CEREAL_NVP(localScale.z),
-				CEREAL_NVP(localRotation.x), CEREAL_NVP(localRotation.y), CEREAL_NVP(localRotation.z), 
+				CEREAL_NVP(localRotation.x), CEREAL_NVP(localRotation.y), CEREAL_NVP(localRotation.z)
 				);
 		}
 	private:

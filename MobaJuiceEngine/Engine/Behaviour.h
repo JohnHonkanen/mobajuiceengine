@@ -29,7 +29,7 @@ namespace Engine {
 		bool isEnabled;
 	};
 }
-
+using namespace Engine;
 //Register camera as a derived class
 CEREAL_REGISTER_TYPE(Behaviour);
 
