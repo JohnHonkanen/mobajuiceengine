@@ -3,8 +3,9 @@
 
 using namespace std;
 
-Engine::InputManager::InputManager()
+Engine::InputManager::InputManager(string k)
 {
+	k = key;
 }
 
 Engine::InputManager::~InputManager()
@@ -14,7 +15,6 @@ Engine::InputManager::~InputManager()
 void Engine::InputManager::Update(bool & running)
 {
 	const Uint8 *keys = SDL_GetKeyboardState(NULL);
-	SDL_Event sdlEvent;
 
 	SDL_GetMouseState(&mouseX, &mouseY);
 
@@ -46,4 +46,26 @@ void Engine::InputManager::GetMousePos(int &x, int &y)
 {
 	x = mouseX;
 	y = mouseY;
+}
+
+int Engine::InputManager::GetKey(string key)
+{
+	auto iterator = keys.find(key);
+
+	if (iterator != keys.end()) {
+		return keys[key];
+	}
+
+	// Create new key
+
+	SetKey(key); // Save it
+	return keys[key];
+}
+
+void Engine::InputManager::SetKey(const string key)
+{
+	int keyString; 
+
+	keys.insert(keys.end(), pair<string, int>(key, keyString));
+
 }
