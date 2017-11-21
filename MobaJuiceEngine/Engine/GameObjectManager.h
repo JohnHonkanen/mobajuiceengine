@@ -4,6 +4,7 @@
 #pragma once
 #include <memory>
 #include <map>
+#include <cereal\cereal.hpp>
 #include "GameObject.h"
 namespace Engine {
 	typedef std::unique_ptr<GameObject> GameObjUniqPtr;
@@ -45,6 +46,11 @@ namespace Engine {
 		*/
 		GameObject * Find(std::string name);
 
+		template<class Archive>
+		void serialize(Archive & ar)
+		{
+			ar(CEREAL_NVP(gameObjects));
+		}
 	private:
 		std::map<std::string, GameObjUniqPtr> gameObjects;
 	};

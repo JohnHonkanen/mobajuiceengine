@@ -21,6 +21,7 @@
 #include "Engine\GameObjectManager.h"
 #include "Engine\Component\Camera.h"
 #include "Engine\Component\MeshRenderer.h"
+#include "Engine\Scene.h"
 using namespace std;
 using namespace glm;
 using namespace Engine;
@@ -43,19 +44,20 @@ int main(int argc, char *argv[]){
 	meshManager.SetShaderProgram("phong", &shaderManager);
 	meshManager.SetTextureManager(&texureManager);
 
-	GameObjectManager gameObjects;
-	GameObject * cameraWrapper = gameObjects.createGameObject("Camera");
+	Scene scene;
+	GameObjectManager *gameObjects = scene.GetGameObjectManager();
+	GameObject * cameraWrapper = gameObjects->createGameObject("Camera");
 	Camera::Create(cameraWrapper);
 	Camera::mainCamera->SetFarClippingPlane(1000.0f);
 
 	cameraWrapper->transform->SetPosition(vec3(0.0f, 75.0f, 0.0f));
 	cameraWrapper->transform->SetEulerAngle(vec3(45.0f, 0.0f, 0.0f));
 
-	GameObject *deer = gameObjects.createGameObject("deer");
+	GameObject *deer = gameObjects->createGameObject("deer");
 	//Create and attaches it the arissa (deer)
 	MeshRenderer::Create(deer, path, &meshManager);
 
-	GameObject *arissa = gameObjects.createGameObject("arissa");
+	GameObject *arissa = gameObjects->createGameObject("arissa");
 	//Create and attaches it the arissa (deer)
 	MeshRenderer::Create(arissa, path3, &meshManager);
 	arissa->transform->SetScale(vec3(0.02f));
@@ -65,7 +67,7 @@ int main(int argc, char *argv[]){
 	deer->transform->SetPosition(glm::vec3(-0.0f, -0.0f, 80.0f));
 	deer->transform->SetScale(glm::vec3(0.1f));
 
-	GameObject *boletus = gameObjects.createGameObject("Boletus");
+	GameObject *boletus = gameObjects->createGameObject("Boletus");
 	MeshRenderer::Create(boletus, path2, &meshManager);
 	boletus->transform->SetEulerAngle(vec3(-90.0f, 0,0));
 	boletus->transform->SetScale(vec3(0.25f));
@@ -96,13 +98,13 @@ int main(int argc, char *argv[]){
 			cout << mousePos3D.x << " ,  " << mousePos3D.y << " ,  " << mousePos3D.z << endl;
 
 		}
-		gameObjects.Update();
+		scene.Update();
 		vec3 dir = normalize(mousePos3D - boletus->transform->GetPosition());
 		boletus->transform->Translate(dir);
 		deer->transform->Rotate(vec3(0.0f, 1.0f, 0.0f));
 		//Loop for Graphics
 		graphicsHandler.Start();
-		gameObjects.Draw();
+		scene.Draw();
 		
 		graphicsHandler.End();
 	}
