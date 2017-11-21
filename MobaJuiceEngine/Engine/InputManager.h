@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+
 namespace Engine {
 
 	class InputManager
@@ -9,7 +10,7 @@ namespace Engine {
 		InputManager();
 		~InputManager();
 
-		void Update();
+		void Update(bool &running);
 		void GetMousePos(int &x, int &y);
 	private:
 

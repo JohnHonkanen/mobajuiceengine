@@ -21,6 +21,7 @@
 #include "Engine\GameObjectManager.h"
 #include "Engine\Component\Camera.h"
 #include "Engine\Component\MeshRenderer.h"
+
 using namespace std;
 using namespace glm;
 using namespace Engine;
@@ -77,25 +78,22 @@ int main(int argc, char *argv[]){
 	float r = -10.0f;
 	float rd = 0.0f;
 	float rv = 0.1f;
-	SDL_Event sdlEvent;  // variable to detect SDL events
+	//SDL_Event sdlEvent;  // variable to detect SDL events
 	bool running = true; // set running to true
 	while (running) {
-		while (SDL_PollEvent(&sdlEvent)) {
-			if (sdlEvent.type == SDL_QUIT) {
-				running = false;
-			}
-			// Input loop
-			inputManager.Update();
-			inputManager.GetMousePos(mousePositionX, mousePositionY);
-			glm::vec3 rayNormalizedDevSpace = RaycastUtility::ConvertPointToNormalizeCoords(mousePositionX, mousePositionY, 1280, 720);
-			vec4 rayDirection = RaycastUtility::ConvertNormalizedCoordsToWorldCoords(rayNormalizedDevSpace, Camera::mainCamera->GetProjectionMatrix(), Camera::mainCamera->GetViewMatrix());
-			glm::vec3 cameraPosition = Camera::mainCamera->transform->GetPosition();
-			float steps = glm::abs(cameraPosition.y / rayDirection.y);
-			mousePos3D = cameraPosition + glm::vec3(rayDirection * steps);
+		// Input loop
+		inputManager.Update(running);
+		//	inputManager.Update(running);
+		//	inputManager.GetMousePos(mousePositionX, mousePositionY);
+		//	glm::vec3 rayNormalizedDevSpace = RaycastUtility::ConvertPointToNormalizeCoords(mousePositionX, mousePositionY, 1280, 720);
+		//	vec4 rayDirection = RaycastUtility::ConvertNormalizedCoordsToWorldCoords(rayNormalizedDevSpace, Camera::mainCamera->GetProjectionMatrix(), Camera::mainCamera->GetViewMatrix());
+		//	glm::vec3 cameraPosition = Camera::mainCamera->transform->GetPosition();
+		//	float steps = glm::abs(cameraPosition.y / rayDirection.y);
+		//	mousePos3D = cameraPosition + glm::vec3(rayDirection * steps);
 
-			cout << mousePos3D.x << " ,  " << mousePos3D.y << " ,  " << mousePos3D.z << endl;
+		//	cout << mousePos3D.x << " ,  " << mousePos3D.y << " ,  " << mousePos3D.z << endl;
 
-		}
+		//}
 		gameObjects.Update();
 		vec3 dir = normalize(mousePos3D - boletus->transform->GetPosition());
 		boletus->transform->Translate(dir);
