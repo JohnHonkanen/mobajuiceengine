@@ -43,6 +43,8 @@ int main(int argc, char *argv[]){
 	InputManager inputManager;
 	inputManager.AddKey("Horizontal", "d", "a");
 	inputManager.AddKey("Vertical", "w", "s");
+	inputManager.AddKey("Open", "i", "");
+	inputManager.AddKey("mouseFire", "mouse 0", "mouse 1");
 
 	meshManager.SetShaderProgram("phong", &shaderManager);
 	meshManager.SetTextureManager(&texureManager);
@@ -97,7 +99,10 @@ int main(int argc, char *argv[]){
 
 		int pressedHori = inputManager.GetKey("Horizontal");
 		int pressedVert = inputManager.GetKey("Vertical");
-		cout << pressedHori << " , " << pressedVert << endl;
+		int openCheck = inputManager.GetKey("mouseFire");
+		//cout << pressedHori << " , " << pressedVert << endl;
+		cout << openCheck << endl;
+		
 		gameObjects.Update();
 		vec3 dir = normalize(mousePos3D - boletus->transform->GetPosition());
 		boletus->transform->Translate(dir);

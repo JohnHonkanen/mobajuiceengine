@@ -34,8 +34,12 @@ void Engine::InputManager::Update(bool & running)
 				break;
 			}
 		}
+		int x, y;
 		const Uint8 *keys = SDL_GetKeyboardState(NULL);
-		QueryKeys(keys);
+		const Uint8 mouseButton = SDL_GetMouseState(&x, &y);
+		
+		QueryKeys(keys, &mouseButton);
+
 	}
 }
 
@@ -70,16 +74,32 @@ void Engine::InputManager::AddKey(string name, string positive, string negative)
 	axis[name] = keyAxis;
 }
 
-void Engine::InputManager::QueryKeys(const Uint8 *keys)
+void Engine::InputManager::AddKey(string name, string positive)
+{
+	AddKey(name, positive, "");
+}
+
+
+void Engine::InputManager::QueryKeys(const Uint8 *keys, const Uint8 *mouseButton)
 {
 	for (auto it = axis.begin(); it != axis.end(); ++it) {
-		string positive, negative;
-		it->second.GetKeys(positive, negative);
+	string positive, negative;
+	it->second.GetKeys(positive, negative);
 
-		int pos, neg;
-		pos = 0;
-		neg = 0;
+	int pos, neg;
+	pos = 0;
+	neg = 0;
 
+	if (positive.substr(0, positive.find_last_of(" ")) == "mouse") {
+		if (mouseButton[mouseMap[positive]]) {
+			pos = 1;
+		}
+
+		if (mouseButton[mouseMap[negative]]) {
+			neg = 1;
+		}
+	}
+	else {
 		if (keys[keyMap[positive]]) {
 			pos = 1;
 		}
@@ -88,6 +108,8 @@ void Engine::InputManager::QueryKeys(const Uint8 *keys)
 			neg = 1;
 		}
 
+	}
+		
 		it->second.SetPress(pos, neg);
 	}
 }

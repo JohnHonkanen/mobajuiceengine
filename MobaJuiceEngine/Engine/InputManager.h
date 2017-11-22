@@ -19,11 +19,11 @@ namespace Engine {
 
 		int GetKey(std::string name);
 		void AddKey(string name, string positive, string negative);
-		
-	private:
+		void AddKey(string name, string positive);
 
-		void QueryKeys(const Uint8 *keys);
-		
+	private:
+		SDL_Event sdlEvent;
+		void QueryKeys(const Uint8 *keys, const Uint8 *mouseButton);
 		std::string key;
 		int mouseX, mouseY;
 		
