@@ -73,7 +73,7 @@ namespace Engine {
 		CalculateViewMatrix();
 	}
 
-	void Camera::CalculateViewMatrix()
+	void Camera::CalculateViewMatrix() // GetView();
 	{
 		view = lookAt(transform->GetPosition(), transform->GetPosition() + transform->Front(), transform->Up());
 	}
