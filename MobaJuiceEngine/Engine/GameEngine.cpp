@@ -58,20 +58,10 @@ namespace Engine {
 		bool running = true;
 		SDL_Event e;
 		while (running) {
-			while (SDL_PollEvent(&e)) {
 
-				switch (e.type)
-				{
-				case SDL_KEYDOWN:
-					if (e.key.keysym.sym == SDLK_ESCAPE) 
-						running = false;
-					break;
-				case SDL_QUIT:
-					running = false;
-					break;
-				}
+			//Input Poll
+			manager.inputManager.Update(running);
 
-			}
 			activeScene->Update();
 
 			graphicsHandler.Start();
