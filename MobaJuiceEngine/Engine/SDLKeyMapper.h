@@ -5,9 +5,7 @@
 
 using namespace std;
 namespace Engine {
-	map<string, Uint8> keyMap;
-	map<string, Uint8> mouseMap;
-	void InitKeyMap() {
+	void InitKeyMap(map<string, Uint8> &keyMap, map<string, Uint8> &mouseMap) {
 		keyMap["a"] = 4;
 		keyMap["b"] = 5;
 		keyMap["c"] = 6;

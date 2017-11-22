@@ -27,8 +27,12 @@
     <None Include="Assets\Shaders\textured.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Assets\Shaders\text2D.frag" />
-    <None Include="Assets\Shaders\text2D.vert" />
+    <None Include="Assets\Shaders\text2D.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shaders\text2D.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -107,6 +111,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Component\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -213,8 +223,16 @@
     <ClInclude Include="Engine\Component\Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\GameEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Assets\Fonts\MavenPro-Regular.ttf" />
+    <Font Include="Assets\Fonts\MavenPro-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

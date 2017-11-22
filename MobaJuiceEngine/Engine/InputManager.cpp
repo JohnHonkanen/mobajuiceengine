@@ -7,7 +7,7 @@ using namespace std;
 
 Engine::InputManager::InputManager()
 {
-	InitKeyMap();
+	InitKeyMap(keyMap, mouseMap);
 }
 
 Engine::InputManager::~InputManager()

@@ -136,6 +136,7 @@
     <ClCompile Include="Engine\Component\Text2D.cpp" />
     <ClCompile Include="Engine\Component\Tile.cpp" />
     <ClCompile Include="Engine\Dictionary.cpp" />
+    <ClCompile Include="Engine\GameEngine.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\GameObjectManager.cpp" />
     <ClCompile Include="Engine\InputManager.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="Engine\Render\ShaderManager.cpp" />
     <ClCompile Include="Engine\Render\Texture\TextureManager.cpp" />
     <ClCompile Include="Engine\Render\Window\SDLWindow.cpp" />
+    <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="KeyList.cpp" />
     <ClCompile Include="main.cpp" />
@@ -164,6 +166,7 @@
     <ClInclude Include="Engine\Component\Text2D.h" />
     <ClInclude Include="Engine\Component\Tile.h" />
     <ClInclude Include="Engine\Dictionary.h" />
+    <ClInclude Include="Engine\GameEngine.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\GameObjectManager.h" />
     <ClInclude Include="Engine\InputManager.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="Engine\Render\Texture\TextureManager.h" />
     <ClInclude Include="Engine\Render\Window\SDLWindow.h" />
     <ClInclude Include="Engine\Render\Window\Window.h" />
+    <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\SDLKeyMapper.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="KeyList.h" />

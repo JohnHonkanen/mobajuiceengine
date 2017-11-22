@@ -1,9 +1,9 @@
 #pragma once
 #include <memory>
 #include "ManagerCollection.h"
+#include "Scene.h"
 using namespace std;
 namespace Engine {
-	class Scene;
 	class GameEngine {
 	public:
 		Scene * CreateScene();
