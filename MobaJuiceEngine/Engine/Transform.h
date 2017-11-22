@@ -144,6 +144,11 @@ namespace Engine {
 				CEREAL_NVP(localRotation.x), CEREAL_NVP(localRotation.y), CEREAL_NVP(localRotation.z)
 				);
 		}
+
+		void OnLoad();
+		static vec3 front;
+		static vec3 right;
+		static vec3 up;
 	private:
 		int slot = -1;
 		int numOfChildren = 0;
@@ -153,10 +158,6 @@ namespace Engine {
 		vec3 localPosition;
 		vec3 localScale;
 		vec3 localRotation;
-
-		vec3 front;
-		vec3 right;
-		vec3 up;
 
 		quat rotation;
 

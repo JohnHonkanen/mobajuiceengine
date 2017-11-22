@@ -19,6 +19,7 @@ namespace Engine {
 		~Scene();
 		GameObjectManager * GetGameObjectManager();
 
+		void OnLoad();
 		void Start();
 		void Update();
 		void Draw();

@@ -67,6 +67,7 @@ namespace Engine {
 
 		mat4 GetProjectionMatrix();
 
+		void OnLoad();
 		void Update();
 
 		/*
@@ -97,6 +98,9 @@ namespace Engine {
 }
 
 using namespace Engine;
+
+
+#include <cereal/archives/xml.hpp>
 //Register camera as a derived class
 CEREAL_REGISTER_TYPE(Camera);
 

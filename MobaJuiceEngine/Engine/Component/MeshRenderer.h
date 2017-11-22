@@ -19,7 +19,7 @@
 namespace Engine {
 
 	class GameObject;
-	class MeshRenderer : public Behaviour, Renderer
+	class MeshRenderer : public Behaviour
 	{
 	public:
 		MeshRenderer();
@@ -33,7 +33,8 @@ namespace Engine {
 			@param manager		Manager used for storing mesh data
 			@return				The created mesh renderer object
 		*/
-		static MeshRenderer *Create(GameObject *gameObject, std::string path, OGLMeshManager *manager);
+		static MeshRenderer *Create(GameObject *gameObject, std::string path);
+		void OnLoad();
 		void Start();
 		void Draw();
 
@@ -51,6 +52,9 @@ namespace Engine {
 	};
 }
 using namespace Engine;
+
+
+#include <cereal/archives/xml.hpp>
 //Register camera as a derived class
 CEREAL_REGISTER_TYPE(MeshRenderer);
 

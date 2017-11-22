@@ -9,8 +9,6 @@ namespace Engine {
 	{
 		if (Camera::mainCamera == nullptr)
 			Camera::mainCamera = this;
-
-		SetPerspective(fov, aspectRatio, near, far);
 	}
 
 	Camera::Camera()
@@ -18,7 +16,6 @@ namespace Engine {
 		if (Camera::mainCamera == nullptr)
 			Camera::mainCamera = this;
 
-		SetPerspective(fov, aspectRatio, near, far);
 	}
 
 	Camera::~Camera()
@@ -64,6 +61,11 @@ namespace Engine {
 	mat4 Camera::GetProjectionMatrix()
 	{
 		return projection;
+	}
+
+	void Camera::OnLoad()
+	{
+		SetPerspective(fov, aspectRatio, near, far);
 	}
 
 	void Camera::Update()

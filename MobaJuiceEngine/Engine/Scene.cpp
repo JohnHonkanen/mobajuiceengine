@@ -20,6 +20,10 @@ namespace Engine {
 	{
 		return gameObjects.get();
 	}
+	void Scene::OnLoad()
+	{
+		gameObjects->OnLoad();
+	}
 	void Scene::Start()
 	{
 	}

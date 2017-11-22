@@ -14,6 +14,7 @@ namespace Engine {
 		Behaviour();
 		Behaviour(std::string name) : Component(name) {};
 		~Behaviour();
+		virtual void OnLoad() {};
 		//Only Called Once per Startup Instance of Class
 		virtual void Start() {};
 		//Logic Loop
@@ -30,7 +31,9 @@ namespace Engine {
 	};
 }
 using namespace Engine;
-//Register camera as a derived class
+
+#include <cereal/archives/xml.hpp>
+
 CEREAL_REGISTER_TYPE(Behaviour);
 
 //Bind it to the Behaviour

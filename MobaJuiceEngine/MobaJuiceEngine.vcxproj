@@ -160,6 +160,7 @@
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\GameObjectManager.h" />
     <ClInclude Include="Engine\InputManager.h" />
+    <ClInclude Include="Engine\ManagerCollection.h" />
     <ClInclude Include="Engine\Physics\RayCast.h" />
     <ClInclude Include="Engine\Physics\RaycastUtility.h" />
     <ClInclude Include="Engine\Render\GraphicsHandlers\GraphicHandler.h" />

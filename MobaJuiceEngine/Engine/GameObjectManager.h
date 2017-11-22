@@ -16,6 +16,7 @@ namespace Engine {
 		GameObjectManager();
 		~GameObjectManager();
 
+		void OnLoad();
 		/*
 			Calls the update functions for all GameObjects in the manager
 		*/

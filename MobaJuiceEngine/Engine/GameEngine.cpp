@@ -7,7 +7,14 @@
 #include <string>
 
 #include "Scene.h"
+
+#include "Render\GraphicsHandlers\OGLGraphicHandler.h"
+#include "Render\Window\SDLWindow.h"
+
 namespace Engine {
+
+	ManagerCollection GameEngine::manager = ManagerCollection();
+
 	Scene * GameEngine::CreateScene()
 	{
 		activeScene = std::make_unique<Scene>();
@@ -16,7 +23,7 @@ namespace Engine {
 
 	void GameEngine::Save()
 	{
-		Save("default_scene");
+		Save("default_scene.xml");
 	}
 
 	void GameEngine::Save(const char * scene)
@@ -33,8 +40,47 @@ namespace Engine {
 		iArchive(activeScene);
 	}
 
+	void GameEngine::Initialize()
+	{
+		manager.shaderManager.CreateShader("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
+		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
+		manager.meshManager.SetTextureManager(&manager.textureManager);
+
+		activeScene->OnLoad();
+	}
+
 	void GameEngine::Run()
 	{
+		OGLGraphicHandler graphicsHandler(new SDLWindow("MobaJuice", 1280, 720));
+		graphicsHandler.Initialize();
+		Initialize();
+
+		bool running = true;
+		SDL_Event e;
+		while (running) {
+			while (SDL_PollEvent(&e)) {
+
+				switch (e.type)
+				{
+				case SDL_KEYDOWN:
+					if (e.key.keysym.sym == SDLK_ESCAPE) 
+						running = false;
+					break;
+				case SDL_QUIT:
+					running = false;
+					break;
+				}
+
+			}
+			activeScene->Update();
+
+			graphicsHandler.Start();
+			activeScene->Draw();
+
+			graphicsHandler.End();
+		}
+
+		graphicsHandler.Destroy();
 	}
 }
 

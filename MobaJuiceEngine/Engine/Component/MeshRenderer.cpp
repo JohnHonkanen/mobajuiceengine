@@ -1,6 +1,7 @@
 #include "MeshRenderer.h"
 #include "Camera.h"
 #include "../GameObject.h"
+#include "../GameEngine.h"
 namespace Engine {
 	MeshRenderer::MeshRenderer()
 	{
@@ -10,16 +11,21 @@ namespace Engine {
 	{
 	}
 
-	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path, OGLMeshManager * manager)
+	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path)
 	{
 		MeshRenderer *r = new MeshRenderer();
 		r->meshPath = path;
-		r->mesh = manager->GetMesh(path);
-		r->meshManager = manager;
 		//Adds ownership
 		gameObject->AddComponent(r);
 
 		return r;
+	}
+
+	void MeshRenderer::OnLoad()
+	{
+		meshManager = &GameEngine::manager.meshManager;
+		mesh = meshManager->GetMesh(meshPath);
+		
 	}
 
 	void MeshRenderer::Start()

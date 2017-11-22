@@ -18,6 +18,15 @@ namespace Engine {
 	{
 	}
 
+	void GameObject::OnLoad()
+	{
+		transform->OnLoad();
+		for (int i = 0; i < components.size(); i++) {
+			components.at(i)->transform = transform.get();
+			components.at(i)->OnLoad();
+		}
+	}
+
 	void GameObject::Update()
 	{
 		for (int i = 0; i < components.size(); i++) {

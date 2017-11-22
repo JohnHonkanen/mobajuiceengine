@@ -8,6 +8,13 @@ namespace Engine {
 	{
 	}
 
+	void GameObjectManager::OnLoad()
+	{
+		for (auto const &gameobjectPair : gameObjects) {
+			gameobjectPair.second->OnLoad();
+		}
+	}
+
 	void GameObjectManager::Update()
 	{
 		for (auto const &gameobjectPair : gameObjects) {

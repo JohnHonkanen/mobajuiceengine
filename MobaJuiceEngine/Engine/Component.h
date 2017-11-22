@@ -17,6 +17,8 @@ namespace Engine {
 		Component();
 		Component(std::string name) : name(name) {};
 		~Component();
+		//Called when the program is loaded
+		virtual void OnLoad() {};
 		//Only Called Once per Startup Instance of Class
 		virtual void Start() {};
 		//Logic Loop
