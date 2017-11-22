@@ -58,7 +58,7 @@ int main(int argc, char *argv[]){
 	cameraWrapper->transform->SetPosition(vec3(0.0f, 75.0f, 0.0f));
 	cameraWrapper->transform->SetEulerAngle(vec3(45.0f, 0.0f, 0.0f));
 
-	FreeCameraControl::Create(cameraWrapper);
+	FreeCameraControl::Create(cameraWrapper, &inputManager);
 
 	GameObject *deer = gameObjects.createGameObject("deer");
 	//Create and attaches it the arissa (deer)

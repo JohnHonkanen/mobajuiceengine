@@ -73,11 +73,12 @@ namespace Engine {
 		movement = vec3(h, 0, v);
 	}
 
-	FreeCameraControl* FreeCameraControl::Create(GameObject* gameObject)
-	{
-		FreeCameraControl *freeCameraControl = new FreeCameraControl();
-		gameObject->AddComponent(freeCameraControl);
-		return freeCameraControl;
+	FreeCameraControl* FreeCameraControl::Create(GameObject* gameObject, InputManager* inputManager)
+	{	
+		FreeCameraControl *f = new FreeCameraControl();
+		f->inputManager = inputManager;
+		gameObject->AddComponent(f);
+		return f;
 	}
 
 }
