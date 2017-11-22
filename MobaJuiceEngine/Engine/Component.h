@@ -21,6 +21,8 @@ namespace Engine {
 		virtual void OnLoad() {};
 		//Only Called Once per Startup Instance of Class
 		virtual void Start() {};
+		// Input Call
+		virtual void Input() {};
 		//Logic Loop
 		virtual void Update() {};
 		//Rendering Loop

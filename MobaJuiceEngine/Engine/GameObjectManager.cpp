@@ -15,6 +15,13 @@ namespace Engine {
 		}
 	}
 
+	void GameObjectManager::Input()
+	{
+		for (auto const &gameobjectPair : gameObjects) {
+			gameobjectPair.second->Input();
+		}
+	}
+
 	void GameObjectManager::Update()
 	{
 		for (auto const &gameobjectPair : gameObjects) {

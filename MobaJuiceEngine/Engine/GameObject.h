@@ -19,6 +19,7 @@ namespace Engine {
 		GameObject(std::string name);
 		~GameObject();
 		void OnLoad();
+		void Input();
 		void Update();
 		void Draw();
 		/*

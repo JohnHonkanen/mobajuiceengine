@@ -16,7 +16,14 @@ namespace Engine {
 		GameObjectManager();
 		~GameObjectManager();
 
+		/*
+			Calls on Loading the GameEngine
+		*/
 		void OnLoad();
+		/*
+			Calls on the Input Loop before Update;
+		*/
+		void Input();
 		/*
 			Calls the update functions for all GameObjects in the manager
 		*/

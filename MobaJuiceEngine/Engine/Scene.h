@@ -21,6 +21,7 @@ namespace Engine {
 
 		void OnLoad();
 		void Start();
+		void Input();
 		void Update();
 		void Draw();
 

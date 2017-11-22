@@ -27,6 +27,10 @@ namespace Engine {
 	void Scene::Start()
 	{
 	}
+	void Scene::Input()
+	{
+		gameObjects->Input();
+	}
 	void Scene::Update()
 	{
 		gameObjects->Update();
