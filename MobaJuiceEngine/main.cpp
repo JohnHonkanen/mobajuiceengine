@@ -68,6 +68,5 @@ int main(int argc, char *argv[]){
 	engine.Run();
 
 	engine.Save();
-	graphicsHandler.Destroy();
 	return 0;
 }
