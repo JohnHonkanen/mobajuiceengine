@@ -4,7 +4,7 @@
 
 #include "Engine\GameEngine.h"
 #include "Engine\MobaJuiceCore.h"
-
+#include "Engine\InputManager.h"
 using namespace Engine;
 
 int main(int argc, char *argv[]){
@@ -16,6 +16,8 @@ int main(int argc, char *argv[]){
 
 	GameObject *camera = list->Find("Camera_1");
 	camera->transform->Translate(vec3(0.0f, 0.0f, -15.0f));
+
+	FreeCameraControl::Create(camera);
 	engine.Run();
 
 	return 0;

@@ -14,7 +14,7 @@ Engine::InputManager::~InputManager()
 {
 }
 
-void Engine::InputManager::Update(bool & running)
+void Engine::InputManager::Update(bool & running, SDL_Window* window)
 {
 	mouseMotion = false;
 	SDL_Event sdlEvent;
@@ -44,6 +44,21 @@ void Engine::InputManager::Update(bool & running)
 			mouseMotion = true;
 		}
 
+		if (GetKey("FreezeMouse")) {
+			centerMouse = false;
+			SDL_ShowCursor(SDL_ENABLE);
+		}
+
+		if (GetKey("FreezeMouse") == -1) {
+			centerMouse = true;
+			SDL_ShowCursor(SDL_DISABLE);
+		}
+
+		if (centerMouse) {
+			SDL_WarpMouseInWindow(window, 640, 360);
+		}
+		
+		
 	}
 }
 

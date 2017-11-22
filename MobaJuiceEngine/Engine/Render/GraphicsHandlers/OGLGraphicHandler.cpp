@@ -1,6 +1,8 @@
 #include "OGLGraphicHandler.h"
 #include <GL\glew.h>
 #include <IL\il.h>
+#include "..\Window\SDLWindow.h"
+
 namespace Engine {
 	OGLGraphicHandler::OGLGraphicHandler(Window *window)
 	{
@@ -63,5 +65,10 @@ namespace Engine {
 	void OGLGraphicHandler::Destroy()
 	{
 		window->Destroy();
+	}
+
+	SDL_Window * OGLGraphicHandler::GetWindow()
+	{
+		return ((SDLWindow*)window.get())->GetWindow();
 	}
 }

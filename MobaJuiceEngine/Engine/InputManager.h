@@ -14,7 +14,7 @@ namespace Engine {
 		InputManager();
 		~InputManager();
 
-		void Update(bool &running);
+		void Update(bool &running, SDL_Window* window);
 		void GetMousePos(int &x, int &y);
 		bool CheckMouseMotion();
 
@@ -29,7 +29,7 @@ namespace Engine {
 		int mouseX, mouseY;
 		
 		bool mouseMotion = false;
-
+		bool centerMouse = true;
 		map<string, Uint8> keyMap;
 		map<string, Uint8> mouseMap;
 

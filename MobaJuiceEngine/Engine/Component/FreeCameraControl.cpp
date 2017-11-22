@@ -1,5 +1,4 @@
 #include "FreeCameraControl.h"
-#include <SDL.h>
 #include <glm\gtx\compatibility.hpp>
 #include <iostream>
 #include "Camera.h"
@@ -21,7 +20,7 @@ namespace Engine {
 	{
 		bool mouseMotion = inputManager->CheckMouseMotion();
 
-		if (!mouseMotion) {
+		if (!mouseMotion || freezeMouse) {
 			return;
 		}
 
@@ -36,7 +35,7 @@ namespace Engine {
 		lastX = mouseX;
 		lastY = mouseY;
 
-		float mouseSensitivity = 0.1f;
+		float mouseSensitivity = 0.05f;
 		float smoothing = 2.0f;
 
 		mouseDir = mouseDir * vec2(mouseSensitivity * smoothing);
@@ -46,10 +45,10 @@ namespace Engine {
 		smoothV.y = glm::lerp(smoothV.y, mouseDir.y, 1.0f / smoothing);
 
 		yaw -= smoothV.x;
-		pitch += smoothV.y;
+		pitch -= smoothV.y;
 
-		pitch = glm::clamp(pitch, -91.0f, 91.0f);
-		transform->SetEulerAngle(glm::vec3(glm::radians(pitch), glm::radians(yaw), 0.0f));
+		pitch = glm::clamp(pitch, -100.0f, 100.0f);
+		transform->SetEulerAngle(glm::vec3(pitch, yaw, 0.0f));
 
 		lastX = 640.0f;
 		lastY = 360.0f;
@@ -61,10 +60,10 @@ namespace Engine {
 		inputManager = &GameEngine::manager.inputManager;
 	}
 
-	void FreeCameraControl::Update(float dt)
+	void FreeCameraControl::Update()
 	{
-		Input();
-		transform->Translate(((transform->Front() * movement.z) + (transform->Right() * movement.x)) * dt * cameraSpeed);
+		float dt = 0.17f;
+		transform->Translate(((transform->Front() * movement.z) + (transform->Right() * -movement.x)) * dt * cameraSpeed);
 
 	}
 
@@ -77,6 +76,15 @@ namespace Engine {
 		int v = inputManager->GetKey("Vertical");
 
 		movement = vec3(h, 0, v);
+
+		if (inputManager->GetKey("FreezeMouse")) {
+			freezeMouse = true;
+		}
+
+		if (inputManager->GetKey("FreezeMouse") == -1) {
+			freezeMouse = false;
+		}
+		MoveCamera();
 	}
 
 	FreeCameraControl* FreeCameraControl::Create(GameObject* gameObject)

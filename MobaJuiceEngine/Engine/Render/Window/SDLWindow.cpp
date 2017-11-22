@@ -27,6 +27,7 @@ namespace Engine {
 	void SDLWindow::Initialize()
 	{
 		SetupRC(SDLWindow::glContext);
+		SDL_ShowCursor(SDL_DISABLE);
 	}
 	/*
 		Calls the SDL swap buffers
@@ -44,6 +45,10 @@ namespace Engine {
 		SDL_DestroyWindow(SDLWindow::window);
 		SDL_Quit();
 	}
+		SDL_Window * SDLWindow::GetWindow()
+		{
+			return window;
+		}
 	/*
 		Setups the Render Scene using OpenGL 3.3.
 		@param context		OpenGL window context

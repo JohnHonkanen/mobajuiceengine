@@ -20,6 +20,8 @@ namespace Engine {
 		void SwapBuffers();
 		//Destory SDL instance and window
 		void Destroy();
+
+		SDL_Window* GetWindow();
 	private:
 		//Create SDL GL Context and assigns it.
 		void SetupRC(SDL_GLContext &context);

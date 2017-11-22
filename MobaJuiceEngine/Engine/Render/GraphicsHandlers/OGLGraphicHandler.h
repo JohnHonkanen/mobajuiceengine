@@ -6,6 +6,8 @@
 #include <memory>
 #include "GraphicHandler.h"
 #include "../Window/Window.h"
+#include <SDL.h>
+
 namespace Engine {
 	class OGLGraphicHandler : public GraphicHandler {
 	public:
@@ -20,6 +22,10 @@ namespace Engine {
 		void End();
 		//Deallocate the Window Memory
 		void Destroy();
+
+		SDL_Window* GetWindow();
+
+
 	private:
 		std::unique_ptr<Window> window;
 

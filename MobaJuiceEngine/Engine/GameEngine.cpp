@@ -51,6 +51,11 @@ namespace Engine {
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 
+		// Bind Keys
+		manager.inputManager.AddKey("Horizontal", "d", "a");
+		manager.inputManager.AddKey("Vertical", "w", "s");
+		manager.inputManager.AddKey("FreezeMouse", "f", "g");
+
 		activeScene->OnLoad();
 	}
 
@@ -65,8 +70,9 @@ namespace Engine {
 		while (running) {
 
 			//Input Poll
-			manager.inputManager.Update(running);
+			manager.inputManager.Update(running, graphicsHandler.GetWindow());
 
+			activeScene->Input();
 			activeScene->Update();
 
 			graphicsHandler.Start();
