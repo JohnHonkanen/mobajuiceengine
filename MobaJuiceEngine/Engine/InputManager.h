@@ -16,6 +16,7 @@ namespace Engine {
 
 		void Update(bool &running);
 		void GetMousePos(int &x, int &y);
+		bool CheckMouseMotion();
 
 		int GetKey(std::string name);
 		void AddKey(string name, string positive, string negative);
@@ -27,6 +28,8 @@ namespace Engine {
 		std::string key;
 		int mouseX, mouseY;
 		
+		bool mouseMotion = false;
+
 		std::map<std::string, KeyAxis> axis;
 		
 

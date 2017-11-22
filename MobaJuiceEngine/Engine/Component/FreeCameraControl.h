@@ -2,21 +2,28 @@
 #include "../Behaviour.h"
 #include <glm\glm.hpp>
 
+
 namespace Engine {
 	class Camera;
+	class GameObject;
+	class InputManager;
 	class FreeCameraControl : Behaviour
 	{
 	public:
 		FreeCameraControl();
 		~FreeCameraControl();
 
-		void MoveCamera(SDL_Event* sdlEvent);
+		void MoveCamera();
 		void Update(float dt);
+		void Input();
+		static FreeCameraControl* Create(GameObject* gameObject);
+
 	private:
-		Camera camera;
+		InputManager *inputManager;
+		Camera* camera;
 		glm::vec3 movement;
 		int rotate; 
-		glm::vec3 tempMovement = glm::vec3(0);
+		//glm::vec3 tempMovement = glm::vec3(0);
 
 		float dt = 0.1f;
 		int tempRotate = 0;
@@ -28,6 +35,5 @@ namespace Engine {
 
 		float yaw;
 		float pitch;
-		int mouseX, mouseY;
 	};
 }

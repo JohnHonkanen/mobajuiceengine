@@ -98,6 +98,9 @@
     <ClCompile Include="Engine\KeyAxis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Component\FreeCameraControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Behaviour.h">
@@ -191,6 +194,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\SDLKeyMapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component\FreeCameraControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

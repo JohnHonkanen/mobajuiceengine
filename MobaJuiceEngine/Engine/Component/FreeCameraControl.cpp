@@ -3,57 +3,81 @@
 #include <glm\gtx\compatibility.hpp>
 #include <iostream>
 #include "Camera.h"
+#include "..\InputManager.h"
+#include "..\GameObject.h"
 
-Engine::FreeCameraControl::FreeCameraControl()
-{
-}
+namespace Engine {
 
-Engine::FreeCameraControl::~FreeCameraControl()
-{
-}
+	FreeCameraControl::FreeCameraControl()
+	{
+	}
 
-void Engine::FreeCameraControl::MoveCamera(SDL_Event* sdlEvent)
-{
-	if (sdlEvent->type == SDL_MOUSEMOTION || sdlEvent->type == SDL_MOUSEBUTTONDOWN || sdlEvent->type == SDL_MOUSEBUTTONUP) {
-	//Get Mouse Position
-	
-	SDL_GetMouseState(&mouseX, &mouseY);
+	FreeCameraControl::~FreeCameraControl()
+	{
+	}
 
-	float xoffset = mouseX - lastX;
-	float yoffset = lastY - mouseY; // Reversed since y-coordinate range from bottom to top.
+	void FreeCameraControl::MoveCamera()
+	{
+		bool mouseMotion = inputManager->CheckMouseMotion();
 
-	glm::vec2 mouseDir(xoffset, yoffset);
+		if (!mouseMotion) {
+			return;
+		}
 
-	lastX = mouseX;
-	lastY = mouseY;
+		int mouseX, mouseY;
+		inputManager->GetMousePos(mouseX, mouseY);
 
-	float mouseSensitivity = 0.1f;
-	float smoothing = 2.0f;
+		float xoffset = mouseX - lastX;
+		float yoffset = lastY - mouseY; // Reversed since y-coordinate range from bottom to top.
 
-	mouseDir = mouseDir * vec2(mouseSensitivity * smoothing);
-	glm::vec2 smoothV;
+		glm::vec2 mouseDir(xoffset, yoffset);
 
-	smoothV.x = glm::lerp(smoothV.x, mouseDir.x, 1.0f / smoothing);
-	smoothV.y = glm::lerp(smoothV.y, mouseDir.y, 1.0f / smoothing);
+		lastX = mouseX;
+		lastY = mouseY;
 
-	yaw -= smoothV.x;
-	pitch += smoothV.y;
+		float mouseSensitivity = 0.1f;
+		float smoothing = 2.0f;
 
-	pitch = glm::clamp(pitch, -91.0f, 91.0f);
-	transform->SetEulerAngle(glm::vec3(glm::radians(pitch), glm::radians(yaw), 0.0f));
+		mouseDir = mouseDir * vec2(mouseSensitivity * smoothing);
+		glm::vec2 smoothV;
 
-	lastX = 640.0f;
-	lastY = 360.0f;
+		smoothV.x = glm::lerp(smoothV.x, mouseDir.x, 1.0f / smoothing);
+		smoothV.y = glm::lerp(smoothV.y, mouseDir.y, 1.0f / smoothing);
 
-	movement = tempMovement;
-	rotate = tempRotate;
+		yaw -= smoothV.x;
+		pitch += smoothV.y;
+
+		pitch = glm::clamp(pitch, -91.0f, 91.0f);
+		transform->SetEulerAngle(glm::vec3(glm::radians(pitch), glm::radians(yaw), 0.0f));
+
+		lastX = 640.0f;
+		lastY = 360.0f;
 
 	}
-}
 
-void Engine::FreeCameraControl::Update(float dt)
-{
-	transform->Translate(((transform->Front() * movement.z) + (transform->Right() * movement.x)) * dt * cameraSpeed);
+	void FreeCameraControl::Update(float dt)
+	{
+		Input();
+		transform->Translate(((transform->Front() * movement.z) + (transform->Right() * movement.x)) * dt * cameraSpeed);
 
-	transform->Rotate(glm::vec3(0.0f, 1.0f, 0.0f) * float(rotate) * dt * cameraRotateSpeed);
+	}
+
+	void FreeCameraControl::Input()
+	{
+		// Horizontal
+		int h = inputManager->GetKey("Horizontal");
+
+		// Vertical
+		int v = inputManager->GetKey("Vertical");
+
+		movement = vec3(h, 0, v);
+	}
+
+	FreeCameraControl* FreeCameraControl::Create(GameObject* gameObject)
+	{
+		FreeCameraControl *freeCameraControl = new FreeCameraControl();
+		gameObject->AddComponent(freeCameraControl);
+		return freeCameraControl;
+	}
+
 }

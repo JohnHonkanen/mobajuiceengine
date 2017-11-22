@@ -16,9 +16,10 @@ Engine::InputManager::~InputManager()
 
 void Engine::InputManager::Update(bool & running)
 {
+	mouseMotion = false;
 	SDL_Event sdlEvent;
 	
-	SDL_GetMouseState(&mouseX, &mouseY);
+	//SDL_GetMouseState(&mouseX, &mouseY);
 
 	while (SDL_PollEvent(&sdlEvent)) {
 		if (sdlEvent.type == SDL_QUIT) {
@@ -34,17 +35,26 @@ void Engine::InputManager::Update(bool & running)
 				break;
 			}
 		}
-		int x, y;
 		const Uint8 *keys = SDL_GetKeyboardState(NULL);
-		const Uint8 mouseButton = SDL_GetMouseState(&x, &y);
+		const Uint8 mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
 		
 		QueryKeys(keys, &mouseButton);
+
+		if (sdlEvent.type == SDL_MOUSEMOTION) {
+			mouseMotion = true;
+		}
 
 	}
 }
 
+bool Engine::InputManager::CheckMouseMotion()
+{
+	return mouseMotion;
+}
+
 void Engine::InputManager::GetMousePos(int &x, int &y)
 {
+	
 	x = mouseX;
 	y = mouseY;
 }
