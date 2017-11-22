@@ -14,9 +14,10 @@ namespace Engine {
 		~FreeCameraControl();
 
 		void MoveCamera();
+		void OnLoad();
 		void Update(float dt);
 		void Input();
-		static FreeCameraControl* Create(GameObject* gameObject, InputManager *inputManager);
+		static FreeCameraControl* Create(GameObject* gameObject);
 
 	private:
 		InputManager *inputManager;

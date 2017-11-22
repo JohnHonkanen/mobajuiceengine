@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "..\InputManager.h"
 #include "..\GameObject.h"
+#include "..\GameEngine.h"
 
 namespace Engine {
 
@@ -55,6 +56,11 @@ namespace Engine {
 
 	}
 
+	void FreeCameraControl::OnLoad()
+	{
+		inputManager = &GameEngine::manager.inputManager;
+	}
+
 	void FreeCameraControl::Update(float dt)
 	{
 		Input();
@@ -73,10 +79,9 @@ namespace Engine {
 		movement = vec3(h, 0, v);
 	}
 
-	FreeCameraControl* FreeCameraControl::Create(GameObject* gameObject, InputManager* inputManager)
+	FreeCameraControl* FreeCameraControl::Create(GameObject* gameObject)
 	{	
 		FreeCameraControl *f = new FreeCameraControl();
-		f->inputManager = inputManager;
 		gameObject->AddComponent(f);
 		return f;
 	}
