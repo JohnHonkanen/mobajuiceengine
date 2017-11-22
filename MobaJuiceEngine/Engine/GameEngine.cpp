@@ -15,9 +15,14 @@ namespace Engine {
 
 	ManagerCollection GameEngine::manager = ManagerCollection();
 
-	Scene * GameEngine::CreateScene()
+	Scene * GameEngine::CreateScene(string name)
 	{
-		activeScene = std::make_unique<Scene>();
+		activeScene = std::make_unique<Scene>(name);
+		return activeScene.get();
+	}
+
+	Scene * GameEngine::GetActiveScene()
+	{
 		return activeScene.get();
 	}
 

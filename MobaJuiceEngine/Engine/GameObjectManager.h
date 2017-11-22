@@ -48,7 +48,7 @@ namespace Engine {
 			Factory method to create a game object and automatically register it to the Game Object Manager
 			@param name	Name of the gameObject
 		*/
-		GameObject *createGameObject(std::string name);
+		GameObject *CreateGameObject(std::string name);
 		/*
 			Find the GameObject with this name
 			@param name	Name of the gameObject

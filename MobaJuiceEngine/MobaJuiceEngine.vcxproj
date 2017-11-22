@@ -171,6 +171,7 @@
     <ClInclude Include="Engine\GameObjectManager.h" />
     <ClInclude Include="Engine\InputManager.h" />
     <ClInclude Include="Engine\KeyAxis.h" />
+    <ClInclude Include="Engine\MobaJuiceCore.h" />
     <ClInclude Include="Engine\Physics\RayCast.h" />
     <ClInclude Include="Engine\Physics\RaycastUtility.h" />
     <ClInclude Include="Engine\Render\GraphicsHandlers\GraphicHandler.h" />

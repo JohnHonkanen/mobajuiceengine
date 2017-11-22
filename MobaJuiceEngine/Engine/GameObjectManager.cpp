@@ -59,7 +59,7 @@ namespace Engine {
 		return gameObject;
 	}
 
-	GameObject * GameObjectManager::createGameObject(std::string name)
+	GameObject * GameObjectManager::CreateGameObject(std::string name)
 	{
 		GameObject *object = new GameObject(name);
 		RegisterGameObject(object);

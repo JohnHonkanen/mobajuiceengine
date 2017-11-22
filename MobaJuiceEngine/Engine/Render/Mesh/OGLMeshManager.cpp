@@ -11,17 +11,20 @@ namespace Engine {
 
 		std::map<GLuint, GLuint*>::iterator it = VAOMap.begin();
 
-		for (it; it == VAOMap.end(); it++) {
-			glDeleteVertexArrays(1, &it->first);
-			glDeleteBuffers(1, &it->second[STORED_VERTEX]);
-			glDeleteBuffers(1, &it->second[STORED_COLOR]);
-			glDeleteBuffers(1, &it->second[STORED_UV]);
-			glDeleteBuffers(1, &it->second[STORED_NORMAL]);
-			glDeleteBuffers(1, &it->second[STORED_INDEX]);
-			glDeleteBuffers(1, &it->second[STORED_TANGENT]);
-			glDeleteBuffers(1, &it->second[STORED_BITANGENT]);
+		if (!VAOMap.empty()) {
+			for (it; it == VAOMap.end(); it++) {
+				glDeleteVertexArrays(1, &it->first);
+				glDeleteBuffers(1, &it->second[STORED_VERTEX]);
+				glDeleteBuffers(1, &it->second[STORED_COLOR]);
+				glDeleteBuffers(1, &it->second[STORED_UV]);
+				glDeleteBuffers(1, &it->second[STORED_NORMAL]);
+				glDeleteBuffers(1, &it->second[STORED_INDEX]);
+				glDeleteBuffers(1, &it->second[STORED_TANGENT]);
+				glDeleteBuffers(1, &it->second[STORED_BITANGENT]);
 
+			}
 		}
+		
 
 	}
 
