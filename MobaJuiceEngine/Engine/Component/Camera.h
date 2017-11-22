@@ -2,7 +2,6 @@
 	Camera class for the game engine
 	Dev: John Honkanen
 */
-
 #pragma once
 #include "../Behaviour.h"
 #include <memory>
