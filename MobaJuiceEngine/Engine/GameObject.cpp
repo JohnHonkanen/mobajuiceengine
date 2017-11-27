@@ -23,7 +23,7 @@ namespace Engine {
 		transform->OnLoad();
 		for (int i = 0; i < components.size(); i++) {
 			components.at(i)->transform = transform.get();
-			components.at(i)->OnLoad();
+			components.at(i)->OnLoad();		
 		}
 	}
 

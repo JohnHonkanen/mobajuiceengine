@@ -1,7 +1,7 @@
 #pragma once
 #include "../Behaviour.h"
 #include <glm\glm.hpp>
-
+#include <cereal\types\polymorphic.hpp>
 
 namespace Engine {
 	class Camera;
@@ -22,6 +22,7 @@ namespace Engine {
 		template<class Archive>
 		void serialize(Archive & ar)
 		{
+			ar(CEREAL_NVP(cameraSpeed));
 		}
 
 

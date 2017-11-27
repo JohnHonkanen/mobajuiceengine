@@ -17,6 +17,7 @@ int main(int argc, char *argv[]){
 
 	GameEngine engine;
 	engine.Load("BaseScene.xml");
+	//engine.Load("mush.xml");
 	if (save == 1) {
 		
 		engine.Run();
@@ -44,7 +45,7 @@ int main(int argc, char *argv[]){
 		boletus2->transform->SetEulerAngle(vec3(-90.0f, 0.0f, 10.0f));
 		boletus2->transform->SetScale(vec3(0.5f));
 
-		engine.Run();
+		engine.Save("mush.xml");
 	}
 
 	

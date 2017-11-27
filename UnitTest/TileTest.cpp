@@ -1,5 +1,9 @@
 #include <catch.hpp>
 #include "../MobaJuiceEngine/Engine/Component/Tile.cpp"
+#include "../MobaJuiceEngine/Engine/Component/Tile.h"
+#include "../MobaJuiceEngine/Engine/Component.cpp"
+#include "../MobaJuiceEngine/Engine/GameObject.cpp"
+#include "../MobaJuiceEngine/Engine/GameEngine.h"
 #include <glm\glm.hpp>
 
 using namespace Engine;
