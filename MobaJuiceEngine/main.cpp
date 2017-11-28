@@ -6,6 +6,7 @@
 #include "Engine\MobaJuiceCore.h"
 #include "Engine\InputManager.h"
 #include <iostream>
+#include "Engine\Component\Tile.h"
 using namespace Engine;
 
 int main(int argc, char *argv[]){
@@ -45,14 +46,11 @@ int main(int argc, char *argv[]){
 		boletus2->transform->SetEulerAngle(vec3(-90.0f, 0.0f, 10.0f));
 		boletus2->transform->SetScale(vec3(0.5f));
 
-		engine.Save("mush.xml");
-	}
+		GameObject *tile = list->CreateGameObject("tile");
+		Tile::Create(tile, 100, 100, 10, 10, 0);
 
-	
-	
-	
-	
-	
+		engine.Run();
+	}
 
 	return 0;
 }

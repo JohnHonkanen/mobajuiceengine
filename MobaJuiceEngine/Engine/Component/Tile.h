@@ -2,6 +2,10 @@
 #include <glm\glm.hpp>
 #include "../Component.h"
 #include "../GameObject.h"
+#include <cereal\cereal.hpp>
+#include <cereal\types\polymorphic.hpp>
+#include <GL\glew.h>
+#include <vector>
 
 using namespace std;
 using namespace glm;
@@ -18,7 +22,23 @@ namespace Engine {
 		//Initial height of game world plane (y)
 		float planeHeight;
 
+		vector<GLfloat> verticies;
+		GLuint VBO, VAO;
+
+		void Tile::GridSetup();
+		void Tile::GenerateVertices();
+
 	public:
+		void OnLoad();
+		template<class Archive>
+		void serialize(Archive & ar)
+		{
+			ar(CEREAL_NVP(tilePath));
+		}
+
+		std::string tilePath;
+
+
 		/*
 		Allows other components to see what cell is highlighted i.e. GUI
 		*/
@@ -49,9 +69,9 @@ namespace Engine {
 		*/
 		bool Buildable(vec3 cell);
 		/*
-		Draw the highlighted tile, not currently used
+		Draw the grid, not currently used
 		*/
-		void Draw(vec2 position);
+		void Draw();
 		/*
 		Define the cell the mouse is over, takes in mouse position from inputs manager
 		@param mousePosition	Uses mouse position in calculation of cell

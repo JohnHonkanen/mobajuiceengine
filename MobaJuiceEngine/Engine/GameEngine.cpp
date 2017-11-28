@@ -51,6 +51,9 @@ namespace Engine {
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 
+		manager.shaderManager.CreateShader("tile", "Assets/Shaders/tile.vert", "Assets/Shaders/tile.frag");
+
+
 		// Bind Keys
 		manager.inputManager.AddKey("Horizontal", "d", "a");
 		manager.inputManager.AddKey("Vertical", "w", "s");

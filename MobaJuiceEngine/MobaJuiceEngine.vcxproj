@@ -126,6 +126,8 @@
     <None Include="Assets\Shaders\text2D.vert" />
     <None Include="Assets\Shaders\textured.frag" />
     <None Include="Assets\Shaders\textured.vert" />
+    <None Include="Assets\Shaders\tile.frag" />
+    <None Include="Assets\Shaders\tile.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Behaviour.cpp" />

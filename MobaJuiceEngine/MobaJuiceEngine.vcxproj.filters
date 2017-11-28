@@ -33,6 +33,12 @@
     <None Include="Assets\Shaders\text2D.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Assets\Shaders\tile.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shaders\tile.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
