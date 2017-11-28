@@ -3,6 +3,8 @@
 #include "Render\Mesh\OGLMeshManager.h"
 #include "Render\ShaderManager.h"
 #include "Render\Texture\TextureManager.h"
+#include "Render\FontManager.h"
+
 namespace Engine {
 	class ManagerCollection{
 	public:
@@ -10,5 +12,6 @@ namespace Engine {
 		OGLMeshManager meshManager;
 		TextureManager textureManager;
 		ShaderManager shaderManager;
+		FontManager fontManager;
 	};
 }

@@ -9,6 +9,7 @@
 #include "glm\gtc\matrix_transform.hpp" // Allows for orthographic projections to be created
 #include "../GameObject.h"				// GameObject is used to apply gameObject methods to the text objects
 #include "Camera.h"						// Includes Camera to access its methods
+#include "../GameEngine.h"
 
 using namespace std;
 
@@ -100,7 +101,7 @@ namespace Engine {
 
 	@returns Text2D      - A constructed Text2D object 
 	*/
-	Text2D::Text2D(string stringText, SDL_Color stringColour, TTF_Font *textFont) :stringText(stringText), stringColour(stringColour), textFont(textFont)
+	Text2D::Text2D(string stringText, SDL_Color stringColour, string textFont) :stringText(stringText), stringColour(stringColour), font(textFont)
 	{
 		SetupVAO();
 		SetupTexture();
@@ -117,19 +118,18 @@ namespace Engine {
 	*/
 	void Text2D::Draw()
 	{
-		unsigned int shader = shaderManager->GetShader("text2D");
-		glUseProgram(shader);
+		glUseProgram(shaderProgram);
 		glm::mat4 model = transform->GetLocalToWorldMatrix();
 		glm::mat4 projection(1.0);
 		projection = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, 0.0f, 100.0f); // Projection set to a 2D orthographic view. 
 		Camera::mainCamera->CalculateViewMatrix();
 		glm::mat4 view(1.0);
-		glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textTexture);
-		glUniform1i(glGetUniformLocation(shader, "texture0"), 0);
+		glUniform1i(glGetUniformLocation(shaderProgram, "texture0"), 0);
 		glBindVertexArray(textVAO);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		glBindVertexArray(0);
@@ -157,7 +157,7 @@ namespace Engine {
 
 	@returns Text2D - Text2D object 
 	*/
-	Text2D * Text2D::Create(GameObject * gameObject, ShaderManager * shaderManager, string stringText, SDL_Color stringColour, TTF_Font * textFont)
+	Text2D * Text2D::Create(GameObject * gameObject, std::string shaderPath, string stringText, SDL_Color stringColour, string font)
 	{
 		/*
 		Creates a new Text2D object
@@ -167,11 +167,19 @@ namespace Engine {
 
 		@returns - Text2D - A new Text2D object
 		*/
-		Text2D* textObject = new Text2D(stringText, stringColour, textFont);
-
-		textObject->shaderManager = shaderManager;
+		Text2D *textObject = new Text2D(stringText, stringColour, font);
+		textObject->shader = shaderPath;
+		//Adds ownership
 		gameObject->AddComponent(textObject);
 
 		return textObject;
+	}
+
+	void Text2D::OnLoad()
+	{
+		shaderManager = &GameEngine::manager.shaderManager;
+		shaderProgram = shaderManager->GetShader(shader);
+
+		textFont = GameEngine::manager.fontManager.GetFont(font);
 	}
 }
