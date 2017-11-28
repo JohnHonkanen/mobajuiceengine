@@ -143,6 +143,7 @@
     <ClCompile Include="Engine\KeyAxis.cpp" />
     <ClCompile Include="Engine\Physics\RayCast.cpp" />
     <ClCompile Include="Engine\Physics\RaycastUtility.cpp" />
+    <ClCompile Include="Engine\Render\FontManager.cpp" />
     <ClCompile Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.cpp" />
     <ClCompile Include="Engine\Render\Mesh\AiModel.cpp" />
     <ClCompile Include="Engine\Render\Mesh\OGLMesh.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Engine\MobaJuiceCore.h" />
     <ClInclude Include="Engine\Physics\RayCast.h" />
     <ClInclude Include="Engine\Physics\RaycastUtility.h" />
+    <ClInclude Include="Engine\Render\FontManager.h" />
     <ClInclude Include="Engine\Render\GraphicsHandlers\GraphicHandler.h" />
     <ClInclude Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.h" />
     <ClInclude Include="Engine\Render\Material.h" />

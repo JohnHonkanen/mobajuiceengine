@@ -103,8 +103,7 @@ namespace Engine {
 	*/
 	Text2D::Text2D(string stringText, SDL_Color stringColour, string textFont) :stringText(stringText), stringColour(stringColour), font(textFont)
 	{
-		SetupVAO();
-		SetupTexture();
+		
 	}
 
 	void Text2D::Start()
@@ -181,5 +180,8 @@ namespace Engine {
 		shaderProgram = shaderManager->GetShader(shader);
 
 		textFont = GameEngine::manager.fontManager.GetFont(font);
+
+		SetupVAO();
+		SetupTexture();
 	}
 }
