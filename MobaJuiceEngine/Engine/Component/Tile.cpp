@@ -3,6 +3,7 @@
 #include "../GameEngine.h"
 #include "Camera.h"
 #include <glm/gtc/type_ptr.hpp>
+#include <glm\gtc\matrix_transform.hpp>
 
 namespace Engine {
 	Tile::Tile()
@@ -38,6 +39,7 @@ namespace Engine {
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*verticies.size(), &verticies[0], GL_STATIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
 		glEnableVertexAttribArray(0);
 	}
 
@@ -71,12 +73,17 @@ namespace Engine {
 
 	void Tile::Draw()
 	{
+		//make grid as big as the viewed area
 		unsigned int shader = GameEngine::manager.shaderManager.GetShader("tile");
 		glUseProgram(shader);
 		mat4 projection = Camera::mainCamera->GetProjectionMatrix();
 		mat4 view = Camera::mainCamera->GetViewMatrix();
+		mat4 model (1.0);
+		vec3 offset = vec3((cellWidth * gridWidth)/2,0 ,(cellHeight * gridHeight)/2);
+		model = translate(model, -offset);
 		glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glLineWidth(5);
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_LINES, 0, verticies.size() / 3);
