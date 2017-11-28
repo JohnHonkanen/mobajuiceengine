@@ -10,7 +10,6 @@
 
 using namespace std;
 namespace Engine {
-	typedef std::shared_ptr<TTF_Font> FontShptr;
 
 	class FontManager {
 	public:
@@ -20,6 +19,6 @@ namespace Engine {
 
 	private:
 		void CreateFont(std::string name);
-		map<string, FontShptr> font;
+		map<string, TTF_Font*> font;
 	};
 }

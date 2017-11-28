@@ -51,6 +51,8 @@ namespace Engine {
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 
+		manager.shaderManager.CreateShader("text2D", "Assets/Shaders/text2D.vert", "Assets/Shaders/text2D.frag");
+
 		// Bind Keys
 		manager.inputManager.AddKey("Horizontal", "d", "a");
 		manager.inputManager.AddKey("Vertical", "w", "s");

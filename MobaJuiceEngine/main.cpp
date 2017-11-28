@@ -48,8 +48,13 @@ int main(int argc, char *argv[]){
 
 		GameObject *text = list->CreateGameObject("testText");
 		Text2D::Create(text, "text2D", "Hello", { 255,255,0 }, "Assets/Fonts/MavenPro-Regular.ttf");
-		text->transform->Translate(vec3(640.0f, 360.0f, 10.0f));
-		text->transform->SetScale(vec3(20.0f, 10.0f, 0.0f));
+		text->transform->Translate(vec3(480.0f, 640.0f, 0.0f));
+		text->transform->SetScale(vec3(200.0f, 100.0f, 10.0f));
+
+		text = list->CreateGameObject("testText2");
+		Text2D::Create(text, "text2D", "oellH", { 255,255,0 }, "Assets/Fonts/MavenPro-Regular.ttf");
+		text->transform->Translate(vec3(880.0f, 640.0f, 0.0f));
+		text->transform->SetScale(vec3(200.0f, 100.0f, 10.0f));
 
 		engine.Run();
 	}

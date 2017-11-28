@@ -17,18 +17,18 @@ namespace Engine {
 	void FontManager::CreateFont(std::string name)
 	{
 		TTF_Font *f = TTF_OpenFont(name.c_str(), 36);
-		font.insert(pair<string, FontShptr>(name, FontShptr(f)));
+		font.insert(pair<string, TTF_Font*>(name,f));
 	}
 
 	TTF_Font * FontManager::GetFont(std::string name)
 	{
 		auto it = font.find(name);
 		if (it != font.end()) {
-			return font[name].get();
+			return font[name];
 		}
 
 		CreateFont(name);
-		return font[name].get();
+		return font[name];
 	}
 
 

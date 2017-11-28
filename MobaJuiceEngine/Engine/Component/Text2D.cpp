@@ -90,7 +90,7 @@ namespace Engine {
 		glBindTexture(GL_TEXTURE_2D, NULL);
 		// This creates a texture from the string using stingImage width and height along with the BindTexture and TextParemeteri and TextImage2D methods
 
-		//SDL_FreeSurface(stringImage); // This frees the RGB surface of the texture
+		SDL_FreeSurface(stringImage); // This frees the RGB surface of the texture
 	}
 
 	/*
