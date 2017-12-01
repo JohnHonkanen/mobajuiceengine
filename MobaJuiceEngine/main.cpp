@@ -11,12 +11,15 @@ using namespace Engine;
 int main(int argc, char *argv[]){
 
 	GameEngine engine;
+	/*GameEngine::manager.inputManager.AddKey("Horizontal", "d", "a");
+	GameEngine::manager.inputManager.AddKey("Vertical", "w", "s");
+	GameEngine::manager.inputManager.AddKey("FreezeMouse", "f", "g");*/
 
 	engine.LoadSettings("default-settings.xml");
-	engine.Load("BaseScene.xml");
+	engine.Load("Mushroom_Scene.xml");
 
 
-	Scene *scene = engine.GetActiveScene();
+	/*Scene *scene = engine.GetActiveScene();
 	GameObjectManager *list = scene->GetGameObjectManager();
 
 	GameObject *camera = list->Find("Camera_1");
@@ -25,10 +28,11 @@ int main(int argc, char *argv[]){
 
 	FreeCameraControl::Create(camera);
 
-	GameObject *boletus = list->LoadPrefab("mushroom.xml");
+	GameObject *boletus = list->LoadPrefab("mushroom.xml");*/
 
 
 	engine.Run();
+	engine.Save("Mushroom_Scene.xml");
 
 
 	return 0;

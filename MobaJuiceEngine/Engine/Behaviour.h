@@ -26,6 +26,7 @@ namespace Engine {
 		template<class Archive>
 		void serialize(Archive & ar)
 		{
+			ar(isEnabled);
 		}
 
 		bool isEnabled;

@@ -1,13 +1,14 @@
 #pragma once
 #include "../Behaviour.h"
 #include <glm\glm.hpp>
+#include <cereal\cereal.hpp>
 #include <cereal\types\polymorphic.hpp>
 
 namespace Engine {
 	class Camera;
 	class GameObject;
 	class InputManager;
-	class FreeCameraControl : Behaviour
+	class FreeCameraControl : public Behaviour
 	{
 	public:
 		FreeCameraControl();
@@ -22,7 +23,7 @@ namespace Engine {
 		template<class Archive>
 		void serialize(Archive & ar)
 		{
-			ar(CEREAL_NVP(cameraSpeed));
+			ar(CEREAL_NVP(yaw), CEREAL_NVP(pitch));
 		}
 
 
