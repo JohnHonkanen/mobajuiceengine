@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cereal>
+	<value0>
+		<inputManager>
+			<axis size="dynamic">
+				<value0>
+					<key>FreezeMouse</key>
+					<value>
+						<name>FreezeMouse</name>
+						<positive>f</positive>
+						<negative>g</negative>
+					</value>
+				</value0>
+				<value1>
+					<key>Horizontal</key>
+					<value>
+						<name>Horizontal</name>
+						<positive>d</positive>
+						<negative>a</negative>
+					</value>
+				</value1>
+				<value2>
+					<key>Vertical</key>
+					<value>
+						<name>Vertical</name>
+						<positive>w</positive>
+						<negative>s</negative>
+					</value>
+				</value2>
+			</axis>
+		</inputManager>
+	</value0>
+</cereal>
+

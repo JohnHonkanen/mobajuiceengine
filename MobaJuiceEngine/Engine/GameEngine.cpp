@@ -45,16 +45,25 @@ namespace Engine {
 		iArchive(activeScene);
 	}
 
+	void GameEngine::SaveSettings(const char * settings)
+	{
+		std::ofstream os(settings);
+		cereal::XMLOutputArchive oArchive(os);
+		oArchive(manager);
+	}
+
+	void GameEngine::LoadSettings(const char * settings)
+	{
+		std::ifstream is(settings);
+		cereal::XMLInputArchive iArchive(is);
+		iArchive(manager);
+	}
+
 	void GameEngine::Initialize()
 	{
 		manager.shaderManager.CreateShader("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
-
-		// Bind Keys
-		manager.inputManager.AddKey("Horizontal", "d", "a");
-		manager.inputManager.AddKey("Vertical", "w", "s");
-		manager.inputManager.AddKey("FreezeMouse", "f", "g");
 
 		activeScene->OnLoad();
 	}

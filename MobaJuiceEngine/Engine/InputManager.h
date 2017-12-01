@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <map>
 #include <string>
+#include <cereal\cereal.hpp>
+#include <cereal\types\map.hpp>
 #include "KeyAxis.h"
 
 
@@ -21,6 +23,12 @@ namespace Engine {
 		int GetKey(std::string name);
 		void AddKey(string name, string positive, string negative);
 		void AddKey(string name, string positive);
+
+		template<class Archive>
+		void serialize(Archive & ar)
+		{
+			ar(CEREAL_NVP(axis));
+		}
 
 	private:
 		SDL_Event sdlEvent;

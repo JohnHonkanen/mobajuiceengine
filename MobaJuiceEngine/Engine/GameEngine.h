@@ -11,6 +11,10 @@ namespace Engine {
 		void Save();
 		void Save(const char *scene);
 		void Load(const char *scene);
+
+		//General Settings
+		void SaveSettings(const char *settings);
+		void LoadSettings(const char *settings);
 		void Initialize();
 
 		void Run();

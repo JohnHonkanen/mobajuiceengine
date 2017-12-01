@@ -11,6 +11,8 @@ using namespace Engine;
 int main(int argc, char *argv[]){
 
 	GameEngine engine;
+
+	engine.LoadSettings("default-settings.xml");
 	engine.Load("BaseScene.xml");
 
 
