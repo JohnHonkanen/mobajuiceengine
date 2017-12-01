@@ -37,6 +37,13 @@ void Engine::InputManager::Update(bool & running, SDL_Window* window)
 		}
 		const Uint8 *keys = SDL_GetKeyboardState(NULL);
 		const Uint8 mouseButton = SDL_GetMouseState(&mouseX, &mouseY);
+		mouseOffsetX = sdlEvent.motion.xrel;
+		mouseOffsetY = sdlEvent.motion.yrel;
+
+		if (mouseOffsetX > 10)
+			mouseOffsetX = 0;
+		if (mouseOffsetY > 10)
+			mouseOffsetY = 0;
 		
 		QueryKeys(keys, &mouseButton);
 
@@ -55,7 +62,11 @@ void Engine::InputManager::Update(bool & running, SDL_Window* window)
 		}
 
 		if (centerMouse) {
+			SDL_SetRelativeMouseMode(SDL_TRUE);
 			SDL_WarpMouseInWindow(window, 640, 360);
+		}
+		else {
+			SDL_SetRelativeMouseMode(SDL_FALSE);
 		}
 		
 		
@@ -72,6 +83,12 @@ void Engine::InputManager::GetMousePos(int &x, int &y)
 	
 	x = mouseX;
 	y = mouseY;
+}
+
+void Engine::InputManager::GetMouseMotion(int & xMotion, int & yMotion)
+{
+	xMotion = mouseOffsetX;
+	yMotion = mouseOffsetY;
 }
 
 int Engine::InputManager::GetKey(string key)

@@ -19,16 +19,16 @@ int main(int argc, char *argv[]){
 	engine.Load("Mushroom_Scene.xml");
 
 
-	/*Scene *scene = engine.GetActiveScene();
-	GameObjectManager *list = scene->GetGameObjectManager();
+	//Scene *scene = engine.GetActiveScene();
+	//GameObjectManager *list = scene->GetGameObjectManager();
 
-	GameObject *camera = list->Find("Camera_1");
-	camera->transform->Translate(vec3(0.0f, 20.0f, -45.0f));
-	camera->transform->SetEulerAngle(vec3(45.0f, 0.0f, 0.0f));
+	//GameObject *camera = list->Find("Camera_1");
+	//camera->transform->Translate(vec3(0.0f, 20.0f, -45.0f));
+	//camera->transform->SetEulerAngle(vec3(45.0f, 0.0f, 0.0f));
 
-	FreeCameraControl::Create(camera);
+	//FreeCameraControl::Create(camera);
 
-	GameObject *boletus = list->LoadPrefab("mushroom.xml");*/
+	//GameObject *boletus = list->LoadPrefab("mushroom.xml");
 
 
 	engine.Run();

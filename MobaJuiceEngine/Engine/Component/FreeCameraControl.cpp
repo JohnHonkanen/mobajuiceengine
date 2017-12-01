@@ -25,17 +25,22 @@ namespace Engine {
 		}
 
 		int mouseX, mouseY;
+
 		inputManager->GetMousePos(mouseX, mouseY);
 
-		float xoffset = mouseX - lastX;
-		float yoffset = lastY - mouseY; // Reversed since y-coordinate range from bottom to top.
+		int xoffset = mouseX - lastX;
+		int yoffset = lastY - mouseY; // Reversed since y-coordinate range from bottom to top.
+
+		inputManager->GetMouseMotion(xoffset, yoffset);
+
+		yoffset = -yoffset;
 
 		glm::vec2 mouseDir(xoffset, yoffset);
 
 		lastX = mouseX;
 		lastY = mouseY;
 
-		float mouseSensitivity = 0.05f;
+		float mouseSensitivity = 0.5f;
 		float smoothing = 2.0f;
 
 		mouseDir = mouseDir * vec2(mouseSensitivity * smoothing);
@@ -49,9 +54,6 @@ namespace Engine {
 
 		pitch = glm::clamp(pitch, -100.0f, 100.0f);
 		transform->SetEulerAngle(glm::vec3(pitch, yaw, 0.0f));
-
-		lastX = 640.0f;
-		lastY = 360.0f;
 
 	}
 

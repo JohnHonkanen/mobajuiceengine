@@ -18,6 +18,7 @@ namespace Engine {
 
 		void Update(bool &running, SDL_Window* window);
 		void GetMousePos(int &x, int &y);
+		void GetMouseMotion(int &xMotion, int &yMotion);
 		bool CheckMouseMotion();
 
 		int GetKey(std::string name);
@@ -35,6 +36,7 @@ namespace Engine {
 		void QueryKeys(const Uint8 *keys, const Uint8 *mouseButton);
 		std::string key;
 		int mouseX, mouseY;
+		int mouseOffsetX, mouseOffsetY;
 		
 		bool mouseMotion = false;
 		bool centerMouse = true;
