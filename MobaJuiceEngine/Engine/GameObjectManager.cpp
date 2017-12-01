@@ -1,4 +1,8 @@
 #include "GameObjectManager.h"
+#include <cereal/archives/xml.hpp>
+#include <cereal\types\memory.hpp>
+#include <iostream>
+#include <fstream>
 namespace Engine {
 	GameObjectManager::GameObjectManager()
 	{
@@ -43,7 +47,7 @@ namespace Engine {
 			gameObject->name = "GameObject" + count;
 		}
 		//If already exist
-		if (gameObjects.find(gameObject->name) == gameObjects.end()) {
+		if (gameObjects.find(gameObject->name) != gameObjects.end()) {
 			gameObject->name = gameObject->name + "_1";
 		}
 		
@@ -73,5 +77,32 @@ namespace Engine {
 			return nullptr;
 
 		return gameObjects[name].get();
+	}
+	GameObject * GameObjectManager::LoadPrefab(const char * prefab)
+	{
+		GameObjUniqPtr gameObject;
+
+		std::ifstream is(prefab);
+		cereal::XMLInputArchive iArchive(is);
+		iArchive(gameObject);
+
+		GameObject * obj = gameObject.get();
+		gameObject.release();
+		RegisterGameObject(obj);
+
+		return obj;
+
+	}
+
+	bool GameObjectManager::SavePrefab(const char * prefab, std::string name)
+	{
+		if (gameObjects.find(name) == gameObjects.end())
+			return false;
+
+		std::ofstream os(prefab);
+		cereal::XMLOutputArchive oArchive(os);
+		oArchive(gameObjects[name]);
+
+		return true;
 	}
 }

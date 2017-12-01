@@ -55,6 +55,13 @@ namespace Engine {
 		*/
 		GameObject * Find(std::string name);
 
+		/*
+			Load the prefab via xml file
+			@param	prefab	Prefab xml file to be loaded
+		*/
+		GameObject *LoadPrefab(const char *prefab);
+		bool SavePrefab(const char *prefab, std::string name);
+
 		template<class Archive>
 		void serialize(Archive & ar)
 		{

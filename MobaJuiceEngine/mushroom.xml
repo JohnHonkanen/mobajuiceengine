@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cereal>
+	<value0>
+		<ptr_wrapper>
+			<valid>1</valid>
+			<data>
+				<name>mushroom</name>
+				<transform>
+					<ptr_wrapper>
+						<valid>1</valid>
+						<data>
+							<localPosition.x>30</localPosition.x>
+							<localPosition.y>0</localPosition.y>
+							<localPosition.z>30</localPosition.z>
+							<localScale.x>0.5</localScale.x>
+							<localScale.y>0.5</localScale.y>
+							<localScale.z>0.5</localScale.z>
+							<localRotation.x>-90</localRotation.x>
+							<localRotation.y>0</localRotation.y>
+							<localRotation.z>-30</localRotation.z>
+						</data>
+					</ptr_wrapper>
+				</transform>
+				<components size="dynamic">
+					<value0>
+						<polymorphic_id>2147483649</polymorphic_id>
+						<polymorphic_name>MeshRenderer</polymorphic_name>
+						<ptr_wrapper>
+							<valid>1</valid>
+							<data>
+								<meshPath>Assets/Models/boletus/boletus.dae</meshPath>
+							</data>
+						</ptr_wrapper>
+					</value0>
+				</components>
+			</data>
+		</ptr_wrapper>
+	</value0>
+</cereal>
+
