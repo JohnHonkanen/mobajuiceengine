@@ -22,5 +22,9 @@ namespace Engine {
 		static ManagerCollection manager;
 	private:
 		std::unique_ptr<Scene> activeScene;
+		const int FPS = 60;
+		const int frameDelay = 1000 / FPS;
+		int frameTime = 0;
+		Uint32 frameStart;
 	};
 }

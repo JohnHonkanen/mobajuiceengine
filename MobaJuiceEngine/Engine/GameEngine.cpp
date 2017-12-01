@@ -78,6 +78,7 @@ namespace Engine {
 		SDL_Event e;
 		while (running) {
 
+			frameStart = SDL_GetTicks();
 			//Input Poll
 			manager.inputManager.Update(running, graphicsHandler.GetWindow());
 
@@ -88,6 +89,13 @@ namespace Engine {
 			activeScene->Draw();
 
 			graphicsHandler.End();
+
+			frameTime = SDL_GetTicks() - frameStart;
+
+			std::cout << frameTime << std::endl;
+			if (frameDelay > frameTime) {
+				SDL_Delay(frameDelay - frameTime);
+			}
 		}
 
 		graphicsHandler.Destroy();
