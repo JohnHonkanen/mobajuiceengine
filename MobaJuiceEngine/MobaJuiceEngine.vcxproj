@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(IncludePath)\_include</IncludePath>
+    <SourcePath>$(SourcePath)\src</SourcePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -109,7 +112,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\dev\mj_ext\SDL2_ttf-2.0.14\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\boost-1.65.1\includes;C:\dev\mj_ext\assimp-3.3.1\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\catch-2.0.0.4\include;C:\dev\mj_ext\glm-0.9.8.5\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\UWS\GamesProject\3rd Year\Project\GameEngine\MobaJuiceEngine\MobaJuiceEngine\Engine\_include;C:\dev\mj_ext\SDL2_ttf-2.0.14\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\boost-1.65.1\includes;C:\dev\mj_ext\assimp-3.3.1\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\catch-2.0.0.4\include;C:\dev\mj_ext\glm-0.9.8.5\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -130,79 +133,76 @@
     <None Include="Assets\Shaders\textured.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Behaviour.cpp" />
-    <ClCompile Include="Engine\Component.cpp" />
-    <ClCompile Include="Engine\Component\Camera.cpp" />
-    <ClCompile Include="Engine\Component\FreeCameraControl.cpp" />
-    <ClCompile Include="Engine\Component\MeshRenderer.cpp" />
-    <ClCompile Include="Engine\Component\Terrain.cpp" />
-    <ClCompile Include="Engine\Component\Text2D.cpp" />
-    <ClCompile Include="Engine\Component\Tile.cpp" />
-    <ClCompile Include="Engine\Dictionary.cpp" />
-    <ClCompile Include="Engine\GameEngine.cpp" />
-    <ClCompile Include="Engine\GameObject.cpp" />
-    <ClCompile Include="Engine\GameObjectManager.cpp" />
-    <ClCompile Include="Engine\InputManager.cpp" />
-    <ClCompile Include="Engine\KeyAxis.cpp" />
-    <ClCompile Include="Engine\Physics\RayCast.cpp" />
-    <ClCompile Include="Engine\Physics\RaycastUtility.cpp" />
-    <ClCompile Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.cpp" />
-    <ClCompile Include="Engine\Render\Mesh\AiModel.cpp" />
-    <ClCompile Include="Engine\Render\Mesh\OGLMesh.cpp" />
-    <ClCompile Include="Engine\Render\Mesh\OGLMeshManager.cpp" />
-    <ClCompile Include="Engine\Render\OGLShader.cpp" />
-    <ClCompile Include="Engine\Render\Shader.cpp" />
-    <ClCompile Include="Engine\Render\ShaderManager.cpp" />
-    <ClCompile Include="Engine\Render\Texture\TextureManager.cpp" />
-    <ClCompile Include="Engine\Render\Window\SDLWindow.cpp" />
-    <ClCompile Include="Engine\Scene.cpp" />
-    <ClCompile Include="Engine\Transform.cpp" />
-    <ClCompile Include="Engine\_Libs\simplex\SimplexNoise.cpp" />
-    <ClCompile Include="KeyList.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Engine\Behaviour.h" />
-    <ClInclude Include="Engine\Component.h" />
-    <ClInclude Include="Engine\Component\Camera.h" />
-    <ClInclude Include="Engine\Component\FreeCameraControl.h" />
-    <ClInclude Include="Engine\Component\MeshRenderer.h" />
-    <ClInclude Include="Engine\Component\Terrain.h" />
-    <ClInclude Include="Engine\Component\Text2D.h" />
-    <ClInclude Include="Engine\Component\Tile.h" />
-    <ClInclude Include="Engine\Dictionary.h" />
-    <ClInclude Include="Engine\GameEngine.h" />
-    <ClInclude Include="Engine\GameObject.h" />
-    <ClInclude Include="Engine\GameObjectManager.h" />
-    <ClInclude Include="Engine\InputManager.h" />
-    <ClInclude Include="Engine\KeyAxis.h" />
-    <ClInclude Include="Engine\MobaJuiceCore.h" />
-    <ClInclude Include="Engine\Physics\RayCast.h" />
-    <ClInclude Include="Engine\Physics\RaycastUtility.h" />
-    <ClInclude Include="Engine\Render\GraphicsHandlers\GraphicHandler.h" />
-    <ClInclude Include="Engine\Render\GraphicsHandlers\OGLGraphicHandler.h" />
-    <ClInclude Include="Engine\Render\Material.h" />
-    <ClInclude Include="Engine\Render\Mesh\AiModel.h" />
-    <ClInclude Include="Engine\Render\Mesh\Mesh.h" />
-    <ClInclude Include="Engine\Render\Mesh\MeshData.h" />
-    <ClInclude Include="Engine\Render\Mesh\OGLMesh.h" />
-    <ClInclude Include="Engine\Render\Mesh\OGLMeshManager.h" />
-    <ClInclude Include="Engine\Render\Mesh\Shape.h" />
-    <ClInclude Include="Engine\Render\OGLShader.h" />
-    <ClInclude Include="Engine\Render\Renderer.h" />
-    <ClInclude Include="Engine\Render\Shader.h" />
-    <ClInclude Include="Engine\Render\ShaderManager.h" />
-    <ClInclude Include="Engine\Render\Texture\Texture.h" />
-    <ClInclude Include="Engine\Render\Texture\TextureManager.h" />
-    <ClInclude Include="Engine\Render\Window\SDLWindow.h" />
-    <ClInclude Include="Engine\Render\Window\Window.h" />
-    <ClInclude Include="Engine\Scene.h" />
-    <ClInclude Include="Engine\SDLKeyMapper.h" />
-    <ClInclude Include="Engine\Transform.h" />
-    <ClInclude Include="Engine\_Libs\simplex\SimplexNoise.h" />
-    <ClInclude Include="KeyList.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Font Include="Assets\Fonts\MavenPro-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\_include\components\Behaviour.h" />
+    <ClInclude Include="Engine\_include\components\Camera.h" />
+    <ClInclude Include="Engine\_include\components\Component.h" />
+    <ClInclude Include="Engine\_include\components\FreeCameraControl.h" />
+    <ClInclude Include="Engine\_include\components\MeshRenderer.h" />
+    <ClInclude Include="Engine\_include\components\Terrain.h" />
+    <ClInclude Include="Engine\_include\components\Text2D.h" />
+    <ClInclude Include="Engine\_include\components\Tile.h" />
+    <ClInclude Include="Engine\_include\core\GameEngine.h" />
+    <ClInclude Include="Engine\_include\core\GameObject.h" />
+    <ClInclude Include="Engine\_include\core\GameObjectManager.h" />
+    <ClInclude Include="Engine\_include\core\InputHandler.h" />
+    <ClInclude Include="Engine\_include\core\InputManager.h" />
+    <ClInclude Include="Engine\_include\core\KeyAxis.h" />
+    <ClInclude Include="Engine\_include\core\ManagerCollection.h" />
+    <ClInclude Include="Engine\_include\core\Scene.h" />
+    <ClInclude Include="Engine\_include\core\SDLKeyMapper.h" />
+    <ClInclude Include="Engine\_include\core\Transform.h" />
+    <ClInclude Include="Engine\_include\MobaJuiceCore.h" />
+    <ClInclude Include="Engine\_include\physics\RayCast.h" />
+    <ClInclude Include="Engine\_include\physics\RaycastUtility.h" />
+    <ClInclude Include="Engine\_include\render\graphics\GraphicHandler.h" />
+    <ClInclude Include="Engine\_include\render\graphics\OGLGraphicHandler.h" />
+    <ClInclude Include="Engine\_include\render\Material.h" />
+    <ClInclude Include="Engine\_include\render\mesh\AiModel.h" />
+    <ClInclude Include="Engine\_include\render\mesh\Mesh.h" />
+    <ClInclude Include="Engine\_include\render\mesh\MeshData.h" />
+    <ClInclude Include="Engine\_include\render\mesh\OGLMesh.h" />
+    <ClInclude Include="Engine\_include\render\mesh\OGLMeshManager.h" />
+    <ClInclude Include="Engine\_include\render\mesh\Shape.h" />
+    <ClInclude Include="Engine\_include\render\OGLShader.h" />
+    <ClInclude Include="Engine\_include\render\Renderer.h" />
+    <ClInclude Include="Engine\_include\render\Shader.h" />
+    <ClInclude Include="Engine\_include\render\ShaderManager.h" />
+    <ClInclude Include="Engine\_include\render\texture\Texture.h" />
+    <ClInclude Include="Engine\_include\render\texture\TextureManager.h" />
+    <ClInclude Include="Engine\_include\render\window\SDLWindow.h" />
+    <ClInclude Include="Engine\_include\render\window\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\src\components\Camera.cpp" />
+    <ClCompile Include="Engine\src\components\FreeCameraControl.cpp" />
+    <ClCompile Include="Engine\src\components\MeshRenderer.cpp" />
+    <ClCompile Include="Engine\src\components\Terrain.cpp" />
+    <ClCompile Include="Engine\src\components\Text2D.cpp" />
+    <ClCompile Include="Engine\src\components\Tile.cpp" />
+    <ClCompile Include="Engine\src\core\Behaviour.cpp" />
+    <ClCompile Include="Engine\src\core\Component.cpp" />
+    <ClCompile Include="Engine\src\core\GameEngine.cpp" />
+    <ClCompile Include="Engine\src\core\GameObject.cpp" />
+    <ClCompile Include="Engine\src\core\GameObjectManager.cpp" />
+    <ClCompile Include="Engine\src\core\InputHandler.cpp" />
+    <ClCompile Include="Engine\src\core\InputManager.cpp" />
+    <ClCompile Include="Engine\src\core\KeyAxis.cpp" />
+    <ClCompile Include="Engine\src\core\Scene.cpp" />
+    <ClCompile Include="Engine\src\core\Transform.cpp" />
+    <ClCompile Include="Engine\src\physics\RayCast.cpp" />
+    <ClCompile Include="Engine\src\physics\RaycastUtility.cpp" />
+    <ClCompile Include="Engine\src\render\graphics\OGLGraphicHandler.cpp" />
+    <ClCompile Include="Engine\src\render\mesh\AiModel.cpp" />
+    <ClCompile Include="Engine\src\render\mesh\OGLMesh.cpp" />
+    <ClCompile Include="Engine\src\render\mesh\OGLMeshManager.cpp" />
+    <ClCompile Include="Engine\src\render\OGLShader.cpp" />
+    <ClCompile Include="Engine\src\render\Shader.cpp" />
+    <ClCompile Include="Engine\src\render\ShaderManager.cpp" />
+    <ClCompile Include="Engine\src\render\texture\TextureManager.cpp" />
+    <ClCompile Include="Engine\src\render\window\SDLWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
