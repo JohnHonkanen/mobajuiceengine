@@ -60,14 +60,14 @@
 													<ptr_wrapper>
 														<valid>1</valid>
 														<data>
-															<localPosition.x>13.961461067199707</localPosition.x>
-															<localPosition.y>8.2624130249023438</localPosition.y>
-															<localPosition.z>56.758487701416016</localPosition.z>
+															<localPosition.x>7.2991156578063965</localPosition.x>
+															<localPosition.y>32.350479125976563</localPosition.y>
+															<localPosition.z>-59.58544921875</localPosition.z>
 															<localScale.x>1</localScale.x>
 															<localScale.y>1</localScale.y>
 															<localScale.z>1</localScale.z>
-															<localRotation.x>10.5</localRotation.x>
-															<localRotation.y>-150</localRotation.y>
+															<localRotation.x>17.5</localRotation.x>
+															<localRotation.y>-7.5</localRotation.y>
 															<localRotation.z>0</localRotation.z>
 														</data>
 													</ptr_wrapper>
@@ -92,8 +92,8 @@
 														<ptr_wrapper>
 															<valid>1</valid>
 															<data>
-																<yaw>-150</yaw>
-																<pitch>10.5</pitch>
+																<yaw>-7.5</yaw>
+																<pitch>17.5</pitch>
 															</data>
 														</ptr_wrapper>
 													</value1>
