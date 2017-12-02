@@ -1,9 +1,9 @@
 #include <catch.hpp>
-#include "../MobaJuiceEngine/Engine/Component/Tile.cpp"
-#include "../MobaJuiceEngine/Engine/Component/Tile.h"
-#include "../MobaJuiceEngine/Engine/Component.cpp"
-#include "../MobaJuiceEngine/Engine/GameObject.cpp"
-#include "../MobaJuiceEngine/Engine/GameEngine.h"
+#include "../MobaJuiceEngine/Engine/src/components/Tile.cpp"
+#include "components/Tile.h"
+#include "../MobaJuiceEngine/Engine/src/components/Camera.cpp"
+#include "../MobaJuiceEngine/Engine/src/core/GameObject.cpp"
+#include "core\GameEngine.h"
 #include <glm\glm.hpp>
 
 using namespace Engine;

@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "..\MobaJuiceEngine\Engine\Transform.cpp"
+#include "..\MobaJuiceEngine\Engine\src/core/Transform.cpp"
 
 using namespace Engine;
 TEST_CASE("Transformation Direction calculation", "[Transform]") {
