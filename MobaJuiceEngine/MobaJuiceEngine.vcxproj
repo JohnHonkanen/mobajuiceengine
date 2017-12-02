@@ -116,7 +116,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\UWS\GamesProject\3rd Year\Project\GameEngine\MobaJuiceEngine\MobaJuiceEngine\Engine\_include;C:\dev\mj_ext\SDL2_ttf-2.0.14\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\boost-1.65.1\includes;C:\dev\mj_ext\assimp-3.3.1\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\catch-2.0.0.4\include;C:\dev\mj_ext\glm-0.9.8.5\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Engine\_include;C:\dev\mj_ext\SDL2_ttf-2.0.14\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\boost-1.65.1\includes;C:\dev\mj_ext\assimp-3.3.1\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\catch-2.0.0.4\include;C:\dev\mj_ext\glm-0.9.8.5\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

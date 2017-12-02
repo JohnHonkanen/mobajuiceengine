@@ -2,9 +2,9 @@
 #pragma comment(linker, "/subsystem:\"console\" /entry:\"WinMainCRTStartup\"")
 #endif
 
-#include "Engine\_include\core\GameEngine.h"
-#include "Engine\_include\MobaJuiceCore.h"
-#include "Engine\_include\core\InputManager.h"
+#include "core\GameEngine.h"
+#include "MobaJuiceCore.h"
+#include "core\InputManager.h"
 #include <iostream>
 using namespace Engine;
 
