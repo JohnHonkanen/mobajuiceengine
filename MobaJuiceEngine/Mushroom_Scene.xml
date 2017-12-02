@@ -60,14 +60,14 @@
 													<ptr_wrapper>
 														<valid>1</valid>
 														<data>
-															<localPosition.x>-12.191131591796875</localPosition.x>
-															<localPosition.y>23.705537796020508</localPosition.y>
-															<localPosition.z>-23.623849868774414</localPosition.z>
+															<localPosition.x>-52.533424377441406</localPosition.x>
+															<localPosition.y>21.68073844909668</localPosition.y>
+															<localPosition.z>-28.469741821289063</localPosition.z>
 															<localScale.x>1</localScale.x>
 															<localScale.y>1</localScale.y>
 															<localScale.z>1</localScale.z>
-															<localRotation.x>14</localRotation.x>
-															<localRotation.y>23.5</localRotation.y>
+															<localRotation.x>8.5</localRotation.x>
+															<localRotation.y>43.5</localRotation.y>
 															<localRotation.z>0</localRotation.z>
 														</data>
 													</ptr_wrapper>
@@ -82,7 +82,7 @@
 																<fov>45</fov>
 																<aspectRatio>1.7777777910232544</aspectRatio>
 																<near>1</near>
-																<far>100</far>
+																<far>1000</far>
 															</data>
 														</ptr_wrapper>
 													</value0>
@@ -92,8 +92,8 @@
 														<ptr_wrapper>
 															<valid>1</valid>
 															<data>
-																<yaw>23.5</yaw>
-																<pitch>14</pitch>
+																<yaw>43.5</yaw>
+																<pitch>8.5</pitch>
 															</data>
 														</ptr_wrapper>
 													</value1>
@@ -103,6 +103,50 @@
 									</value>
 								</value1>
 								<value2>
+									<key>Terrain</key>
+									<value>
+										<ptr_wrapper>
+											<valid>1</valid>
+											<data>
+												<name>Terrain</name>
+												<transform>
+													<ptr_wrapper>
+														<valid>1</valid>
+														<data>
+															<localPosition.x>0</localPosition.x>
+															<localPosition.y>0</localPosition.y>
+															<localPosition.z>0</localPosition.z>
+															<localScale.x>1</localScale.x>
+															<localScale.y>1</localScale.y>
+															<localScale.z>1</localScale.z>
+															<localRotation.x>0</localRotation.x>
+															<localRotation.y>0</localRotation.y>
+															<localRotation.z>0</localRotation.z>
+														</data>
+													</ptr_wrapper>
+												</transform>
+												<components size="dynamic">
+													<value0>
+														<polymorphic_id>2147483652</polymorphic_id>
+														<polymorphic_name>Terrain</polymorphic_name>
+														<ptr_wrapper>
+															<valid>1</valid>
+															<data>
+																<gridSize>10</gridSize>
+																<xLength>150</xLength>
+																<zLength>150</zLength>
+																<freq>0.00030000001424923539</freq>
+																<weight>1</weight>
+																<shader>terrainShader</shader>
+															</data>
+														</ptr_wrapper>
+													</value0>
+												</components>
+											</data>
+										</ptr_wrapper>
+									</value>
+								</value2>
+								<value3>
 									<key>boletus_1</key>
 									<value>
 										<ptr_wrapper>
@@ -122,44 +166,6 @@
 															<localRotation.x>-90</localRotation.x>
 															<localRotation.y>0</localRotation.y>
 															<localRotation.z>0</localRotation.z>
-														</data>
-													</ptr_wrapper>
-												</transform>
-												<components size="dynamic">
-													<value0>
-														<polymorphic_id>1</polymorphic_id>
-														<ptr_wrapper>
-															<valid>1</valid>
-															<data>
-																<meshPath>Assets/Models/boletus/boletus.dae</meshPath>
-															</data>
-														</ptr_wrapper>
-													</value0>
-												</components>
-											</data>
-										</ptr_wrapper>
-									</value>
-								</value2>
-								<value3>
-									<key>mushroom</key>
-									<value>
-										<ptr_wrapper>
-											<valid>1</valid>
-											<data>
-												<name>mushroom</name>
-												<transform>
-													<ptr_wrapper>
-														<valid>1</valid>
-														<data>
-															<localPosition.x>30</localPosition.x>
-															<localPosition.y>0</localPosition.y>
-															<localPosition.z>30</localPosition.z>
-															<localScale.x>0.5</localScale.x>
-															<localScale.y>0.5</localScale.y>
-															<localScale.z>0.5</localScale.z>
-															<localRotation.x>-90</localRotation.x>
-															<localRotation.y>0</localRotation.y>
-															<localRotation.z>-30</localRotation.z>
 														</data>
 													</ptr_wrapper>
 												</transform>

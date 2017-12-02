@@ -82,7 +82,7 @@
 																<fov>45</fov>
 																<aspectRatio>1.7777777910232544</aspectRatio>
 																<near>1</near>
-																<far>100</far>
+																<far>1000</far>
 															</data>
 														</ptr_wrapper>
 													</value0>

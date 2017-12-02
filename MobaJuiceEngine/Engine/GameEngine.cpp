@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+#include <time.h>
 #include "Scene.h"
 
 #include "Render\GraphicsHandlers\OGLGraphicHandler.h"
@@ -61,7 +61,9 @@ namespace Engine {
 
 	void GameEngine::Initialize()
 	{
+		srand(time(NULL));
 		manager.shaderManager.CreateShader("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
+		manager.shaderManager.CreateShader("terrainShader", "Assets/Shaders/terrain.vert", "Assets/Shaders/terrain.frag");
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 

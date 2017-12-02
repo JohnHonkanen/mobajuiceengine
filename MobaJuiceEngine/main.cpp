@@ -16,17 +16,21 @@ int main(int argc, char *argv[]){
 	GameEngine::manager.inputManager.AddKey("FreezeMouse", "f", "g");*/
 
 	engine.LoadSettings("default-settings.xml");
-	engine.Load("Mushroom_Scene.xml");
+	engine.Load("BaseScene.xml");
 
 
-	//Scene *scene = engine.GetActiveScene();
-	//GameObjectManager *list = scene->GetGameObjectManager();
+	Scene *scene = engine.GetActiveScene();
+	GameObjectManager *list = scene->GetGameObjectManager();
 
-	//GameObject *camera = list->Find("Camera_1");
-	//camera->transform->Translate(vec3(0.0f, 20.0f, -45.0f));
-	//camera->transform->SetEulerAngle(vec3(45.0f, 0.0f, 0.0f));
+	GameObject *terrain = list->CreateGameObject("Terrain");
+	Terrain * t = Terrain::Create(terrain, 10, 150, 150, 0.0003f, 1.0f, "terrainShader");
+	t->material.diffuseMap = "Assets/Textures/ground.jpg";
 
-	//FreeCameraControl::Create(camera);
+	GameObject *camera = list->Find("Camera_1");
+	camera->transform->Translate(vec3(0.0f, 20.0f, -45.0f));
+	camera->transform->SetEulerAngle(vec3(45.0f, 0.0f, 0.0f));
+
+	FreeCameraControl::Create(camera);
 
 	//GameObject *boletus = list->LoadPrefab("mushroom.xml");
 
