@@ -1,0 +1,3 @@
+[submodule "MobaJuiceEngine/Engine/dependencies"]
+	path = MobaJuiceEngine/Engine/dependencies
+	url = https://github.com/JohnHonkanen/moba-libs.git

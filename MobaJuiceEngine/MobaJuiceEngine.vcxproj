@@ -89,10 +89,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>Engine\include;C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\glm-0.9.8.5\glm;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\assimp-3.3.1\include;C:\dev\mj_ext\boost-1.65.1\includes;C:\dev\mj_ext\SDL2_ttf-2.0.14\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Engine\include;Engine\dependencies\SDL2-2.0.6\include;Engine\dependencies\irrKlang-1.5.0\include;Engine\dependencies\glm-0.9.8.5\glm;Engine\dependencies\glew-2.1.0\include;Engine\dependencies\DevIL-1.8.0\include;Engine\dependencies\cereal-1.2.2\include;Engine\dependencies\assimp-3.3.1\include;Engine\dependencies\boost-1.65.1\includes;Engine\dependencies\SDL2_ttf-2.0.14\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\dev\mj_ext\glew-2.1.0\lib\Debug\x64;C:\dev\mj_ext\SDL2-2.0.6\lib\Release\x64;C:\dev\mj_ext\irrKlang-1.5.0\lib\x64;C:\dev\mj_ext\DevIL-1.8.0\lib\x64\Release;C:\dev\mj_ext\assimp-3.3.1\lib\Debug\x64;C:\dev\mj_ext\boost-1.65.1\libs;C:\dev\mj_ext\SDL2_ttf-2.0.14\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Engine\dependencies\glew-2.1.0\lib\Debug\x64;Engine\dependencies\SDL2-2.0.6\lib\Release\x64;Engine\dependencies\irrKlang-1.5.0\lib\x64;Engine\dependencies\DevIL-1.8.0\lib\x64\Release;Engine\dependencies\assimp-3.3.1\lib\Debug\x64;Engine\dependencies\boost-1.65.1\libs;Engine\dependencies\SDL2_ttf-2.0.14\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc140-mt.lib;DevIL.lib;ILU.lib;ILUT.lib;opengl32.lib;glew32d.lib;irrKlang.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -116,7 +116,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>Engine\include;C:\dev\mj_ext\SDL2_ttf-2.0.14\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\boost-1.65.1\includes;C:\dev\mj_ext\assimp-3.3.1\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\catch-2.0.0.4\include;C:\dev\mj_ext\glm-0.9.8.5\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Engine\include;Engine\dependencies\SDL2_ttf-2.0.14\include;Engine\dependencies\cereal-1.2.2\include;Engine\dependencies\SDL2-2.0.6\include;Engine\dependencies\irrKlang-1.5.0\include;Engine\dependencies\boost-1.65.1\includes;Engine\dependencies\assimp-3.3.1\include;Engine\dependencies\DevIL-1.8.0\include;Engine\dependencies\glew-2.1.0\include;Engine\dependencies\catch-2.0.0.4\include;Engine\dependencies\glm-0.9.8.5\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
