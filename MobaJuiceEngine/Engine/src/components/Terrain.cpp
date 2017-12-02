@@ -1,10 +1,11 @@
 #include "components/Terrain.h"
-#include "../_Libs/simplex/SimplexNoise.h"
+#include "utility/SimplexNoise.h"
 #include "core/GameEngine.h"
 #include "components/Camera.h"
 #include <glm\gtc\type_ptr.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 #include <GL\glew.h>
+
 namespace Engine {
 	Terrain::Terrain()
 	{

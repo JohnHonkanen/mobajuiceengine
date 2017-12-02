@@ -1,6 +1,6 @@
 #pragma once
-#include "component\Camera.h"
-#include "component\FreeCameraControl.h"
-#include "component\MeshRenderer.h"
-#include "component\Terrain.h"
+#include "components\Camera.h"
+#include "components\FreeCameraControl.h"
+#include "components\MeshRenderer.h"
+#include "components\Terrain.h"
 

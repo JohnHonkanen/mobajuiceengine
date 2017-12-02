@@ -73,6 +73,10 @@
     <IncludePath>$(IncludePath)\_include</IncludePath>
     <SourcePath>$(SourcePath)\src</SourcePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+    <SourcePath>$(SourcePath)</SourcePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -85,7 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\glm-0.9.8.5\glm;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\assimp-3.3.1\include;C:\dev\mj_ext\boost-1.65.1\includes;C:\dev\mj_ext\SDL2_ttf-2.0.14\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Engine\_include;C:\dev\mj_ext\SDL2-2.0.6\include;C:\dev\mj_ext\irrKlang-1.5.0\include;C:\dev\mj_ext\glm-0.9.8.5\glm;C:\dev\mj_ext\glew-2.1.0\include;C:\dev\mj_ext\DevIL-1.8.0\include;C:\dev\mj_ext\cereal-1.2.2\include;C:\dev\mj_ext\assimp-3.3.1\include;C:\dev\mj_ext\boost-1.65.1\includes;C:\dev\mj_ext\SDL2_ttf-2.0.14\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\dev\mj_ext\glew-2.1.0\lib\Debug\x64;C:\dev\mj_ext\SDL2-2.0.6\lib\Release\x64;C:\dev\mj_ext\irrKlang-1.5.0\lib\x64;C:\dev\mj_ext\DevIL-1.8.0\lib\x64\Release;C:\dev\mj_ext\assimp-3.3.1\lib\Debug\x64;C:\dev\mj_ext\boost-1.65.1\libs;C:\dev\mj_ext\SDL2_ttf-2.0.14\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -174,6 +178,7 @@
     <ClInclude Include="Engine\_include\render\texture\TextureManager.h" />
     <ClInclude Include="Engine\_include\render\window\SDLWindow.h" />
     <ClInclude Include="Engine\_include\render\window\Window.h" />
+    <ClInclude Include="Engine\_include\utility\SimplexNoise.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\src\components\Camera.cpp" />
@@ -203,6 +208,8 @@
     <ClCompile Include="Engine\src\render\ShaderManager.cpp" />
     <ClCompile Include="Engine\src\render\texture\TextureManager.cpp" />
     <ClCompile Include="Engine\src\render\window\SDLWindow.cpp" />
+    <ClCompile Include="Engine\src\utility\SimplexNoise.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

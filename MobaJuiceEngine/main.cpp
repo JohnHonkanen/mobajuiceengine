@@ -2,9 +2,9 @@
 #pragma comment(linker, "/subsystem:\"console\" /entry:\"WinMainCRTStartup\"")
 #endif
 
-#include "Engine\GameEngine.h"
-#include "Engine\MobaJuiceCore.h"
-#include "Engine\InputManager.h"
+#include "Engine\_include\core\GameEngine.h"
+#include "Engine\_include\MobaJuiceCore.h"
+#include "Engine\_include\core\InputManager.h"
 #include <iostream>
 using namespace Engine;
 
@@ -17,7 +17,6 @@ int main(int argc, char *argv[]){
 
 	engine.LoadSettings("default-settings.xml");
 	engine.Load("BaseScene.xml");
-
 
 	Scene *scene = engine.GetActiveScene();
 	GameObjectManager *list = scene->GetGameObjectManager();

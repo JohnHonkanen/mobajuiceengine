@@ -160,6 +160,9 @@
     <ClInclude Include="Engine\_include\core\ManagerCollection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\_include\utility\SimplexNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\src\core\Behaviour.cpp">
@@ -241,6 +244,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\render\ShaderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\utility\SimplexNoise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
