@@ -45,14 +45,14 @@ int main(int argc, char *argv[]){
 	TextureSetter::Create(rock, "Assets/Textures/Rock/Rock_d.jpg");
 	rock->transform->SetScale(vec3(0.3f));
 	rock->transform->Rotate(vec3(-60, 0, 0));
-	rock->transform->SetPosition(-10, t->GetHeight(-10, 20), 20);
+	rock->transform->SetPosition(-10, t->GetHeight(-10, 20) -5, 20);
 
 	rock = list->CreateGameObject("rock");
 	MeshRenderer::Create(rock, "Assets/Models/rock/Rock.obj");
 	TextureSetter::Create(rock, "Assets/Textures/Rock/Rock_d.jpg");
 	rock->transform->SetScale(vec3(0.2f));
 	rock->transform->Rotate(vec3(0, 0, 0));
-	rock->transform->SetPosition(30, t->GetHeight(30, -5), -30);
+	rock->transform->SetPosition(30, t->GetHeight(30, -30), -30);
 
 
 	engine.Run();
