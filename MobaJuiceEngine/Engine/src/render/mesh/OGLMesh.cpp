@@ -67,4 +67,8 @@ namespace Engine {
 	{
 		return  model->getMaterials()[0].shader;
 	}
+	std::vector<unsigned int> OGLMesh::getID()
+	{
+		return VAO;
+	}
 }

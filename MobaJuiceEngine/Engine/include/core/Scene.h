@@ -2,9 +2,8 @@
 #include <string>
 #include <memory>
 #include <cereal\cereal.hpp>
-
 #include "GameObjectManager.h"
-
+#include "render\mesh\Skybox.h"
 
 using namespace std;
 namespace Engine {
@@ -12,6 +11,7 @@ namespace Engine {
 	private:
 		string name;
 		unique_ptr<GameObjectManager> gameObjects;
+		Skybox skybox;
 
 	public:
 		Scene();
@@ -24,6 +24,8 @@ namespace Engine {
 		void Input();
 		void Update();
 		void Draw();
+
+		void AddSkyBox(string skyBoxDirectory);
 
 		template<class Archive>
 		void serialize(Archive & ar)

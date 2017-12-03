@@ -29,6 +29,11 @@ namespace Engine {
 		t->weight = weight;
 		t->shader = shader;
 
+		t->PreGenerateHeightMap();
+		t->BuildVertices();
+		t->GenerateIndices();
+		t->GenerateNormals();
+
 		obj->AddComponent(t);
 
 		return t;
@@ -38,11 +43,6 @@ namespace Engine {
 	{
 		if (seed == -1)
 			seed = rand() % 999999;
-
-		PreGenerateHeightMap();
-		BuildVertices();
-		GenerateIndices();
-		GenerateNormals();
 
 		GenerateVAO();
 	}
@@ -75,6 +75,23 @@ namespace Engine {
 		glDrawElements(GL_TRIANGLE_STRIP, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
+	}
+	float Terrain::GetHeight(float x, float z)
+	{
+		float xCoord = ((int)x % (int)gridSize) / (float)gridSize;
+		float zCoord = ((int)z % (int)gridSize) / (float)gridSize;
+
+		int gridX = (int)floor(x / gridSize);
+		int gridZ = (int)floor(z / gridSize);
+		float height;
+		if (xCoord <= (1 - zCoord)) {
+			height = barryCentric(vec3(0, heightmap[gridZ][gridX], 0), vec3(1, heightmap[gridZ][gridX + 1], 0), vec3(0, heightmap[gridZ + 1][gridX], 1), vec2(xCoord, zCoord));
+		}
+		else {
+			height = barryCentric(vec3(1, heightmap[gridZ][gridX + 1], 0), vec3(1, heightmap[gridZ + 1][gridX + 1], 1), vec3(0, heightmap[gridZ + 1][gridX], 1), vec2(xCoord, zCoord));
+		}
+
+		return height;
 	}
 	void Terrain::GenerateVAO()
 	{
@@ -131,7 +148,7 @@ namespace Engine {
 
 				float height;
 				//Single Pass heightmap
-				height = SimplexNoise::noise((x * seed)  * freq * gridSize, (z * seed) * freq * gridSize) * weight;
+				height = SimplexNoise::noise((x + seed)  * freq * gridSize, (z + seed) * freq * gridSize) * weight;
 
 				heightmap[z][x] = height;
 				verts[vertex] = vec3(x *gridSize, height, z * gridSize);

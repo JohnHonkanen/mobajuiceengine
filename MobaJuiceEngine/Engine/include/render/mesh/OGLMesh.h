@@ -18,6 +18,7 @@ namespace Engine {
 		void SetShaderProgram(string shader, ShaderManager *shaderManager);
 		void SetTextureManager(TextureManager *textureManager);
 		string GetShader();
+		virtual std::vector<unsigned int> getID();
 	private:
 		std::string name;
 		std::unique_ptr<Shape> model;

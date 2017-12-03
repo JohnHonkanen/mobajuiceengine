@@ -14,8 +14,12 @@ namespace Engine {
 			@return	GLuint id of the texture for use in openGL
 		*/
 		GLuint getTexture(string texture);
+		GLuint getTexture(string texture, bool CubeMap);
+
+		
 	private:
-		void saveTexture(const string texture);
+		bool saveTexture(const string texture, bool CubeMap);
+		bool saveTexture(const string texture);
 		map<string, GLuint> textures;
 	};
 }

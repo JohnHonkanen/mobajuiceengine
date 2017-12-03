@@ -20,6 +20,8 @@ namespace Engine {
 		void OnLoad();
 		void Draw();
 
+		float GetHeight(float x, float z);
+
 		template<class Archive>
 		void serialize(Archive & ar)
 		{
@@ -55,6 +57,15 @@ namespace Engine {
 		unsigned int vao;
 		unsigned int vbo[4];
 	};
+
+	// Derived from Youtuber(ThinMatrix) : https://www.dropbox.com/s/0md240yyc359ik3/code.txt?dl=0
+	static float barryCentric(vec3 p1, vec3 p2, vec3 p3, vec2 pos) {
+		float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
+		float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
+		float l2 = ((p3.z - p1.z) * (pos.x - p3.x) + (p1.x - p3.x) * (pos.y - p3.z)) / det;
+		float l3 = 1.0f - l1 - l2;
+		return l1 * p1.y + l2 * p2.y + l3 * p3.y;
+	}
 }
 
 
