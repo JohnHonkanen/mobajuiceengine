@@ -27,6 +27,7 @@ namespace Engine {
 	}
 	void Scene::Start()
 	{
+		gameObjects->Start();
 	}
 	void Scene::Input()
 	{

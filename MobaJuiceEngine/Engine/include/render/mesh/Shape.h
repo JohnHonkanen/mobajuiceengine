@@ -14,6 +14,10 @@ namespace Engine {
 		const vector<Material> getMaterials() {
 			return material;
 		}
+
+		Material * GetMaterial() {
+			return &material[0];
+		}
 		void setShaderProgram(string program) {
 			material[0].shader = program;
 		}

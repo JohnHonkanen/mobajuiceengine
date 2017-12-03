@@ -21,6 +21,10 @@ namespace Engine {
 		*/
 		void OnLoad();
 		/*
+			Called after loading all objects
+		*/
+		void Start();
+		/*
 			Calls on the Input Loop before Update;
 		*/
 		void Input();

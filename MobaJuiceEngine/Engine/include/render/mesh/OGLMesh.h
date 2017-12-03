@@ -15,6 +15,7 @@ namespace Engine {
 		void SetVAO(GLuint VAO);
 		const std::vector<MeshData> GetMeshData();
 		const std::vector<Material> GetMaterials();
+		Material * GetMaterial();
 		void SetShaderProgram(string shader, ShaderManager *shaderManager);
 		void SetTextureManager(TextureManager *textureManager);
 		string GetShader();

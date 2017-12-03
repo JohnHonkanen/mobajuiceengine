@@ -6,6 +6,7 @@ using namespace std;
 namespace Engine {
 	class GameEngine {
 	public:
+		GameEngine();
 		Scene * CreateScene(string name);
 		Scene * GetActiveScene();
 		void Save();

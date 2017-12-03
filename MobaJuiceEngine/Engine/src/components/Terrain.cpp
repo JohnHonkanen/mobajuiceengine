@@ -29,21 +29,33 @@ namespace Engine {
 		t->weight = weight;
 		t->shader = shader;
 
+		if (t->seed == -1)
+			t->seed = rand() % 999999;
+
 		t->PreGenerateHeightMap();
 		t->BuildVertices();
 		t->GenerateIndices();
 		t->GenerateNormals();
 
+		t->preloaded = true;
+
 		obj->AddComponent(t);
+
+		t->transform->Translate(-vec3((xLength * gridSize) / 2, 0, (zLength * gridSize) / 2));
 
 		return t;
 
 	}
 	void Terrain::OnLoad()
 	{
-		if (seed == -1)
-			seed = rand() % 999999;
-
+		if (!preloaded) {
+			PreGenerateHeightMap();
+			BuildVertices();
+			GenerateIndices();
+			GenerateNormals();
+			transform->Translate(-vec3((xLength * gridSize) / 2, 0, (zLength * gridSize) / 2));
+		}
+			
 		GenerateVAO();
 	}
 	void Terrain::Draw()
@@ -58,8 +70,7 @@ namespace Engine {
 		glm::mat4 view = Camera::mainCamera->GetViewMatrix();
 
 		mat4 model(1.0);
-		vec3 offset = vec3((xLength * gridSize) / 2, 0, (zLength * gridSize) / 2);
-		model = translate(model, -offset);
+		model = transform->GetLocalToWorldMatrix();
 
 		glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -78,11 +89,15 @@ namespace Engine {
 	}
 	float Terrain::GetHeight(float x, float z)
 	{
-		float xCoord = ((int)x % (int)gridSize) / (float)gridSize;
-		float zCoord = ((int)z % (int)gridSize) / (float)gridSize;
+		vec3 tp = transform->GetPosition();
+		float terrainX = x - tp.x;
+		float terrainZ = z - tp.z;
 
-		int gridX = (int)floor(x / gridSize);
-		int gridZ = (int)floor(z / gridSize);
+		float xCoord = ((int)terrainX % (int)gridSize) / (float)gridSize;
+		float zCoord = ((int)terrainZ % (int)gridSize) / (float)gridSize;
+
+		int gridX = (int)floor(terrainX / gridSize);
+		int gridZ = (int)floor(terrainZ / gridSize);
 		float height;
 		if (xCoord <= (1 - zCoord)) {
 			height = barryCentric(vec3(0, heightmap[gridZ][gridX], 0), vec3(1, heightmap[gridZ][gridX + 1], 0), vec3(0, heightmap[gridZ + 1][gridX], 1), vec2(xCoord, zCoord));

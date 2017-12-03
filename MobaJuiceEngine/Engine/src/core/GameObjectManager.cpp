@@ -19,6 +19,13 @@ namespace Engine {
 		}
 	}
 
+	void GameObjectManager::Start()
+	{
+		for (auto const &gameobjectPair : gameObjects) {
+			gameobjectPair.second->Start();
+		}
+	}
+
 	void GameObjectManager::Input()
 	{
 		for (auto const &gameobjectPair : gameObjects) {

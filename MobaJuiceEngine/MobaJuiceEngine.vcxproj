@@ -191,12 +191,12 @@
     <Font Include="Assets\Fonts\MavenPro-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\include\render\mesh\Skybox.cpp" />
     <ClCompile Include="Engine\src\components\Camera.cpp" />
     <ClCompile Include="Engine\src\components\FreeCameraControl.cpp" />
     <ClCompile Include="Engine\src\components\MeshRenderer.cpp" />
     <ClCompile Include="Engine\src\components\Terrain.cpp" />
     <ClCompile Include="Engine\src\components\Text2D.cpp" />
+    <ClCompile Include="Engine\src\components\TextureSetter.cpp" />
     <ClCompile Include="Engine\src\components\Tile.cpp" />
     <ClCompile Include="Engine\src\core\Behaviour.cpp" />
     <ClCompile Include="Engine\src\core\Component.cpp" />
@@ -214,6 +214,7 @@
     <ClCompile Include="Engine\src\render\mesh\AiModel.cpp" />
     <ClCompile Include="Engine\src\render\mesh\OGLMesh.cpp" />
     <ClCompile Include="Engine\src\render\mesh\OGLMeshManager.cpp" />
+    <ClCompile Include="Engine\src\render\mesh\Skybox.cpp" />
     <ClCompile Include="Engine\src\render\OGLShader.cpp" />
     <ClCompile Include="Engine\src\render\Shader.cpp" />
     <ClCompile Include="Engine\src\render\ShaderManager.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Engine\include\components\MeshRenderer.h" />
     <ClInclude Include="Engine\include\components\Terrain.h" />
     <ClInclude Include="Engine\include\components\Text2D.h" />
+    <ClInclude Include="Engine\include\components\TextureSetter.h" />
     <ClInclude Include="Engine\include\components\Tile.h" />
     <ClInclude Include="Engine\include\core\GameEngine.h" />
     <ClInclude Include="Engine\include\core\GameObject.h" />

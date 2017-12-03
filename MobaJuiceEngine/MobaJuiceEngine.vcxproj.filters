@@ -139,7 +139,10 @@
     <ClCompile Include="Engine\src\utility\SimplexNoise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\include\render\mesh\Skybox.cpp">
+    <ClCompile Include="Engine\src\render\mesh\Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\components\TextureSetter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -262,6 +265,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\include\render\mesh\Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\include\components\TextureSetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

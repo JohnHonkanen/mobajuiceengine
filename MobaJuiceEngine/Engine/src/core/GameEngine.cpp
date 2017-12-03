@@ -15,6 +15,11 @@ namespace Engine {
 
 	ManagerCollection GameEngine::manager = ManagerCollection();
 
+	GameEngine::GameEngine()
+	{
+		srand(time(NULL));
+	}
+
 	Scene * GameEngine::CreateScene(string name)
 	{
 		activeScene = std::make_unique<Scene>(name);
@@ -61,7 +66,6 @@ namespace Engine {
 
 	void GameEngine::Initialize()
 	{
-		srand(time(NULL));
 		manager.shaderManager.CreateShader("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
 		manager.shaderManager.CreateShader("terrainShader", "Assets/Shaders/terrain.vert", "Assets/Shaders/terrain.frag");
 		manager.shaderManager.CreateShader("skyBoxShader", "Assets/Shaders/skyBoxBasic.vert", "Assets/Shaders/skyBoxBasic.frag");
@@ -77,6 +81,7 @@ namespace Engine {
 		graphicsHandler.Initialize();
 		Initialize();
 
+		activeScene->Start();
 		bool running = true;
 		SDL_Event e;
 		while (running) {

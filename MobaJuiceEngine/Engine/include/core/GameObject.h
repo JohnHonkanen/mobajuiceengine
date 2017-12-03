@@ -19,6 +19,7 @@ namespace Engine {
 		GameObject(std::string name);
 		~GameObject();
 		void OnLoad();
+		void Start();
 		void Input();
 		void Update();
 		void Draw();
@@ -55,7 +56,7 @@ namespace Engine {
 
 		while (!found) {
 			//Checks if we have found Component
-			if (component = dynamic_cast<T*>(components[i]))
+			if (component = dynamic_cast<T*>(components[i].get()))
 				found = true;
 
 			i++;

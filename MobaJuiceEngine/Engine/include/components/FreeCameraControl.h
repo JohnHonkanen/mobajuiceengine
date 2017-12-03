@@ -26,7 +26,6 @@ namespace Engine {
 			ar(CEREAL_NVP(yaw), CEREAL_NVP(pitch));
 		}
 
-
 	private:
 		InputManager *inputManager;
 		Camera* camera;

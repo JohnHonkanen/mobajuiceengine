@@ -66,7 +66,6 @@ namespace Engine {
 	{
 		float dt = 0.17f;
 		transform->Translate(((transform->Front() * movement.z) + (transform->Right() * -movement.x)) * dt * cameraSpeed);
-
 	}
 
 	void FreeCameraControl::Input()

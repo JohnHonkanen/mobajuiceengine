@@ -25,6 +25,7 @@ namespace Engine {
 	{
 		meshManager = &GameEngine::manager.meshManager;
 		mesh = meshManager->GetMesh(meshPath);
+		material = mesh->GetMaterial();
 		
 	}
 

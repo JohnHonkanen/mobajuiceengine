@@ -1,4 +1,4 @@
-#include "Skybox.h"
+#include "render\mesh\Skybox.h"
 #include "core\GameEngine.h"
 #include <GL\glew.h>
 #include <glm\gtc\matrix_transform.hpp>

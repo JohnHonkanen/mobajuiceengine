@@ -54,6 +54,10 @@ namespace Engine {
 	{
 		return model->getMaterials();
 	}
+	Material * OGLMesh::GetMaterial()
+	{
+		return model->GetMaterial();
+	}
 	void OGLMesh::SetShaderProgram(string shader, ShaderManager *shaderManager)
 	{
 		model->setShaderProgram(shader);
