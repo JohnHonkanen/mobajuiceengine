@@ -53,7 +53,6 @@ namespace Engine {
 			BuildVertices();
 			GenerateIndices();
 			GenerateNormals();
-			transform->Translate(-vec3((xLength * gridSize) / 2, 0, (zLength * gridSize) / 2));
 		}
 			
 		GenerateVAO();

@@ -5,10 +5,23 @@
 #pragma once
 #include <string>
 #include <glm\glm.hpp>
+#include <cereal\cereal.hpp>
+#include <cereal/archives/xml.hpp>
+
 namespace Engine {
 	class Material
 	{
 	public:
+
+		template<class Archive>
+		void serialize(Archive & ar)
+		{
+			ar(CEREAL_NVP(shader), CEREAL_NVP(diffuseMap), CEREAL_NVP(normalMap), CEREAL_NVP(specularMap), CEREAL_NVP(occulusionMap), 
+				CEREAL_NVP(emissionMap), CEREAL_NVP(alphaMap), CEREAL_NVP(color.x), CEREAL_NVP(color.y), CEREAL_NVP(color.z), 
+				CEREAL_NVP(specular.x), CEREAL_NVP(specular.y), CEREAL_NVP(specular.z), CEREAL_NVP(diffuse.x), CEREAL_NVP(diffuse.y),
+				CEREAL_NVP(diffuse.z), CEREAL_NVP(shininess));
+		}
+
 		std::string shader;
 		std::string diffuseMap; //Color Map
 		std::string normalMap;

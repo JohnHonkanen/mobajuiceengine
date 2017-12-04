@@ -25,7 +25,8 @@ namespace Engine {
 		template<class Archive>
 		void serialize(Archive & ar)
 		{
-			ar(CEREAL_NVP(seed), CEREAL_NVP(gridSize), CEREAL_NVP(xLength), CEREAL_NVP(zLength), CEREAL_NVP(freq), CEREAL_NVP(weight), CEREAL_NVP(shader));
+			ar(CEREAL_NVP(seed), CEREAL_NVP(gridSize), CEREAL_NVP(xLength), CEREAL_NVP(zLength), CEREAL_NVP(freq),
+				 CEREAL_NVP(weight), CEREAL_NVP(shader), CEREAL_NVP(material));
 		}
 
 		Material material;
