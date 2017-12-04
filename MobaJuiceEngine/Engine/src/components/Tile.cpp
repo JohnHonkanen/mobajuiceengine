@@ -2,28 +2,21 @@
 #include "core/InputManager.h"
 
 namespace Engine {
-	Tile::Tile()
-	{
+	Tile::Tile() {}
 
-	}
+	Tile::~Tile() {}
 
-	Tile::~Tile()
-	{
-
-	}
-
-	Tile::Tile(float gWidth, float gHeight, float cWidth, float cHeight, float pHeight)
+	Tile::Tile(float gWidth, float gHeight, float cSize, float pHeight)
 	{
 		gridWidth = gWidth;
 		gridHeight = gHeight;
-		cellWidth = cWidth;
-		cellHeight = cHeight;
+		cellSize = cSize;
 		planeHeight = pHeight;
 	}
 
-	Tile * Tile::Create(GameObject * gameObject, float gWidth, float gHeight, float cWidth, float cHeight, float pHeight)
+	Tile * Tile::Create(GameObject * gameObject, float gWidth, float gHeight, float cSize, float pHeight)
 	{
-		Tile *t = new Tile( gWidth,  gHeight,  cWidth,  cHeight,  pHeight);
+		Tile *t = new Tile( gWidth,  gHeight, cSize,  pHeight);
 		gameObject->AddComponent(t);
 		return t;
 	}
@@ -38,20 +31,43 @@ namespace Engine {
 		}
 	}
 
+	void Tile::GenerateVertices() {
+
+		for (float x = 0; x <= gridWidth; x++) {
+			verticies.push_back(x * cellSize);
+			verticies.push_back(planeHeight);
+			verticies.push_back(0);
+
+			verticies.push_back(x * cellSize);
+			verticies.push_back(planeHeight);
+			verticies.push_back(gridHeight * cellSize);
+		}
+		for (float z = 0; z <= gridHeight; z++) {
+			verticies.push_back(0);
+			verticies.push_back(planeHeight);
+			verticies.push_back(z * cellSize);
+
+			verticies.push_back(gridWidth * cellSize);
+			verticies.push_back(planeHeight);
+			verticies.push_back(z * cellSize);
+		}
+	}
+
+	void Tile::OnLoad()
+	{
+		GenerateVertices();
+	}
+
 	vec3 Tile::GetCell(vec3 mousePosition)
 	{								
-		cell.x = int(mousePosition.x / cellWidth);		//Stores mouse cell position
+		cell.x = int(mousePosition.x / cellSize);		//Stores mouse cell position
 		cell.y = planeHeight;
-		cell.z = int(mousePosition.z/ cellHeight);
+		cell.z = int(mousePosition.z/ cellSize);
 		return cell;
 	}
 
-	void Tile::Draw(vec2 position) {
-		//Currently not used for anything
-	}
-
 	vec3 Tile::GetSnapPos(vec3 cell) {
-		vec3 snapPos = vec3(cell.x*cellWidth , cell.y, cell.z*cellHeight);
+		vec3 snapPos = vec3(cell.x*cellSize, cell.y, cell.z*cellSize);
 		return snapPos;
 	}
 
@@ -59,6 +75,15 @@ namespace Engine {
 		vec3 cell = GetCell(mousePosition);
 		return GetSnapPos(cell);
 	}
+	void Tile::GetTileData(int & gridHeight, int & gridWidth, float & cellSize, float & planeHeight, vector<float>& verticies)
+	{
+		gridHeight = Tile::gridHeight;
+		gridWidth = Tile::gridWidth;
+		cellSize = Tile::cellSize;
+		planeHeight = Tile::planeHeight;
+		verticies = Tile::verticies;
+	}
+
 }
 
 //http://www.cplusplus.com/forum/general/18315/

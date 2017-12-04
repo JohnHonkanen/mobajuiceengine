@@ -193,6 +193,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\src\components\Camera.cpp" />
     <ClCompile Include="Engine\src\components\FreeCameraControl.cpp" />
+    <ClCompile Include="Engine\src\components\GridRender.cpp" />
     <ClCompile Include="Engine\src\components\MeshRenderer.cpp" />
     <ClCompile Include="Engine\src\components\Terrain.cpp" />
     <ClCompile Include="Engine\src\components\Text2D.cpp" />
@@ -264,6 +265,7 @@
     <ClInclude Include="Engine\include\render\window\SDLWindow.h" />
     <ClInclude Include="Engine\include\render\window\Window.h" />
     <ClInclude Include="Engine\include\utility\SimplexNoise.h" />
+    <ClInclude Include="GridRender.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
