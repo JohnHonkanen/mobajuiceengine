@@ -195,6 +195,7 @@
     <ClCompile Include="Engine\src\components\FreeCameraControl.cpp" />
     <ClCompile Include="Engine\src\components\MeshRenderer.cpp" />
     <ClCompile Include="Engine\src\components\Terrain.cpp" />
+    <ClCompile Include="Engine\src\components\TerrainGrid.cpp" />
     <ClCompile Include="Engine\src\components\Text2D.cpp" />
     <ClCompile Include="Engine\src\components\TextureSetter.cpp" />
     <ClCompile Include="Engine\src\components\Tile.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Engine\include\components\FreeCameraControl.h" />
     <ClInclude Include="Engine\include\components\MeshRenderer.h" />
     <ClInclude Include="Engine\include\components\Terrain.h" />
+    <ClInclude Include="Engine\include\components\TerrainGrid.h" />
     <ClInclude Include="Engine\include\components\Text2D.h" />
     <ClInclude Include="Engine\include\components\TextureSetter.h" />
     <ClInclude Include="Engine\include\components\Tile.h" />
