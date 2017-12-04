@@ -133,9 +133,6 @@
     <ClCompile Include="Engine\src\render\ShaderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\src\utility\SimplexNoise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

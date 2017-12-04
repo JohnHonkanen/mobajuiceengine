@@ -221,7 +221,6 @@
     <ClCompile Include="Engine\src\render\texture\TextureManager.cpp" />
     <ClCompile Include="Engine\src\render\window\SDLWindow.cpp" />
     <ClCompile Include="Engine\src\utility\SimplexNoise.cpp" />
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\include\components\Behaviour.h" />
