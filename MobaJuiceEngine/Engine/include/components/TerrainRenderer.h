@@ -10,6 +10,8 @@ namespace Engine {
 	namespace Terrain {
 		class TerrainRenderer: public Behaviour {
 		public:
+			TerrainRenderer();
+			~TerrainRenderer();
 			static TerrainRenderer * Create(GameObject *gameObject, string diffuse, string shader);
 
 			void OnLoad();

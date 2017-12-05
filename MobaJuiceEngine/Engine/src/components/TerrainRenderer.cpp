@@ -5,6 +5,12 @@
 #include "GL\glew.h"
 namespace Engine {
 	namespace Terrain{
+		TerrainRenderer::TerrainRenderer()
+		{
+		}
+		TerrainRenderer::~TerrainRenderer()
+		{
+		}
 		TerrainRenderer * TerrainRenderer::Create(GameObject * gameObject, string diffuse, string shader)
 		{
 			TerrainGrid *grid = gameObject->GetComponent<TerrainGrid>();
