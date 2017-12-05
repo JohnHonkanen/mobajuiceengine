@@ -31,6 +31,9 @@ namespace Engine {
 		{
 			if (!preloaded)
 			{
+				TerrainGrid *grid = gameObject->GetComponent<TerrainGrid>();
+				TerrainRenderer::grid = grid;
+				grid->GetData(verts, uv, xLength, zLength);
 				GenerateNormals();
 				GenerateIndices();
 			}

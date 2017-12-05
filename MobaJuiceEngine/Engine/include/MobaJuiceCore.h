@@ -5,4 +5,5 @@
 #include "components\TerrainGrid.h"
 #include "components\TerrainRenderer.h"
 #include "components\TextureSetter.h"
+#include "components\Tile.h"
 

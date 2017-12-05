@@ -2,7 +2,8 @@
 #include <vector>
 #include "components\Behaviour.h"
 #include "core\GameObject.h"
-
+#include <cereal\cereal.hpp>
+#include <cereal\types\polymorphic.hpp>
 namespace Engine {
 	namespace Terrain {
 		class TerrainGrid : public Behaviour
@@ -11,12 +12,22 @@ namespace Engine {
 			TerrainGrid();
 			~TerrainGrid();
 
-			static TerrainGrid *Create(GameObject * obj, float gridSize, unsigned xLength, unsigned zLength, float freq, float weight, string shader, bool visualizeGrid);
-			static TerrainGrid *Create(GameObject * obj, float gridSize, unsigned xLength, unsigned zLength, float freq, float weight, string shader, bool visualizeGrid, vec3 offset);
+			static TerrainGrid *Create(GameObject * obj, float gridSize, unsigned xLength, unsigned zLength, float freq, 
+				float weight, string shader, bool visualizeGrid);
+			static TerrainGrid *Create(GameObject * obj, float gridSize, unsigned xLength, unsigned zLength, float freq, 
+				float weight, string shader, bool visualizeGrid, vec3 offset);
 			void OnLoad();
 			void Draw();
 
 			void GetData(vector<vec3> &verts, vector<vec2> &uv, unsigned int &xLength, unsigned int &zLength);
+
+			template<class Archive>
+			void serialize(Archive & ar)
+			{
+				ar(CEREAL_NVP(seed), CEREAL_NVP(gridSize), CEREAL_NVP(xLength), CEREAL_NVP(zLength), CEREAL_NVP(freq),
+					CEREAL_NVP(weight), CEREAL_NVP(shader), CEREAL_NVP(visualizeGrid), CEREAL_NVP(offset.x), CEREAL_NVP(offset.y)
+				, CEREAL_NVP(offset.z));
+			}
 		private:
 			void GenerateVAO();
 			void PreGenerateHeightMap();
@@ -48,3 +59,12 @@ namespace Engine {
 		};
 	}
 }
+
+using namespace Engine::Terrain;
+
+#include <cereal/archives/xml.hpp>
+
+CEREAL_REGISTER_TYPE(TerrainGrid);
+
+//Bind it to the Behaviour
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Behaviour, TerrainGrid);

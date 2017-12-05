@@ -3,6 +3,9 @@
 #include "components\Behaviour.h"
 #include "core\GameObject.h"
 #include "render\Material.h"
+#include <cereal\cereal.hpp>
+#include <cereal\types\polymorphic.hpp>
+
 namespace Engine {
 	namespace Terrain {
 		class TerrainRenderer: public Behaviour {
@@ -11,6 +14,12 @@ namespace Engine {
 
 			void OnLoad();
 			void Draw();
+
+			template<class Archive>
+			void serialize(Archive & ar)
+			{
+				ar(CEREAL_NVP(material.diffuseMap), CEREAL_NVP(shader));
+			}
 
 			Material material;
 		private:
@@ -37,3 +46,12 @@ namespace Engine {
 		};
 	}
 }
+
+using namespace Engine::Terrain;
+
+#include <cereal/archives/xml.hpp>
+
+CEREAL_REGISTER_TYPE(TerrainRenderer);
+
+//Bind it to the Behaviour
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Behaviour, TerrainRenderer);
