@@ -13,7 +13,7 @@ namespace Engine {
 	public:
 		Behaviour();
 		Behaviour(std::string name) : Component(name) {};
-		~Behaviour();
+		virtual ~Behaviour();
 		virtual void OnLoad() {};
 		//Only Called Once per Startup Instance of Class
 		virtual void Start() {};

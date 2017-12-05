@@ -10,7 +10,7 @@ namespace Engine {
 	public:
 		Skybox();
 		~Skybox();
-		void GenerateSkyBox();
+		bool GenerateSkyBox();
 
 		void Draw();
 

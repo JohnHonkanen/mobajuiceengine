@@ -12,7 +12,7 @@ namespace Engine {
 		string name;
 		unique_ptr<GameObjectManager> gameObjects;
 		Skybox skybox;
-
+		bool hasSkyBox;
 	public:
 		Scene();
 		Scene(string name);

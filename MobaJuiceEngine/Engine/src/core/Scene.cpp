@@ -23,7 +23,7 @@ namespace Engine {
 	void Scene::OnLoad()
 	{
 		gameObjects->OnLoad();
-		skybox.GenerateSkyBox();
+		hasSkyBox = skybox.GenerateSkyBox();
 	}
 	void Scene::Start()
 	{
@@ -39,7 +39,9 @@ namespace Engine {
 	}
 	void Scene::Draw()
 	{
-		skybox.Draw();
+		if(hasSkyBox)
+			skybox.Draw();
+
 		gameObjects->Draw();
 	}
 	void Scene::AddSkyBox(string skyBoxDirectory)

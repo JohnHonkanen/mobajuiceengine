@@ -48,13 +48,18 @@ namespace Engine {
 		cubeMap = directory;
 	}
 
-	void Skybox::GenerateSkyBox()
+	bool Skybox::GenerateSkyBox()
 	{
+		if (cubeMap == "")
+			return false;
+
 		skyboxTexture = GameEngine::manager.textureManager.getTexture(cubeMap, true);
 		vao = GameEngine::manager.meshManager.GetMesh(cube)->getID()[0];
 		program = GameEngine::manager.shaderManager.GetShader(shader);
 
 		model = mat4(1.0);
 		model = scale(model, vec3(10.0f));
+
+		return true;
 	}
 }
