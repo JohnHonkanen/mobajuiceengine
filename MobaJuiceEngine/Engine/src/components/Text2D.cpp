@@ -16,20 +16,20 @@ namespace Engine {
 
 	unsigned int Text2D::mainVAO = 0;	// static field is initialised
 
-	/*
-	Sets up the VAO (textVAO) for the quad and generates and binds the buffer object textVBO
-	*/
+										/*
+										Sets up the VAO (textVAO) for the quad and generates and binds the buffer object textVBO
+										*/
 	void Text2D::SetupVAO()
 	{
 		if (mainVAO == 0)
 		{
 			float textVertices[] = {
-                // positions        // texture Coords
-                -1.0f,  1.0f, 0.0f, 0.0f, 0.0f,
-                -1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
-                1.0f,  1.0f, 0.0f, 1.0f, 0.0f,
-                1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
-            };
+				// positions        // texture Coords
+				-1.0f,  1.0f, 0.0f, 0.0f, 0.0f,
+				-1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+				1.0f,  1.0f, 0.0f, 1.0f, 0.0f,
+				1.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+			};
 			// setup plane VAO
 			glGenVertexArrays(1, &textVAO);
 			glGenBuffers(1, &textVBO);
@@ -59,6 +59,10 @@ namespace Engine {
 	*/
 	void Text2D::SetupTexture()
 	{
+		stringColour.r = colourData.x;
+		stringColour.g = colourData.y;
+		stringColour.b = colourData.z;
+
 		/*
 		Uses a stringImage to render the text with appropriate font, output and colour
 		@param   textFont	  - The font type of the text
@@ -89,7 +93,11 @@ namespace Engine {
 		glBindTexture(GL_TEXTURE_2D, NULL);
 		// This creates a texture from the string using stingImage width and height along with the BindTexture and TextParemeteri and TextImage2D methods
 
-		//SDL_FreeSurface(stringImage); // This frees the RGB surface of the texture
+		SDL_FreeSurface(stringImage); // This frees the RGB surface of the texture
+	}
+
+	Text2D::Text2D()
+	{
 	}
 
 	/*
@@ -98,12 +106,11 @@ namespace Engine {
 	@param   stringColour - The colour of the text
 	@param   *textFont	  - The font type of the text
 
-	@returns Text2D      - A constructed Text2D object 
+	@returns Text2D      - A constructed Text2D object
 	*/
-	Text2D::Text2D(string stringText, SDL_Color stringColour, TTF_Font *textFont) :stringText(stringText), stringColour(stringColour), textFont(textFont)
+	Text2D::Text2D(string stringText, vec3 colourData, string font) :stringText(stringText), colourData(colourData), font(font)
 	{
-		SetupVAO();
-		SetupTexture();
+
 	}
 
 	void Text2D::Start()
@@ -113,23 +120,22 @@ namespace Engine {
 	/*
 	Renders the text texture to the sceen
 	Tells the program which shader to use and sets up the matricies to be passed into a shader
-	Draws the quad 
+	Draws the quad
 	*/
 	void Text2D::Draw()
 	{
-		unsigned int shader = shaderManager->GetShader("text2D");
-		glUseProgram(shader);
+		glUseProgram(shaderProgram);
 		glm::mat4 model = transform->GetLocalToWorldMatrix();
 		glm::mat4 projection(1.0);
 		projection = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, 0.0f, 100.0f); // Projection set to a 2D orthographic view. 
 		Camera::mainCamera->CalculateViewMatrix();
 		glm::mat4 view(1.0);
-		glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textTexture);
-		glUniform1i(glGetUniformLocation(shader, "texture0"), 0);
+		glUniform1i(glGetUniformLocation(shaderProgram, "texture0"), 0);
 		glBindVertexArray(textVAO);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		glBindVertexArray(0);
@@ -150,14 +156,14 @@ namespace Engine {
 	Gives gameObject ownership of the Text2D object
 
 	@param - *gameObject    - The Text2D GameObject
-	@param - *shaderManager - The shader 
+	@param - *shaderManager - The shader
 	@param - stringText     - The text to be displayed
 	@param - stringColour   - The colour of the text
 	@param - *textFont	    - The font of the text
 
-	@returns Text2D - Text2D object 
+	@returns Text2D - Text2D object
 	*/
-	Text2D * Text2D::Create(GameObject * gameObject, ShaderManager * shaderManager, string stringText, SDL_Color stringColour, TTF_Font * textFont)
+	Text2D * Text2D::Create(GameObject * gameObject, std::string shaderPath, string stringText, vec3 colourData, string font)
 	{
 		/*
 		Creates a new Text2D object
@@ -167,11 +173,22 @@ namespace Engine {
 
 		@returns - Text2D - A new Text2D object
 		*/
-		Text2D* textObject = new Text2D(stringText, stringColour, textFont);
-
-		textObject->shaderManager = shaderManager;
+		Text2D *textObject = new Text2D(stringText, colourData, font);
+		textObject->shader = shaderPath;
+		//Adds ownership
 		gameObject->AddComponent(textObject);
 
 		return textObject;
+	}
+
+	void Text2D::OnLoad()
+	{
+		shaderManager = &GameEngine::manager.shaderManager;
+		shaderProgram = shaderManager->GetShader(shader);
+
+		textFont = GameEngine::manager.fontManager.GetFont(font);
+
+		SetupVAO();
+		SetupTexture();
 	}
 }

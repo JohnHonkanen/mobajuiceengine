@@ -70,6 +70,7 @@ namespace Engine {
 		manager.shaderManager.CreateShader("terrainShader", "Assets/Shaders/terrain.vert", "Assets/Shaders/terrain.frag");
 		manager.shaderManager.CreateShader("terrainGridShader", "Assets/Shaders/terrainGrid.vert", "Assets/Shaders/terrainGrid.frag");
 		manager.shaderManager.CreateShader("skyBoxShader", "Assets/Shaders/skyBoxBasic.vert", "Assets/Shaders/skyBoxBasic.frag");
+		manager.shaderManager.CreateShader("text2D", "Assets/Shaders/text2D.vert", "Assets/Shaders/text2D.frag");
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 
