@@ -45,6 +45,12 @@
     <None Include="Assets\Shaders\skyBoxBasic.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Assets\Shaders\terrainGrid.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shaders\terrainGrid.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\MavenPro-Regular.ttf">
@@ -146,6 +152,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\components\TerrainGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\components\TerrainRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -274,6 +283,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\include\components\TerrainGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\include\components\TerrainRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

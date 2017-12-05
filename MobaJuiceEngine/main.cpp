@@ -25,11 +25,11 @@ int main(int argc, char *argv[]){
 	GameObjectManager *list = scene->GetGameObjectManager();
 
 	GameObject *terrain = list->CreateGameObject("Terrain");
-	Terrain * t = Terrain::Create(terrain, 10, 20, 20, 0.003f, 10.0f, "terrainShader");
-	Terrai::TerrainGrid * grid = Terrai::TerrainGrid::Create(terrain, 10, 20, 20, 0.003f, 10.0f, "terrainShader");
-	t->material.diffuseMap = "Assets/Textures/ground.jpg";
+	//Terrain * t = Terrain::Create(terrain, 10, 20, 20, 0.003f, 10.0f, "terrainShader");
+	//Terrai::TerrainGrid * grid = Terrai::TerrainGrid::Create(terrain, 10, 20, 20, 0.003f, 10.0f, "terrainShader", true);
+	//t->material.diffuseMap = "Assets/Textures/ground.jpg";
 
-	GameObject *camera = list->CreateGameObject("Camera");
+	/*GameObject *camera = list->CreateGameObject("Camera");
 	Camera *c = Camera::Create(camera);
 	c->SetFarClippingPlane(1000);
 	camera->transform->Translate(vec3(0.0f, 20.0f, -45.0f));
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]){
 	TextureSetter::Create(rock, "Assets/Textures/Rock/Rock_d.jpg");
 	rock->transform->SetScale(vec3(0.2f));
 	rock->transform->Rotate(vec3(0, 0, 0));
-	rock->transform->SetPosition(30, t->GetHeight(30, -30), -30);
+	rock->transform->SetPosition(30, t->GetHeight(30, -30), -30);*/
 
 
 	engine.Run();
