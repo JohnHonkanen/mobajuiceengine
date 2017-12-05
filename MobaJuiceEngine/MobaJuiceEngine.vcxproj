@@ -221,6 +221,7 @@
     <ClCompile Include="Engine\src\render\texture\TextureManager.cpp" />
     <ClCompile Include="Engine\src\render\window\SDLWindow.cpp" />
     <ClCompile Include="Engine\src\utility\SimplexNoise.cpp" />
+    <ClCompile Include="FontManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\include\components\Behaviour.h" />
@@ -245,6 +246,7 @@
     <ClInclude Include="Engine\include\MobaJuiceCore.h" />
     <ClInclude Include="Engine\include\physics\RayCast.h" />
     <ClInclude Include="Engine\include\physics\RaycastUtility.h" />
+    <ClInclude Include="Engine\include\render\FontManager.h" />
     <ClInclude Include="Engine\include\render\graphics\GraphicHandler.h" />
     <ClInclude Include="Engine\include\render\graphics\OGLGraphicHandler.h" />
     <ClInclude Include="Engine\include\render\Material.h" />

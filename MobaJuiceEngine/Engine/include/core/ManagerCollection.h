@@ -3,6 +3,7 @@
 #include "Render\Mesh\OGLMeshManager.h"
 #include "Render\ShaderManager.h"
 #include "Render\Texture\TextureManager.h"
+#include "render\FontManager.h"
 #include <cereal\cereal.hpp>
 
 namespace Engine {
@@ -12,6 +13,7 @@ namespace Engine {
 		OGLMeshManager meshManager;
 		TextureManager textureManager;
 		ShaderManager shaderManager;
+		FontManager fontManager;
 
 		template<class Archive>
 		void serialize(Archive & ar)
