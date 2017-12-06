@@ -31,7 +31,7 @@ namespace Engine {
 		static unsigned int mainVAO;					// Holds the VAO
 		Text2D();
 		Text2D(string stringText, vec3 colourData, string font); // Text2D constructor	
-		void Start();
+		void Start();									// Not used at present
 		void Draw();									// Renders the text object
 		void Update(float value, float value2);			// Updates the text object
 		void OnLoad();
@@ -39,7 +39,7 @@ namespace Engine {
 		// Static factory method that is called when a new Text2D object is created.
 
 		template<class Archive>
-		void serialize(Archive & ar) // Serialzation method to save data related to the 2DText
+		void  // Serialzation method to save data related to the 2DText
 		{
 			ar(CEREAL_NVP(stringText), CEREAL_NVP(colourData.x), CEREAL_NVP(colourData.y), CEREAL_NVP(colourData.z), CEREAL_NVP(font), CEREAL_NVP(shader));
 		}
