@@ -5,10 +5,6 @@
 
 namespace Engine {
 
-	vec3 Transform::up = vec3(0, 1, 0);
-	vec3 Transform::front = vec3(0, 0, 1);
-	vec3 Transform::right = vec3(1, 0, 0);
-
 	Transform::Transform()
 	{
 		localPosition = vec3(0);

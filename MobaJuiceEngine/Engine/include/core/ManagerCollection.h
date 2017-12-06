@@ -4,6 +4,7 @@
 #include "Render\ShaderManager.h"
 #include "Render\Texture\TextureManager.h"
 #include "render\FontManager.h"
+#include "core\GameObjectManager.h"
 #include <cereal\cereal.hpp>
 
 namespace Engine {
@@ -14,6 +15,8 @@ namespace Engine {
 		TextureManager textureManager;
 		ShaderManager shaderManager;
 		FontManager fontManager;
+
+		GameObjectManager * gameObjectManager;
 
 		template<class Archive>
 		void serialize(Archive & ar)

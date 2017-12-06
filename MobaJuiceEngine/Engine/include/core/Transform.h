@@ -146,9 +146,10 @@ namespace Engine {
 		}
 
 		void OnLoad();
-		static vec3 front;
-		static vec3 right;
-		static vec3 up;
+
+		vec3 front = vec3(0, 0, 1);
+		vec3 right = vec3(1, 0, 0);
+		vec3 up = vec3(0, 1, 0);
 	private:
 		int slot = -1;
 		int numOfChildren = 0;

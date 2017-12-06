@@ -27,7 +27,6 @@ namespace Engine {
 		private:
 			void GenerateVAO();
 			void GenerateIndices();
-			void GenerateNormals();
 
 			string shader;
 			TerrainGrid * grid;

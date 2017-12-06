@@ -25,8 +25,7 @@ namespace Engine {
 			tr->material.diffuseMap = diffuse;
 			tr->shader = shader;
 
-			grid->GetData(tr->verts, tr->uv, tr->xLength, tr->zLength);
-			tr->GenerateNormals();
+			grid->GetData(tr->verts, tr->uv, tr->normals, tr->xLength, tr->zLength);
 			tr->GenerateIndices();
 
 			gameObject->AddComponent(tr);
@@ -39,8 +38,7 @@ namespace Engine {
 			{
 				TerrainGrid *grid = gameObject->GetComponent<TerrainGrid>();
 				TerrainRenderer::grid = grid;
-				grid->GetData(verts, uv, xLength, zLength);
-				GenerateNormals();
+				grid->GetData(verts, uv, normals, xLength, zLength);
 				GenerateIndices();
 			}
 
@@ -128,65 +126,6 @@ namespace Engine {
 					//Degenerate End
 					indices[offset++] = ((z + 1) * zLength) + (xLength - 1);
 				}
-			}
-		}
-		void TerrainRenderer::GenerateNormals()
-		{
-			vector<vector<vec3>> vectorMap;
-			vectorMap.resize(verts.size());
-
-			normals.resize(verts.size());
-
-			unsigned int indexCount = indices.size();
-			//Triangle Normal Calculation
-			for (int i = 1; i < indexCount;) {
-				int v1, v2, v3; //Vertex indices
-				vec3 p1, p2, p3; // Points
-				vec3 e1, e2; //Edges
-				if (i == indexCount - 1) {
-					v1 = indices[i - 1];
-					v2 = indices[i++];
-
-					p1 = verts[v1];
-					p2 = verts[v2];
-					p3 = vec3(xLength * cellSize, 0, zLength * cellSize);
-				}
-				else {
-					v1 = indices[i - 1];
-					v2 = indices[i++];
-					v3 = indices[i++];
-
-					p1 = verts[v1];
-					p2 = verts[v2];
-					p3 = verts[v3];
-				}
-
-				e1 = p2 - p1;
-				e2 = p3 - p1;
-
-				vec3 normal = normalize(cross(e1, e2));
-
-				//Check if there is a value, (nullptr == nullptr) = false;
-				if (normal.x == normal.x) {
-
-					vectorMap[v1].push_back(normal);
-					vectorMap[v2].push_back(normal);
-
-					if (i == indexCount - 1) {
-						vectorMap[v3].push_back(normal);
-					}
-				}
-			}
-			//Calculate Vertex Normals
-			for (int i = 0; i < verts.size(); i++) {
-				vector<vec3> trisN = vectorMap[i];
-				vec3 sumN(0.0); //Sum of Normals
-
-				for (int n = 0; n < trisN.size(); n++) {
-					sumN += trisN[n];
-				}
-
-				normals[i] = normalize(sumN);
 			}
 		}
 	}

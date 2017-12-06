@@ -66,6 +66,7 @@ namespace Engine {
 
 	void GameEngine::Initialize()
 	{
+		manager.gameObjectManager = activeScene->GetGameObjectManager();
 		manager.shaderManager.CreateShader("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
 		manager.shaderManager.CreateShader("terrainShader", "Assets/Shaders/terrain.vert", "Assets/Shaders/terrain.frag");
 		manager.shaderManager.CreateShader("terrainGridShader", "Assets/Shaders/terrainGrid.vert", "Assets/Shaders/terrainGrid.frag");

@@ -53,11 +53,13 @@ void Engine::InputManager::Update(bool & running, SDL_Window* window)
 
 		if (GetKey("FreezeMouse")) {
 			centerMouse = false;
+			mouseVisible = true;
 			SDL_ShowCursor(SDL_ENABLE);
 		}
 
 		if (GetKey("FreezeMouse") == -1) {
 			centerMouse = true;
+			mouseVisible = false;
 			SDL_ShowCursor(SDL_DISABLE);
 		}
 

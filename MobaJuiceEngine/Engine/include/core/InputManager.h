@@ -31,6 +31,7 @@ namespace Engine {
 			ar(CEREAL_NVP(axis));
 		}
 
+		bool mouseVisible = false;
 	private:
 		SDL_Event sdlEvent;
 		void QueryKeys(const Uint8 *keys, const Uint8 *mouseButton);

@@ -19,13 +19,15 @@ namespace Engine {
 			void OnLoad();
 			void Draw();
 
-			void GetData(vector<vec3> &verts, vector<vec2> &uv, unsigned int &xLength, unsigned int &zLength);
+			void GetData(vector<vec3> &verts, vector<vec2> &uv, vector<vec3> &normals, unsigned int &xLength, unsigned int &zLength);
 			float GetHeight(float x, float z);
+			vec3 GetSnapPoint(vec3 position);
+			vec3 GetNormal(vec3 position);
 
 			template<class Archive>
 			void serialize(Archive & ar)
 			{
-				ar(CEREAL_NVP(seed), CEREAL_NVP(gridSize), CEREAL_NVP(xLength), CEREAL_NVP(zLength), CEREAL_NVP(freq),
+				ar(CEREAL_NVP(seed), CEREAL_NVP(cellSize), CEREAL_NVP(xLength), CEREAL_NVP(zLength), CEREAL_NVP(freq),
 					CEREAL_NVP(weight), CEREAL_NVP(shader), CEREAL_NVP(visualizeGrid), CEREAL_NVP(offset.x), CEREAL_NVP(offset.y)
 				, CEREAL_NVP(offset.z));
 			}
@@ -33,19 +35,21 @@ namespace Engine {
 			void GenerateVAO();
 			void PreGenerateHeightMap();
 			void BuildVertices();
+			void GenerateNormals();
 			void GenerateIndices();
 
 			string shader;
 
 			bool preloaded = false;
 			int seed = -1;
-			float gridSize;
+			float cellSize;
 			float freq = 0.0003f;
 			float weight = 30.0f;
 
 			vector<vec3> verts;
 			vector<vec2> uv;
 			vector<unsigned int> indices;
+			vector<vec3> normals;
 
 			unsigned zLength;
 			unsigned xLength;

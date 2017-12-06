@@ -16,15 +16,15 @@ namespace Engine {
 			glDeleteVertexArrays(1, &vao);
 			glDeleteBuffers(2, vbo);
 		}
-		TerrainGrid * TerrainGrid::Create(GameObject * obj, float gridSize, unsigned xLength, unsigned zLength, 
+		TerrainGrid * TerrainGrid::Create(GameObject * obj, float cellSize, unsigned xLength, unsigned zLength, 
 			float freq, float weight, string shader, bool visualizeGrid)
 		{
-			return Create(obj, gridSize, xLength, zLength, freq, weight, shader, visualizeGrid, vec3(0,1,0));
+			return Create(obj, cellSize, xLength, zLength, freq, weight, shader, visualizeGrid, vec3(0,1,0));
 		}
-		TerrainGrid * TerrainGrid::Create(GameObject * obj, float gridSize, unsigned xLength, unsigned zLength, float freq, float weight, string shader, bool visualizeGrid, vec3 offset)
+		TerrainGrid * TerrainGrid::Create(GameObject * obj, float cellSize, unsigned xLength, unsigned zLength, float freq, float weight, string shader, bool visualizeGrid, vec3 offset)
 		{
 			TerrainGrid *t = new TerrainGrid();
-			t->gridSize = gridSize;
+			t->cellSize = cellSize;
 			t->xLength = xLength;
 			t->zLength = zLength;
 			t->freq = freq;
@@ -39,12 +39,13 @@ namespace Engine {
 			t->PreGenerateHeightMap();
 			t->BuildVertices();
 			t->GenerateIndices();
+			t->GenerateNormals();
 
 			t->preloaded = true;
 
 			obj->AddComponent(t);
 
-			t->transform->Translate(-vec3((xLength * gridSize) / 2, 0, (zLength * gridSize) / 2));
+			t->transform->Translate(-vec3((xLength * cellSize) / 2, 0, (zLength * cellSize) / 2));
 
 			return t;
 		}
@@ -54,6 +55,7 @@ namespace Engine {
 				PreGenerateHeightMap();
 				BuildVertices();
 				GenerateIndices();
+				GenerateNormals();
 			}
 
 			if (visualizeGrid) {
@@ -86,10 +88,11 @@ namespace Engine {
 			glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);
 		}
-		void TerrainGrid::GetData(vector<vec3>& verts, vector<vec2>& uv, unsigned int &xLength, unsigned int &zLength)
+		void TerrainGrid::GetData(vector<vec3>& verts, vector<vec2>& uv, vector<vec3> &normals, unsigned int &xLength, unsigned int &zLength)
 		{
 			verts = TerrainGrid::verts;
 			uv = TerrainGrid::uv;
+			normals = TerrainGrid::normals;
 			xLength = TerrainGrid::xLength;
 			zLength = TerrainGrid::zLength;
 		}
@@ -100,12 +103,17 @@ namespace Engine {
 			float terrainX = x - tp.x;
 			float terrainZ = z - tp.z;
 
-			float xCoord = ((int)terrainX % (int)gridSize) / (float)gridSize;
-			float zCoord = ((int)terrainZ % (int)gridSize) / (float)gridSize;
+			float xCoord = ((int)terrainX % (int)cellSize) / (float)cellSize;
+			float zCoord = ((int)terrainZ % (int)cellSize) / (float)cellSize;
 
-			int gridX = (int)floor(terrainX / gridSize);
-			int gridZ = (int)floor(terrainZ / gridSize);
+			int gridX = (int)floor(terrainX / cellSize);
+			int gridZ = (int)floor(terrainZ / cellSize);
 			float height;
+
+			if (gridX > xLength || gridZ > zLength)
+				return 0;
+
+			float v1, v2, v3;
 			if (xCoord <= (1 - zCoord)) {
 				height = barryCentric(vec3(0, heightmap[gridZ][gridX], 0), vec3(1, heightmap[gridZ][gridX + 1], 0), vec3(0, heightmap[gridZ + 1][gridX], 1), vec2(xCoord, zCoord));
 			}
@@ -114,6 +122,31 @@ namespace Engine {
 			}
 
 			return height;
+		}
+
+		vec3 TerrainGrid::GetSnapPoint(vec3 position)
+		{
+			vec3 tp = transform->GetPosition();
+			float terrainX = position.x - tp.x;
+			float terrainZ = position.z - tp.z;
+
+			int gridX = (int)floor(terrainX / cellSize);
+			int gridZ = (int)floor(terrainZ / cellSize);
+
+
+			return vec3(gridX * cellSize, heightmap[gridZ][gridX], gridZ * cellSize) + tp;
+		}
+
+		vec3 TerrainGrid::GetNormal(vec3 position)
+		{
+			vec3 tp = transform->GetPosition();
+			float terrainX = position.x - tp.x;
+			float terrainZ = position.z - tp.z;
+
+			int gridX = (int)floor(terrainX / cellSize);
+			int gridZ = (int)floor(terrainZ / cellSize);
+
+			return normals[gridZ * zLength + gridX];
 		}
 
 		void TerrainGrid::GenerateVAO()
@@ -142,6 +175,7 @@ namespace Engine {
 			for (int i = 0; i < zLength; i++) {
 				heightmap[i].resize(xLength);
 			}
+
 		}
 		void TerrainGrid::BuildVertices()
 		{
@@ -154,34 +188,94 @@ namespace Engine {
 			for (int z = 0; z < zLength; z++) {
 				for (int x = 0; x < xLength; x++) {
 
-					float scaleU = z / float(zLength - 1) *gridSize;
-					float scaleV = x / float(xLength - 1) *gridSize;
+					float scaleU = z / float(zLength - 1) *cellSize;
+					float scaleV = x / float(xLength - 1) *cellSize;
 
 					float height;
 					//Single Pass heightmap
-					height = SimplexNoise::noise((x + seed)  * freq * gridSize, (z + seed) * freq * gridSize) * weight;
+					height = SimplexNoise::noise((x + seed)  * freq * cellSize, (z + seed) * freq * cellSize) * weight;
 
 					heightmap[z][x] = height;
-					verts[vertex] = vec3(x *gridSize, height, z * gridSize);
+					verts[vertex] = vec3(x *cellSize, height, z * cellSize);
 					uv[vertex] = vec2(texU * scaleU, texV * scaleV);
 
 					vertex++;
 				}
 			}
 		}
+		void TerrainGrid::GenerateNormals()
+		{
+			vector<vector<vec3>> vectorMap;
+			vectorMap.resize(verts.size());
+
+			normals.resize(verts.size());
+
+			unsigned int indexCount = indices.size();
+			//Triangle Normal Calculation
+			for (int i = 1; i < indexCount;) {
+				int v1, v2, v3; //Vertex indices
+				vec3 p1, p2, p3; // Points
+				vec3 e1, e2; //Edges
+				if (i == indexCount - 1) {
+					v1 = indices[i - 1];
+					v2 = indices[i++];
+
+					p1 = verts[v1];
+					p2 = verts[v2];
+					p3 = vec3(xLength * cellSize, 0, zLength * cellSize);
+				}
+				else {
+					v1 = indices[i - 1];
+					v2 = indices[i++];
+					v3 = indices[i++];
+
+					p1 = verts[v1];
+					p2 = verts[v2];
+					p3 = verts[v3];
+				}
+
+				e1 = p2 - p1;
+				e2 = p3 - p1;
+
+				vec3 normal = normalize(cross(e1, e2));
+
+				//Check if there is a value, (nullptr == nullptr) = false;
+				if (normal.x == normal.x) {
+
+					vectorMap[v1].push_back(normal);
+					vectorMap[v2].push_back(normal);
+
+					if (i == indexCount - 1) {
+						vectorMap[v3].push_back(normal);
+					}
+				}
+			}
+			//Calculate Vertex Normals
+			for (int i = 0; i < verts.size(); i++) {
+				vector<vec3> trisN = vectorMap[i];
+				vec3 sumN(0.0); //Sum of Normals
+
+				for (int n = 0; n < trisN.size(); n++) {
+					sumN += trisN[n];
+				}
+
+				normals[i] = normalize(sumN);
+			}
+		}
+
 		void TerrainGrid::GenerateIndices()
 		{
 			const int numStrips = zLength;
 			const int vps = 2 * xLength;
 			const int ver = numStrips * vps - (2 * xLength - 1);
-			const int lastX = (numStrips +1) * 2;
+			const int lastX = (numStrips + 1) * 2;
 			indices.resize(numStrips * vps + (ver + lastX));
 			unsigned int offset = 0;
 			for (int z = 0; z < zLength; z++) {
-				for (int x = 0; x < xLength-1; x++) {
+				for (int x = 0; x < xLength - 1; x++) {
 					indices[offset++] = (z * zLength) + x;
 					indices[offset++] = (z * zLength) + (x + 1);
-					
+
 
 					if (z > 0) {
 						indices[offset++] = ((z - 1) * zLength) + x;
