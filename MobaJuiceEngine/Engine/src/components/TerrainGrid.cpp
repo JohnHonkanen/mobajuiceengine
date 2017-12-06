@@ -93,6 +93,29 @@ namespace Engine {
 			xLength = TerrainGrid::xLength;
 			zLength = TerrainGrid::zLength;
 		}
+
+		float TerrainGrid::GetHeight(float x, float z)
+		{
+			vec3 tp = transform->GetPosition();
+			float terrainX = x - tp.x;
+			float terrainZ = z - tp.z;
+
+			float xCoord = ((int)terrainX % (int)gridSize) / (float)gridSize;
+			float zCoord = ((int)terrainZ % (int)gridSize) / (float)gridSize;
+
+			int gridX = (int)floor(terrainX / gridSize);
+			int gridZ = (int)floor(terrainZ / gridSize);
+			float height;
+			if (xCoord <= (1 - zCoord)) {
+				height = barryCentric(vec3(0, heightmap[gridZ][gridX], 0), vec3(1, heightmap[gridZ][gridX + 1], 0), vec3(0, heightmap[gridZ + 1][gridX], 1), vec2(xCoord, zCoord));
+			}
+			else {
+				height = barryCentric(vec3(1, heightmap[gridZ][gridX + 1], 0), vec3(1, heightmap[gridZ + 1][gridX + 1], 1), vec3(0, heightmap[gridZ + 1][gridX], 1), vec2(xCoord, zCoord));
+			}
+
+			return height;
+		}
+
 		void TerrainGrid::GenerateVAO()
 		{
 			glGenVertexArrays(1, &vao);
