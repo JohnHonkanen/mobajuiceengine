@@ -39,7 +39,7 @@ namespace Engine {
 		// Static factory method that is called when a new Text2D object is created.
 
 		template<class Archive>
-		void  // Serialzation method to save data related to the 2DText
+		void serialize(Archive & ar) // Serialzation method to save data related to the 2DText
 		{
 			ar(CEREAL_NVP(stringText), CEREAL_NVP(colourData.x), CEREAL_NVP(colourData.y), CEREAL_NVP(colourData.z), CEREAL_NVP(font), CEREAL_NVP(shader));
 		}
@@ -49,7 +49,7 @@ namespace Engine {
 using namespace Engine;
 
 #include <cereal/archives/xml.hpp>
-//Register camera as a derived class
+//Register Text2D as a derived class
 CEREAL_REGISTER_TYPE(Text2D);
 
 //Bind it to the Behaviour
