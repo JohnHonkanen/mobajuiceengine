@@ -31,7 +31,7 @@ namespace Engine {
 		static unsigned int mainVAO;					// Holds the VAO
 		Text2D();
 		Text2D(string stringText, vec3 colourData, string font); // Text2D constructor	
-		void Start();
+		void Start();									// Not used at present
 		void Draw();									// Renders the text object
 		void Update(float value, float value2);			// Updates the text object
 		void OnLoad();
@@ -49,7 +49,7 @@ namespace Engine {
 using namespace Engine;
 
 #include <cereal/archives/xml.hpp>
-//Register camera as a derived class
+//Register Text2D as a derived class
 CEREAL_REGISTER_TYPE(Text2D);
 
 //Bind it to the Behaviour
