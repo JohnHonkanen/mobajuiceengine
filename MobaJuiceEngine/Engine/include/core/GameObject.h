@@ -23,6 +23,9 @@ namespace Engine {
 		void Input();
 		void Update();
 		void Draw();
+
+		/* Create a copy of the Gameobject. */
+		GameObject * Instantiate();
 		/*
 			Add a Component and gives the GameObject a Sole Ownership of the component
 		*/
