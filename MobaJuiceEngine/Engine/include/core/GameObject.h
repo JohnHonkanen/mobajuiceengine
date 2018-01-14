@@ -26,6 +26,8 @@ namespace Engine {
 
 		/* Create a copy of the Gameobject. */
 		GameObject * Instantiate();
+
+		GameObject *Instantiate(vec3 position, vec3 rotation);
 		/*
 			Add a Component and gives the GameObject a Sole Ownership of the component
 		*/
