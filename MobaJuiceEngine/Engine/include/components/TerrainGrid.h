@@ -16,6 +16,8 @@ namespace Engine {
 				float weight, string shader, bool visualizeGrid);
 			static TerrainGrid *Create(GameObject * obj, float gridSize, unsigned xLength, unsigned zLength, float freq, 
 				float weight, string shader, bool visualizeGrid, vec3 offset);
+
+			void Copy(GameObject *copyObject);
 			void OnLoad();
 			void Draw();
 

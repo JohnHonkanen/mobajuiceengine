@@ -13,6 +13,7 @@ namespace Engine {
 			TerrainRenderer();
 			~TerrainRenderer();
 			static TerrainRenderer * Create(GameObject *gameObject, string diffuse, string shader);
+			void Copy(GameObject *copyObject);
 
 			void OnLoad();
 			void Draw();

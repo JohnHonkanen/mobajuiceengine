@@ -49,6 +49,14 @@ namespace Engine {
 
 			return t;
 		}
+
+		void TerrainGrid::Copy(GameObject * copyObject)
+		{
+			TerrainGrid * copy = Create(copyObject, TerrainGrid::cellSize, TerrainGrid::xLength, TerrainGrid::zLength, TerrainGrid::freq, 
+				TerrainGrid::weight, TerrainGrid::shader, TerrainGrid::visualizeGrid, TerrainGrid::offset);
+			copy->seed = TerrainGrid::seed;
+		}
+
 		void TerrainGrid::OnLoad()
 		{
 			if (!preloaded) {

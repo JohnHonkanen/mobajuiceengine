@@ -30,7 +30,15 @@ namespace Engine {
 
 			gameObject->AddComponent(tr);
 
-			return nullptr;
+			return tr;
+		}
+		void TerrainRenderer::Copy(GameObject * copyObject)
+		{
+			TerrainRenderer *tr = new TerrainRenderer();
+			tr->material.diffuseMap = material.diffuseMap;
+			tr->shader = shader;
+
+			copyObject->AddComponent(tr);
 		}
 		void TerrainRenderer::OnLoad()
 		{

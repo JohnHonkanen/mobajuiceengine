@@ -16,6 +16,11 @@ TextureSetter * Engine::TextureSetter::Create(GameObject * obj, string diffuseMa
 
 }
 
+void Engine::TextureSetter::Copy(GameObject * copyObject)
+{
+	Create(copyObject, diffuseMap);
+}
+
 void Engine::TextureSetter::Start()
 {
 	MeshRenderer *mr = gameObject->GetComponent<MeshRenderer>();

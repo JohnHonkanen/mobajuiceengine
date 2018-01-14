@@ -34,6 +34,8 @@ namespace Engine {
 			@return				The created mesh renderer object
 		*/
 		static MeshRenderer *Create(GameObject *gameObject, std::string path);
+		void Copy(GameObject *copyObject);
+
 		void OnLoad();
 		void Start();
 		void Draw();

@@ -6,6 +6,7 @@ namespace Engine {
 	class TextureSetter : public Behaviour {
 	public:
 		static TextureSetter *Create(GameObject *obj, string diffuseMap);
+		void Copy(GameObject *copyObject);
 		void Start();
 
 		template<class Archive>

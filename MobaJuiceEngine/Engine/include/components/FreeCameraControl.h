@@ -19,6 +19,7 @@ namespace Engine {
 		void Update();
 		void Input();
 		static FreeCameraControl* Create(GameObject* gameObject);
+		void Copy(GameObject *copyObject);
 
 		template<class Archive>
 		void serialize(Archive & ar)

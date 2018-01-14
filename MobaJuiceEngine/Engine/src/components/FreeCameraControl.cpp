@@ -95,4 +95,16 @@ namespace Engine {
 		return f;
 	}
 
+	void FreeCameraControl::Copy(GameObject * copyObject)
+	{
+		FreeCameraControl *copy = new FreeCameraControl();
+
+		copy->pitch = FreeCameraControl::pitch;
+		copy->yaw = FreeCameraControl::yaw;
+		copy->cameraSpeed = FreeCameraControl::cameraSpeed;
+		copy->cameraRotateSpeed = FreeCameraControl::cameraRotateSpeed;
+
+		copyObject->AddComponent(copy);
+	}
+
 }

@@ -21,6 +21,15 @@ namespace Engine {
 		return r;
 	}
 
+	void MeshRenderer::Copy(GameObject * copyObject)
+	{
+		MeshRenderer *copy = new MeshRenderer();
+
+		copy->meshPath = MeshRenderer::meshPath;
+
+		copyObject->AddComponent(copy);
+	}
+
 	void MeshRenderer::OnLoad()
 	{
 		meshManager = &GameEngine::manager.meshManager;

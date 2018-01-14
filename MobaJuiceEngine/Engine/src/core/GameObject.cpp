@@ -66,6 +66,9 @@ namespace Engine {
 			components.at(i)->Copy(copy);
 		}
 
+		copy->OnLoad();
+		copy->Start();
+
 		return copy;
 	}
 

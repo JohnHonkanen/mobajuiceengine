@@ -15,6 +15,12 @@ namespace Engine {
 			return ts;
 		}
 
+		void TerrainSnapper::Copy(GameObject * copyObject)
+		{
+			//Not a copyable component
+			assert(0);
+		}
+
 		void TerrainSnapper::OnLoad()
 		{
 			

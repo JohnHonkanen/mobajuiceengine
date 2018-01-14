@@ -181,6 +181,11 @@ namespace Engine {
 		return textObject;
 	}
 
+	void Text2D::Copy(GameObject * copyObject)
+	{
+		Create(copyObject, shader, stringText, colourData, font);
+	}
+
 	void Text2D::OnLoad()
 	{
 		shaderManager = &GameEngine::manager.shaderManager;

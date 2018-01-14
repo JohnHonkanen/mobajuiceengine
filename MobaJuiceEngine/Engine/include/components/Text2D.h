@@ -37,6 +37,7 @@ namespace Engine {
 		void OnLoad();
 		static Text2D* Create(GameObject* gameObject, string shaderPath, string stringText, vec3 colourData, string font);
 		// Static factory method that is called when a new Text2D object is created.
+		void Copy(GameObject *copyObject);
 
 		template<class Archive>
 		void serialize(Archive & ar) // Serialzation method to save data related to the 2DText

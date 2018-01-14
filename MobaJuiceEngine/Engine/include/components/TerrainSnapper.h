@@ -11,6 +11,8 @@ namespace Engine {
 		public:
 
 			static TerrainSnapper * Create(GameObject * gameObject, TerrainGrid * grid);
+			void Copy(GameObject *copyObject);
+
 			void OnLoad();
 			void Start();
 			void Update();		
