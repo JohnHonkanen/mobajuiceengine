@@ -73,5 +73,6 @@ namespace Engine {
 		}
 	private:
 		std::map<std::string, GameObjUniqPtr> gameObjects;
+		std::map<std::string, int> counter;
 	};
 }

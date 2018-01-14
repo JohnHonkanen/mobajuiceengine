@@ -54,8 +54,13 @@ namespace Engine {
 			gameObject->name = "GameObject" + count;
 		}
 		//If already exist
-		if (gameObjects.find(gameObject->name) != gameObjects.end()) {
-			gameObject->name = gameObject->name + "_1";
+		if (counter.count(gameObject->name) > 0) {
+			string name = gameObject->name;
+			gameObject->name = name + "_" + std::to_string(counter[name]);
+			counter[name]++;
+		}
+		else {
+			counter[gameObject->name] = 1;
 		}
 		
 

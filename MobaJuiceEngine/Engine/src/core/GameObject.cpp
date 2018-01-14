@@ -67,6 +67,7 @@ namespace Engine {
 		GameObject * copy = GameEngine::manager.gameObjectManager->CreateGameObject(name);
 		copy->transform->SetPosition(position);
 		copy->transform->SetEulerAngle(rotation);
+		copy->transform->SetScale(transform->GetScale());
 
 		/* Copy Components to the new copy object*/
 		for (int i = 0; i < components.size(); i++) {
