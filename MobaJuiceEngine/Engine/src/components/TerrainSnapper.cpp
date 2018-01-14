@@ -40,12 +40,17 @@ namespace Engine {
 
 			vec3 colPoint = CalcRayTerrainCollisionPoint();
 			vec3 snap = grid->GetSnapPoint(colPoint);
+			snapPoint = snap;
 			heldObject->transform->SetPosition(snap + vec3(5, 4.0f , 5));
 			heldObject->transform->up = grid->GetNormal(snap) * 3.14f;
 		}
 		void TerrainSnapper::SetHeldObject(GameObject * gameObject)
 		{
 			heldObject = gameObject;
+		}
+		vec3 TerrainSnapper::GetMouseToWorldSnap()
+		{
+			return vec3();
 		}
 		vec3 TerrainSnapper::CalcRayTerrainCollisionPoint()
 		{

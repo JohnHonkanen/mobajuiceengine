@@ -17,6 +17,7 @@ namespace Engine {
 			void Start();
 			void Update();		
 			void SetHeldObject(GameObject *gameObject);
+			vec3 GetMouseToWorldSnap();
 			
 			template<class Archive>
 			void serialize(Archive & ar)
@@ -31,6 +32,7 @@ namespace Engine {
 			GameObject *heldObject;
 			//TerrainGrid * grid;
 			vec3 ray;
+			vec3 snapPoint;
 			const int RAYDIST = 600;
 			const int RECURSION = 200;
 		};

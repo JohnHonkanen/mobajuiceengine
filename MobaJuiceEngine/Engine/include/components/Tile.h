@@ -44,6 +44,7 @@ namespace Engine {
 		@return				The created Tile System gameObject
 		*/
 		static Tile* Create(GameObject * gameObject, float gWidth, float gHeight, float cSize, float pHeight);
+		void Copy(GameObject *copyObject) {};
 		/*default constructor*/
 		Tile();
 		/*destructor*/
