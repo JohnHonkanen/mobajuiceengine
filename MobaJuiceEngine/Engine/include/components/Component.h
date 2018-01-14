@@ -28,6 +28,9 @@ namespace Engine {
 		//Rendering Loop
 		virtual void Draw() {};
 
+		/* Copies the Component */
+		virtual void Copy(GameObject *copyObject) = 0;
+
 		//Serialization method
 		template<class Archive>
 		void serialize(Archive & ar) {

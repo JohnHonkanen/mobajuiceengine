@@ -23,6 +23,8 @@ namespace Engine {
 		//Rendering Loop
 		virtual void Draw() {};
 
+		virtual void Copy(GameObject *copyObject) = 0;
+
 		template<class Archive>
 		void serialize(Archive & ar)
 		{

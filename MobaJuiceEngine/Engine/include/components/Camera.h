@@ -4,6 +4,7 @@
 */
 #pragma once
 #include "Behaviour.h"
+#include "Component.h"
 #include <memory>
 #include<glm\glm.hpp>
 #include <cereal\cereal.hpp>
@@ -73,6 +74,8 @@ namespace Engine {
 		Calculates the view matrix of the camera
 		*/
 		void CalculateViewMatrix();
+
+		void Copy(GameObject *copyObject);
 
 		template<class Archive>
 		void serialize(Archive & ar)

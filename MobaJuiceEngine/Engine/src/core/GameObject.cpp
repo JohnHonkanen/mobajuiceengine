@@ -63,7 +63,7 @@ namespace Engine {
 
 		/* Copy Components to the new copy object*/
 		for (int i = 0; i < components.size(); i++) {
-			
+			components.at(i)->Copy(copy);
 		}
 
 		return copy;

@@ -78,6 +78,21 @@ namespace Engine {
 		view = lookAt(transform->GetPosition(), transform->GetPosition() + transform->Front(), transform->Up());
 	}
 
+	void Camera::Copy(GameObject * copyObject)
+	{
+		Camera * copy = new Camera();
+		copy->projection = Camera::projection;
+		copy->view = Camera::view;
+		copy->front = Camera::front;
+		copy->up = Camera::up;
+		copy->fov = Camera::fov;
+		copy->aspectRatio = Camera::aspectRatio;
+		copy->near = Camera::near;
+		copy->far = Camera::far;
+
+		copyObject->AddComponent(copy);
+	}
+
 	void Camera::SetPerspective(float _fov, float _aspectRatio, float _near, float _far)
 	{
 		fov = _fov;
