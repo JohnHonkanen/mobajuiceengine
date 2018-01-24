@@ -1,5 +1,4 @@
 #include "hud\HUDCanvas.h"
-#include "hud\HUD.h"
 #include "hud\HUDQuad.h"
 #include "render\OGLShader.h"
 #include "core\GameEngine.h"
@@ -20,6 +19,17 @@ namespace Engine
 		{
 		}
 
+		HUDCanvas * HUDCanvas::Create(HUD * hud, HUDRect rect, string background)
+		{
+			HUDCanvas * canvas = new HUDCanvas();
+			canvas->rect = rect;
+			canvas->canvasBackground = background;
+
+			hud->AttachCanvasToHUD(canvas);
+
+			return canvas;
+		}
+
 		void HUDCanvas::Start()
 		{
 		}
@@ -38,8 +48,9 @@ namespace Engine
 			glm::mat4 model;
 
 			//To do: Move this to Start. Only needs to be calculated once
-			model = translate(model, vec3(x, y, 0.0f));
-			model = scale(model, vec3(canvasWidth, canvasWidth, 1.0f));
+			model = translate(model, vec3(rect.x + rect.width/2, rect.y + rect.height/2, -1.0f));
+			model = scale(model, vec3(rect.width, rect.height, 1.0f));
+			
 
 			//Send information to shader
 			glUniformMatrix4fv(glGetUniformLocation(shader->program, "projection"), 1, GL_FALSE, glm::value_ptr(hud->GetProjection()));
@@ -56,6 +67,14 @@ namespace Engine
 			hud->GetQuad()->Draw();
 
 			//Go through widgets and draw them
+		}
+		void HUDCanvas::SetRect(HUDRect rect)
+		{
+			HUDCanvas::rect = rect;
+		}
+		void HUDCanvas::SetBackground(string background)
+		{
+			canvasBackground = background;
 		}
 	}
 }

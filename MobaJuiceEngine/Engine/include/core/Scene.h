@@ -4,8 +4,10 @@
 #include <cereal\cereal.hpp>
 #include "GameObjectManager.h"
 #include "render\mesh\Skybox.h"
+#include "hud\HUD.h"
 
 using namespace std;
+
 namespace Engine {
 	class Scene {
 	private:
@@ -13,6 +15,7 @@ namespace Engine {
 		unique_ptr<GameObjectManager> gameObjects;
 		Skybox skybox;
 		bool hasSkyBox;
+		unique_ptr<HUD::HUD> hud;
 	public:
 		Scene();
 		Scene(string name);
@@ -26,6 +29,7 @@ namespace Engine {
 		void Draw();
 
 		void AddSkyBox(string skyBoxDirectory);
+		void AttachHUD(HUD::HUD * hud);
 
 		template<class Archive>
 		void serialize(Archive & ar)

@@ -2,6 +2,7 @@
 #include "hud\HUDCanvas.h"
 #include "hud\HUDQuad.h"
 #include "core\GameEngine.h"
+#include "core\Scene.h"
 #include "render\OGLShader.h"
 
 #include <glm\gtc\matrix_transform.hpp>
@@ -23,10 +24,20 @@ namespace Engine
 			delete quad;
 		}
 
+		HUD * HUD::Create(Engine::Scene  *scene, float width, float height)
+		{
+			HUD *hud = new HUD();
+			hud->resolutionWidth = width;
+			hud->resolutionHeight = height;
+			scene->AttachHUD(hud);
+			return hud;
+		}
+
 		void HUD::Start()
 		{
+			quad->SetupQuad();
 			//Create and get our shader from the shader manager
-			shader = GameEngine::manager.shaderManager.CreateShader("defaultHUDShader", defaultVertexShader, defaultVertexShader);
+			shader = GameEngine::manager.shaderManager.CreateShader("defaultHUDShader", defaultVertexShader, defaultFramentShader);
 
 			CalculateProjection();
 
@@ -83,7 +94,7 @@ namespace Engine
 		//Calculates the projection of our HUD
 		void HUD::CalculateProjection()
 		{
-			projection = glm::ortho(0.0f, resolutionWidth, 0.0f, resolutionWidth);
+			projection = glm::ortho(0.0f, resolutionWidth, 0.0f, resolutionHeight, 0.1f, 10.0f);
 		}
 	}
 }

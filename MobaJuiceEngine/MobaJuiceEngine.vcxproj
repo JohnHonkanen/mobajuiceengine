@@ -176,6 +176,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Assets\Shaders\defaultHUD.frag" />
+    <None Include="Assets\Shaders\defaultHUD.vert" />
     <None Include="Assets\Shaders\phong-tex.frag" />
     <None Include="Assets\Shaders\phong-tex.vert" />
     <None Include="Assets\Shaders\skyBoxBasic.frag" />
@@ -212,6 +214,9 @@
     <ClCompile Include="Engine\src\core\KeyAxis.cpp" />
     <ClCompile Include="Engine\src\core\Scene.cpp" />
     <ClCompile Include="Engine\src\core\Transform.cpp" />
+    <ClCompile Include="Engine\src\hud\HUD.cpp" />
+    <ClCompile Include="Engine\src\hud\HUDCanvas.cpp" />
+    <ClCompile Include="Engine\src\hud\HUDQuad.cpp" />
     <ClCompile Include="Engine\src\physics\RayCast.cpp" />
     <ClCompile Include="Engine\src\physics\RaycastUtility.cpp" />
     <ClCompile Include="Engine\src\render\graphics\OGLGraphicHandler.cpp" />
@@ -249,6 +254,9 @@
     <ClInclude Include="Engine\include\core\Scene.h" />
     <ClInclude Include="Engine\include\core\SDLKeyMapper.h" />
     <ClInclude Include="Engine\include\core\Transform.h" />
+    <ClInclude Include="Engine\include\hud\HUD.h" />
+    <ClInclude Include="Engine\include\hud\HUDCanvas.h" />
+    <ClInclude Include="Engine\include\hud\HUDQuad.h" />
     <ClInclude Include="Engine\include\MobaJuiceCore.h" />
     <ClInclude Include="Engine\include\physics\RayCast.h" />
     <ClInclude Include="Engine\include\physics\RaycastUtility.h" />

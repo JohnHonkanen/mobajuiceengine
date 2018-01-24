@@ -28,6 +28,10 @@ namespace Engine {
 	void Scene::Start()
 	{
 		gameObjects->Start();
+
+		if (hud) {
+			hud->Start();
+		}
 	}
 	void Scene::Input()
 	{
@@ -36,6 +40,7 @@ namespace Engine {
 	void Scene::Update()
 	{
 		gameObjects->Update();
+		hud->Update();
 	}
 	void Scene::Draw()
 	{
@@ -43,10 +48,18 @@ namespace Engine {
 			skybox.Draw();
 
 		gameObjects->Draw();
+		if (hud) {
+			hud->Draw();
+		}
 	}
 	void Scene::AddSkyBox(string skyBoxDirectory)
 	{
 		skybox.SetSkyboxCubeMap(skyBoxDirectory);
+	}
+
+	void Scene::AttachHUD(HUD::HUD * hud)
+	{
+		Scene::hud = unique_ptr<HUD::HUD>(hud);
 	}
 }
 

@@ -5,7 +5,6 @@ namespace Engine {
 	namespace HUD {
 		HUDQuad::HUDQuad()
 		{
-			SetupQuad();
 		}
 
 		HUDQuad::~HUDQuad()
@@ -24,14 +23,14 @@ namespace Engine {
 		void HUDQuad::Draw()
 		{
 			glBindVertexArray(vao);
-			glDrawArrays(GL_TRIANGLES, 0, 4);
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 			glBindVertexArray(0);
 		}
 
 		//Set up our quad for drawing
 		void HUDQuad::SetupQuad()
 		{
-			float textVertices[] = {
+			float verts[] = {
 				// positions        // texture Coords
 				-1.0f,  1.0f, 0.0f, 0.0f, 0.0f,
 				-1.0f, -1.0f, 0.0f, 0.0f, 1.0f,
@@ -45,7 +44,7 @@ namespace Engine {
 			glGenBuffers(1, &VBO);
 			glBindVertexArray(VAO);
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(textVertices), &textVertices, GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(verts), &verts, GL_STATIC_DRAW);
 			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 			glEnableVertexAttribArray(1);

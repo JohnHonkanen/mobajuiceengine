@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <glm\glm.hpp>
+#include "hud\HUD.h"
 
 using namespace std;
 namespace Engine
@@ -14,6 +15,8 @@ namespace Engine
 			HUDCanvas();
 			~HUDCanvas();
 
+			static HUDCanvas * Create(HUD * hud, HUDRect rect, string backGround);
+
 			//Start initialization of our Canvas
 			virtual void Start();
 
@@ -21,19 +24,17 @@ namespace Engine
 			virtual void Update();
 
 			//Per frame draw call of the engine
-			virtual void Draw(class HUD const * hud);
+			virtual void Draw(HUD const * hud);
+
+			void SetRect(struct HUDRect rect);
+
+			void SetBackground(string background);
 
 		protected:
-			//Dimensions of the Canvas in Pixels
-			float canvasWidth;
-			float canvasHeight;
-
-			//Position of our canvas. Bottom-left anchor
-			float x;
-			float y;
+			struct HUDRect rect;
 
 			//Array of our widget
-			vector<unique_ptr<class HUDWidgets>> widgets;
+			//vector<unique_ptr<class HUDWidgets>> widgets;
 
 			//Image of our canvas Background
 			string canvasBackground;
