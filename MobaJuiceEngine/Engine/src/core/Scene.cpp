@@ -40,7 +40,10 @@ namespace Engine {
 	void Scene::Update()
 	{
 		gameObjects->Update();
-		hud->Update();
+		if (hud) 
+		{
+			hud->Update();
+		}
 	}
 	void Scene::Draw()
 	{

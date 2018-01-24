@@ -7,11 +7,6 @@ namespace Engine {
 	class OGLShader;
 	class Scene;
 	namespace HUD {
-		struct HUDRect {
-			float width, height;
-			float x, y;
-		};
-
 		class HUD {
 		public:
 			//ctor and dtor

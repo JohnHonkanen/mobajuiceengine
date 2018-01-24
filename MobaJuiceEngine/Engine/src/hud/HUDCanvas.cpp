@@ -1,5 +1,6 @@
 #include "hud\HUDCanvas.h"
 #include "hud\HUDQuad.h"
+#include "hud\HUDWidget.h"
 #include "render\OGLShader.h"
 #include "core\GameEngine.h"
 
@@ -32,10 +33,16 @@ namespace Engine
 
 		void HUDCanvas::Start()
 		{
+			for (int i = 0; i < widgets.size(); i++) {
+				widgets[i]->Start();
+			}
 		}
 
 		void HUDCanvas::Update()
 		{
+			for (int i = 0; i < widgets.size(); i++) {
+				widgets[i]->Update();
+			}
 		}
 
 		void HUDCanvas::Draw(HUD const * hud)
@@ -67,6 +74,9 @@ namespace Engine
 			hud->GetQuad()->Draw();
 
 			//Go through widgets and draw them
+			for (int i = 0; i < widgets.size(); i++) {
+				widgets[i]->Draw();
+			}
 		}
 		void HUDCanvas::SetRect(HUDRect rect)
 		{

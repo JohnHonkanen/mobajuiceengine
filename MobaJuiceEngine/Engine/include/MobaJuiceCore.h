@@ -6,6 +6,5 @@
 #include "components\TerrainRenderer.h"
 #include "components\TextureSetter.h"
 #include "components\TerrainSnapper.h"
-#include "components\Tile.h"
 #include "components\Text2D.h"
 

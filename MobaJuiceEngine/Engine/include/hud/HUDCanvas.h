@@ -3,6 +3,7 @@
 #include <memory>
 #include <glm\glm.hpp>
 #include "hud\HUD.h"
+#include "hud\HUDRect.h"
 
 using namespace std;
 namespace Engine
@@ -34,7 +35,7 @@ namespace Engine
 			struct HUDRect rect;
 
 			//Array of our widget
-			//vector<unique_ptr<class HUDWidgets>> widgets;
+			vector<unique_ptr<class HUDWidget>> widgets;
 
 			//Image of our canvas Background
 			string canvasBackground;
