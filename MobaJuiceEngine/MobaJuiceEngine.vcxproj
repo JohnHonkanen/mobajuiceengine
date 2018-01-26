@@ -166,6 +166,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>Engine\include;Engine\dependencies\SDL2_ttf-2.0.14\include;Engine\dependencies\cereal-1.2.2\include;Engine\dependencies\SDL2-2.0.6\include;Engine\dependencies\irrKlang-1.5.0\include;Engine\dependencies\boost-1.65.1\includes;Engine\dependencies\assimp-3.3.1\include;Engine\dependencies\DevIL-1.8.0\include;Engine\dependencies\glew-2.1.0\include;Engine\dependencies\catch-2.0.0.4\include;Engine\dependencies\glm-0.9.8.5\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -196,6 +197,8 @@
     <ClCompile Include="Engine\src\components\Camera.cpp" />
     <ClCompile Include="Engine\src\components\FreeCameraControl.cpp" />
     <ClCompile Include="Engine\src\components\MeshRenderer.cpp" />
+    <ClCompile Include="Engine\src\components\Production.cpp" />
+    <ClCompile Include="Engine\src\components\Structure.cpp" />
     <ClCompile Include="Engine\src\components\TerrainGrid.cpp" />
     <ClCompile Include="Engine\src\components\TerrainRenderer.cpp" />
     <ClCompile Include="Engine\src\components\TerrainSnapper.cpp" />
@@ -233,6 +236,8 @@
     <ClInclude Include="Engine\include\components\Component.h" />
     <ClInclude Include="Engine\include\components\FreeCameraControl.h" />
     <ClInclude Include="Engine\include\components\MeshRenderer.h" />
+    <ClInclude Include="Engine\include\components\Production.h" />
+    <ClInclude Include="Engine\include\components\Structure.h" />
     <ClInclude Include="Engine\include\components\TerrainGrid.h" />
     <ClInclude Include="Engine\include\components\TerrainRenderer.h" />
     <ClInclude Include="Engine\include\components\TerrainSnapper.h" />
@@ -272,6 +277,7 @@
     <ClInclude Include="Engine\include\render\window\SDLWindow.h" />
     <ClInclude Include="Engine\include\render\window\Window.h" />
     <ClInclude Include="Engine\include\utility\SimplexNoise.h" />
+    <ClInclude Include="Structure.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
