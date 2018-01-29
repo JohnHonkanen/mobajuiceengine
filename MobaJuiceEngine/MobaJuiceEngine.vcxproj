@@ -98,10 +98,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(IncludePath)\_include</IncludePath>
     <SourcePath>$(SourcePath)\src</SourcePath>
+    <OutDir>$(SolutionDir)\libs\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
     <SourcePath>$(SourcePath)</SourcePath>
+    <OutDir>$(SolutionDir)\libs\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugExec|x64'">
     <IncludePath>$(IncludePath)</IncludePath>
