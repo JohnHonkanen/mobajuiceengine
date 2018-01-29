@@ -20,9 +20,9 @@ namespace Engine {
 		srand(time(NULL));
 
 		//Create Default Paths
-		path.assetPath = "..\GameEngine\MobaJuiceEngine\Engine\assets";
-		path.shaderPath = "..\GameEngine\MobaJuiceEngine\Engine\shaders";
-		path.settingPath = "..\GameEngine\MobaJuiceEngine\Engine\settings";
+		path.assetPath = "../GameEngine/MobaJuiceEngine/Engine/assets/";
+		path.shaderPath = "../GameEngine/MobaJuiceEngine/Engine/shaders/";
+		path.settingPath = "../GameEngine/MobaJuiceEngine/Engine/settings/";
 	}
 
 	Scene * GameEngine::CreateScene(string name)
