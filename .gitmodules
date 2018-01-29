@@ -1,3 +1,6 @@
 [submodule "MobaJuiceEngine/Engine/dependencies"]
 	path = MobaJuiceEngine/Engine/dependencies
 	url = https://github.com/JohnHonkanen/moba-libs.git
+[submodule "MobaJuiceEngine/Engine/shaders"]
+	path = MobaJuiceEngine/Engine/shaders
+	url = https://github.com/JohnHonkanen/moba-shaders.git
