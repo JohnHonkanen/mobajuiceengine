@@ -18,6 +18,10 @@ namespace Engine {
 	GameEngine::GameEngine()
 	{
 		srand(time(NULL));
+
+		//Create Default Paths
+		path.assetPath = "../../Engine/Assets/";
+		path.shaderPath = "../../Engine/Shaders/";
 	}
 
 	Scene * GameEngine::CreateScene(string name)
@@ -67,11 +71,12 @@ namespace Engine {
 	void GameEngine::Initialize()
 	{
 		manager.gameObjectManager = activeScene->GetGameObjectManager();
-		manager.shaderManager.CreateShader("phong", "Assets/Shaders/textured.vert", "Assets/Shaders/textured.frag");
-		manager.shaderManager.CreateShader("terrainShader", "Assets/Shaders/terrain.vert", "Assets/Shaders/terrain.frag");
-		manager.shaderManager.CreateShader("terrainGridShader", "Assets/Shaders/terrainGrid.vert", "Assets/Shaders/terrainGrid.frag");
-		manager.shaderManager.CreateShader("skyBoxShader", "Assets/Shaders/skyBoxBasic.vert", "Assets/Shaders/skyBoxBasic.frag");
-		manager.shaderManager.CreateShader("text2D", "Assets/Shaders/text2D.vert", "Assets/Shaders/text2D.frag");
+		//Set default Engine Shaders
+		manager.shaderManager.CreateShader("phong", string(path.shaderPath + "textured.vert").c_str(), string(path.shaderPath + "textured.frag").c_str());
+		manager.shaderManager.CreateShader("terrainShader", string(path.shaderPath + "terrain.vert").c_str(), string(path.shaderPath + "terrain.frag").c_str());
+		manager.shaderManager.CreateShader("terrainGridShader", string(path.shaderPath + "terrainGrid.vert").c_str(), string(path.shaderPath + "terrainGrid.frag").c_str());
+		manager.shaderManager.CreateShader("skyBoxShader", string(path.shaderPath + "skyBoxBasic.vert").c_str(), string(path.shaderPath + "skyBoxBasic.frag").c_str());
+		manager.shaderManager.CreateShader("text2D", string(path.shaderPath + "text2D.vert").c_str(), string(path.shaderPath + "text2D.frag").c_str());
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 
@@ -109,6 +114,33 @@ namespace Engine {
 		}
 
 		graphicsHandler.Destroy();
+	}
+
+	void GameEngine::SetDefaultPath(Paths::PATH_TYPE type, string p)
+	{
+		switch (type) {
+		case Paths::PATH_TYPE::ASSET:
+			path.assetPath = p;
+			break;
+		case Paths::PATH_TYPE::SHADER:
+			path.shaderPath = p;
+			break;
+		default:
+			//To DO Add error code.
+			break;
+		}
+	}
+
+	string GameEngine::GetPath(Paths::PATH_TYPE type) const
+	{
+		switch (type) {
+		case Paths::PATH_TYPE::ASSET:
+			return path.assetPath;
+		case Paths::PATH_TYPE::SHADER:
+			return path.shaderPath;
+		default:
+			return nullptr;
+		}
 	}
 }
 

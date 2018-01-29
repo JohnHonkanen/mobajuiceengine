@@ -203,7 +203,6 @@
     <ClCompile Include="Engine\src\components\TerrainSnapper.cpp" />
     <ClCompile Include="Engine\src\components\Text2D.cpp" />
     <ClCompile Include="Engine\src\components\TextureSetter.cpp" />
-    <ClCompile Include="Engine\src\components\Tile.cpp" />
     <ClCompile Include="Engine\src\core\Behaviour.cpp" />
     <ClCompile Include="Engine\src\core\Component.cpp" />
     <ClCompile Include="Engine\src\core\GameEngine.cpp" />
@@ -216,7 +215,10 @@
     <ClCompile Include="Engine\src\core\Transform.cpp" />
     <ClCompile Include="Engine\src\hud\HUD.cpp" />
     <ClCompile Include="Engine\src\hud\HUDCanvas.cpp" />
+    <ClCompile Include="Engine\src\hud\HUDElement.cpp" />
     <ClCompile Include="Engine\src\hud\HUDQuad.cpp" />
+    <ClCompile Include="Engine\src\hud\HUDWidget.cpp" />
+    <ClCompile Include="Engine\src\hud\widget\HUDContainer.cpp" />
     <ClCompile Include="Engine\src\physics\RayCast.cpp" />
     <ClCompile Include="Engine\src\physics\RaycastUtility.cpp" />
     <ClCompile Include="Engine\src\render\graphics\OGLGraphicHandler.cpp" />
@@ -243,7 +245,6 @@
     <ClInclude Include="Engine\include\components\TerrainSnapper.h" />
     <ClInclude Include="Engine\include\components\Text2D.h" />
     <ClInclude Include="Engine\include\components\TextureSetter.h" />
-    <ClInclude Include="Engine\include\components\Tile.h" />
     <ClInclude Include="Engine\include\core\GameEngine.h" />
     <ClInclude Include="Engine\include\core\GameObject.h" />
     <ClInclude Include="Engine\include\core\GameObjectManager.h" />
@@ -256,7 +257,11 @@
     <ClInclude Include="Engine\include\core\Transform.h" />
     <ClInclude Include="Engine\include\hud\HUD.h" />
     <ClInclude Include="Engine\include\hud\HUDCanvas.h" />
+    <ClInclude Include="Engine\include\hud\HUDElement.h" />
     <ClInclude Include="Engine\include\hud\HUDQuad.h" />
+    <ClInclude Include="Engine\include\hud\HUDRect.h" />
+    <ClInclude Include="Engine\include\hud\HUDWidget.h" />
+    <ClInclude Include="Engine\include\hud\widgets\HUDContainer.h" />
     <ClInclude Include="Engine\include\MobaJuiceCore.h" />
     <ClInclude Include="Engine\include\physics\RayCast.h" />
     <ClInclude Include="Engine\include\physics\RaycastUtility.h" />

@@ -1,10 +1,13 @@
 #pragma once
 #include "hud\HUDRect.h"
+#include "hud\HUDElement.h"
+#include <vector>
+
 namespace Engine
 {
 	namespace HUD
 	{
-		class HUDWidget
+		class HUDWidget : public HUDElement
 		{
 		public:
 			//Initialize our HUD in runtime
@@ -14,13 +17,11 @@ namespace Engine
 			virtual void Update() = 0;
 
 			//Per frame draw call of the engine
-			virtual void Draw() = 0;
+			void virtual Draw(class HUD const * hud, HUDRect parent);
 
-			HUDRect GetRect() const;
-			void EditRect(HUDRect rect);
-			void EditRect(float x, float y, float width, float height);
-		protected:
-			HUDRect rect;
+			//Widget-only draw implementation
+			virtual void DrawWidget(unsigned int shader) = 0;
+
 		};
 	}
 }

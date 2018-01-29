@@ -40,6 +40,9 @@ namespace Engine
 
 		void HUDCanvas::Update()
 		{
+			if (!active)
+				return;
+
 			for (int i = 0; i < widgets.size(); i++) {
 				widgets[i]->Update();
 			}
@@ -47,35 +50,45 @@ namespace Engine
 
 		void HUDCanvas::Draw(HUD const * hud)
 		{
+			if (!active)
+				return;
+
 			//Get our shader and use it
 			OGLShader * shader = hud->GetShader();
 			shader->Use();
+			float resX, resY;
 
-			//Set up our model matrix
-			glm::mat4 model;
-
-			//To do: Move this to Start. Only needs to be calculated once
-			model = translate(model, vec3(rect.x + rect.width/2, rect.y + rect.height/2, -1.0f));
-			model = scale(model, vec3(rect.width, rect.height, 1.0f));
-			
-
-			//Send information to shader
-			glUniformMatrix4fv(glGetUniformLocation(shader->program, "projection"), 1, GL_FALSE, glm::value_ptr(hud->GetProjection()));
-			glUniformMatrix4fv(glGetUniformLocation(shader->program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			resX = hud->GetWidth();
+			resY = hud->GetHeight();
 
 			//Sends texture information to the shader if we have set one
 			if (canvasBackground != "") {
+				
+				//Set up our model matrix
+				glm::mat4 model = mat4(1.0);
+
+				//To do: Move this to Start. Only needs to be calculated once
+				model = translate(model, vec3(rect.x + rect.width/2.0, resY - (rect.y + (rect.height/2.0f)), -1.0f));
+				model = scale(model, vec3(rect.width/2.0f, rect.height/2.0f, 1.0f));
+
+
+				//Send information to shader
+				glUniformMatrix4fv(glGetUniformLocation(shader->program, "projection"), 1, GL_FALSE, glm::value_ptr(hud->GetProjection()));
+				glUniformMatrix4fv(glGetUniformLocation(shader->program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+
 				glActiveTexture(GL_TEXTURE0);
 				glBindTexture(GL_TEXTURE_2D, GameEngine::manager.textureManager.getTexture(canvasBackground));
 				glUniform1i(glGetUniformLocation(shader->program, "texture0"), 0);
+
+				//Draw the quad
+				hud->GetQuad()->Draw();
 			}
 
-			//Draw the quad
-			hud->GetQuad()->Draw();
+			HUDRect resRect = { rect.x , resY - rect.y, 0, 0};
 
 			//Go through widgets and draw them
 			for (int i = 0; i < widgets.size(); i++) {
-				widgets[i]->Draw();
+				widgets[i]->Draw(hud, resRect);
 			}
 		}
 		void HUDCanvas::SetRect(HUDRect rect)

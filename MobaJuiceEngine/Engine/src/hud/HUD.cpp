@@ -57,10 +57,12 @@ namespace Engine
 
 		void HUD::Draw() 
 		{
+			glDisable(GL_DEPTH_TEST);
 			//If canvas exist
 			if (canvas) {
 				canvas->Draw(this);
 			}
+			glEnable(GL_DEPTH_TEST);
 		}
 
 		//Attach a canvas to our HUD
@@ -74,6 +76,16 @@ namespace Engine
 		{
 			resolutionWidth = x;
 			resolutionHeight = y;
+		}
+
+		float HUD::GetWidth() const
+		{
+			return resolutionWidth;
+		}
+
+		float HUD::GetHeight() const
+		{
+			return resolutionHeight;
 		}
 
 		glm::mat4 HUD::GetProjection() const

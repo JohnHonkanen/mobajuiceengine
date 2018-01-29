@@ -35,6 +35,10 @@ namespace Engine {
 			*/
 			void SetResolution(float const x, float const y);
 
+			/** Get the size of the hud resolution*/
+			float GetWidth() const;
+			float GetHeight() const;
+
 			glm::mat4 GetProjection() const;
 
 			OGLShader * GetShader()  const;

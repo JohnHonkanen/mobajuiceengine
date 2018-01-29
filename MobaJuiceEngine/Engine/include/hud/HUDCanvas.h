@@ -4,13 +4,14 @@
 #include <glm\glm.hpp>
 #include "hud\HUD.h"
 #include "hud\HUDRect.h"
+#include "hud\HUDElement.h"
 
 using namespace std;
 namespace Engine
 {
 	namespace HUD
 	{
-		class HUDCanvas {
+		class HUDCanvas : public HUDElement {
 
 		public:
 			HUDCanvas();
@@ -32,11 +33,6 @@ namespace Engine
 			void SetBackground(string background);
 
 		protected:
-			struct HUDRect rect;
-
-			//Array of our widget
-			vector<unique_ptr<class HUDWidget>> widgets;
-
 			//Image of our canvas Background
 			string canvasBackground;
 
