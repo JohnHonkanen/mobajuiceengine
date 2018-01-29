@@ -23,10 +23,12 @@ namespace Engine {
 		struct Paths {
 			enum PATH_TYPE {
 				SHADER,
-				ASSET
+				ASSET,
+				SETTINGS
 			};
 			string shaderPath;
 			string assetPath;
+			string settingPath;
 		};
 
 		void SetDefaultPath(Paths::PATH_TYPE type, string path);

@@ -20,8 +20,9 @@ namespace Engine {
 		srand(time(NULL));
 
 		//Create Default Paths
-		path.assetPath = "../../Engine/Assets/";
-		path.shaderPath = "../../Engine/Shaders/";
+		path.assetPath = "..\GameEngine\MobaJuiceEngine\Engine\assets";
+		path.shaderPath = "..\GameEngine\MobaJuiceEngine\Engine\shaders";
+		path.settingPath = "..\GameEngine\MobaJuiceEngine\Engine\settings";
 	}
 
 	Scene * GameEngine::CreateScene(string name)
@@ -125,6 +126,9 @@ namespace Engine {
 		case Paths::PATH_TYPE::SHADER:
 			path.shaderPath = p;
 			break;
+		case Paths::PATH_TYPE::SETTINGS:
+			path.settingPath = p;
+			break;
 		default:
 			//To DO Add error code.
 			break;
@@ -138,6 +142,8 @@ namespace Engine {
 			return path.assetPath;
 		case Paths::PATH_TYPE::SHADER:
 			return path.shaderPath;
+		case Paths::PATH_TYPE::SETTINGS:
+			return path.settingPath;
 		default:
 			return nullptr;
 		}
