@@ -15,55 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\phong-tex.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\phong-tex.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\textured.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\textured.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\text2D.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\text2D.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\terrain.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\terrain.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\skyBoxBasic.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\skyBoxBasic.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\terrainGrid.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\terrainGrid.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\defaultHUD.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Assets\Shaders\defaultHUD.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="Assets\Fonts\MavenPro-Regular.ttf">
-      <Filter>Resource Files</Filter>
-    </Font>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Engine\src\core\Behaviour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -101,9 +52,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\components\MeshRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\src\components\Text2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\physics\RayCast.cpp">
@@ -154,9 +102,6 @@
     <ClCompile Include="Engine\src\components\TerrainRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FontManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\src\components\TerrainSnapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -169,13 +114,22 @@
     <ClCompile Include="Engine\src\hud\HUDQuad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\src\hud\HUDElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\render\FontManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\hud\utility\Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Engine\src\hud\HUDWidget.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\hud\widget\HUDContainer.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\hud\HUDElement.cpp">
+    <ClCompile Include="Engine\src\hud\widget\TextWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -288,9 +242,6 @@
     <ClInclude Include="Engine\include\components\MeshRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\include\components\Text2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\include\render\mesh\Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -328,6 +279,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\include\hud\HUDElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\include\hud\widgets\TextWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\include\hud\utility\Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -77,7 +77,7 @@ namespace Engine {
 		manager.shaderManager.CreateShader("terrainShader", string(path.shaderPath + "terrain.vert").c_str(), string(path.shaderPath + "terrain.frag").c_str());
 		manager.shaderManager.CreateShader("terrainGridShader", string(path.shaderPath + "terrainGrid.vert").c_str(), string(path.shaderPath + "terrainGrid.frag").c_str());
 		manager.shaderManager.CreateShader("skyBoxShader", string(path.shaderPath + "skyBoxBasic.vert").c_str(), string(path.shaderPath + "skyBoxBasic.frag").c_str());
-		manager.shaderManager.CreateShader("text2D", string(path.shaderPath + "text2D.vert").c_str(), string(path.shaderPath + "text2D.frag").c_str());
+		manager.shaderManager.CreateShader("text", string(path.shaderPath + "text2D.vert").c_str(), string(path.shaderPath + "text2D.frag").c_str());
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 

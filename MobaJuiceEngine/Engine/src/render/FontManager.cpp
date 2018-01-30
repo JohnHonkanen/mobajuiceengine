@@ -1,4 +1,4 @@
-#include "FontManager.h"
+#include "render\FontManager.h"
 #include <iostream>
 
 using namespace std;
@@ -16,19 +16,18 @@ namespace Engine {
 
 	void FontManager::CreateFont(std::string name)
 	{
-		TTF_Font *f = TTF_OpenFont(name.c_str(), 36);
-		font.insert(pair<string, TTF_Font*>(name, f));
+		font.insert(pair<string, unique_ptr<Font>>(name, make_unique<Font>(name)));
 	}
 
-	TTF_Font * FontManager::GetFont(std::string name)
+	Font * FontManager::GetFont(std::string name)
 	{
 		auto it = font.find(name);
 		if (it != font.end()) {
-			return font[name];
+			return font[name].get();
 		}
 
 		CreateFont(name);
-		return font[name];
+		return font[name].get();
 	}
 
 

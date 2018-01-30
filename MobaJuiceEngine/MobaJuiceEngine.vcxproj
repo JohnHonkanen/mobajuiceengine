@@ -178,32 +178,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\defaultHUD.frag" />
-    <None Include="Assets\Shaders\defaultHUD.vert" />
-    <None Include="Assets\Shaders\phong-tex.frag" />
-    <None Include="Assets\Shaders\phong-tex.vert" />
-    <None Include="Assets\Shaders\skyBoxBasic.frag" />
-    <None Include="Assets\Shaders\skyBoxBasic.vert" />
-    <None Include="Assets\Shaders\terrain.frag" />
-    <None Include="Assets\Shaders\terrain.vert" />
-    <None Include="Assets\Shaders\terrainGrid.frag" />
-    <None Include="Assets\Shaders\terrainGrid.vert" />
-    <None Include="Assets\Shaders\text2D.frag" />
-    <None Include="Assets\Shaders\text2D.vert" />
-    <None Include="Assets\Shaders\textured.frag" />
-    <None Include="Assets\Shaders\textured.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="Assets\Fonts\MavenPro-Regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Engine\src\components\Camera.cpp" />
     <ClCompile Include="Engine\src\components\FreeCameraControl.cpp" />
     <ClCompile Include="Engine\src\components\MeshRenderer.cpp" />
     <ClCompile Include="Engine\src\components\TerrainGrid.cpp" />
     <ClCompile Include="Engine\src\components\TerrainRenderer.cpp" />
     <ClCompile Include="Engine\src\components\TerrainSnapper.cpp" />
-    <ClCompile Include="Engine\src\components\Text2D.cpp" />
     <ClCompile Include="Engine\src\components\TextureSetter.cpp" />
     <ClCompile Include="Engine\src\core\Behaviour.cpp" />
     <ClCompile Include="Engine\src\core\Component.cpp" />
@@ -220,9 +200,12 @@
     <ClCompile Include="Engine\src\hud\HUDElement.cpp" />
     <ClCompile Include="Engine\src\hud\HUDQuad.cpp" />
     <ClCompile Include="Engine\src\hud\HUDWidget.cpp" />
+    <ClCompile Include="Engine\src\hud\utility\Font.cpp" />
     <ClCompile Include="Engine\src\hud\widget\HUDContainer.cpp" />
+    <ClCompile Include="Engine\src\hud\widget\TextWidget.cpp" />
     <ClCompile Include="Engine\src\physics\RayCast.cpp" />
     <ClCompile Include="Engine\src\physics\RaycastUtility.cpp" />
+    <ClCompile Include="Engine\src\render\FontManager.cpp" />
     <ClCompile Include="Engine\src\render\graphics\OGLGraphicHandler.cpp" />
     <ClCompile Include="Engine\src\render\mesh\AiModel.cpp" />
     <ClCompile Include="Engine\src\render\mesh\OGLMesh.cpp" />
@@ -234,7 +217,6 @@
     <ClCompile Include="Engine\src\render\texture\TextureManager.cpp" />
     <ClCompile Include="Engine\src\render\window\SDLWindow.cpp" />
     <ClCompile Include="Engine\src\utility\SimplexNoise.cpp" />
-    <ClCompile Include="FontManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\include\components\Behaviour.h" />
@@ -245,7 +227,6 @@
     <ClInclude Include="Engine\include\components\TerrainGrid.h" />
     <ClInclude Include="Engine\include\components\TerrainRenderer.h" />
     <ClInclude Include="Engine\include\components\TerrainSnapper.h" />
-    <ClInclude Include="Engine\include\components\Text2D.h" />
     <ClInclude Include="Engine\include\components\TextureSetter.h" />
     <ClInclude Include="Engine\include\core\GameEngine.h" />
     <ClInclude Include="Engine\include\core\GameObject.h" />
@@ -263,7 +244,9 @@
     <ClInclude Include="Engine\include\hud\HUDQuad.h" />
     <ClInclude Include="Engine\include\hud\HUDRect.h" />
     <ClInclude Include="Engine\include\hud\HUDWidget.h" />
+    <ClInclude Include="Engine\include\hud\utility\Font.h" />
     <ClInclude Include="Engine\include\hud\widgets\HUDContainer.h" />
+    <ClInclude Include="Engine\include\hud\widgets\TextWidget.h" />
     <ClInclude Include="Engine\include\MobaJuiceCore.h" />
     <ClInclude Include="Engine\include\physics\RayCast.h" />
     <ClInclude Include="Engine\include\physics\RaycastUtility.h" />
