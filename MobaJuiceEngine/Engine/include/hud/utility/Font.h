@@ -24,7 +24,6 @@ namespace Engine
 			std::map<char, Character> GetCharacters() const;
 		private:
 			void LoadFont(std::string name);
-			void SetupGlyph(Uint16 unicode, TTF_Font* font);
 			//Character map
 			std::map<char, Character> characters;
 		};

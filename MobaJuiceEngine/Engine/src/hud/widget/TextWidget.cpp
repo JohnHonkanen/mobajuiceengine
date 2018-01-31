@@ -68,7 +68,7 @@ namespace Engine
 				Character ch = characters[*c];
 
 				GLfloat xpos = x + ch.bearing.x * scale;
-				GLfloat ypos = y + ch.bearing.y * scale;
+				GLfloat ypos = y - (ch.size.y - ch.bearing.y) * scale;
 
 				GLfloat w = ch.size.x * scale;
 				GLfloat h = ch.size.y * scale;
@@ -92,7 +92,7 @@ namespace Engine
 				glDrawArrays(GL_TRIANGLES, 0, 6);
 
 				// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-				x += ch.advance * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
+				x += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
 			}
 		}
 

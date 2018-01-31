@@ -1,6 +1,8 @@
 #include "hud\utility\Font.h"
 #include <GL\glew.h>
 #include <iostream>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 namespace Engine
 {
@@ -23,84 +25,67 @@ namespace Engine
 
 		void Font::LoadFont(std::string name)
 		{
-			printf("Loading Font: %s \n", name);
-			TTF_Font *f = TTF_OpenFont(name.c_str(), 36);
-
-			//If font is not loaded
-			if (!f)
+			FT_Library ft;
+			// All functions return a value different than 0 whenever an error occurred
+			if (FT_Init_FreeType(&ft))
 			{
-				printf("35: TTF_OpenFont: %s\n", TTF_GetError());
+				std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
 				return;
 			}
 
+			FT_Face face;
+			if (FT_New_Face(ft, name.c_str(), 0, &face))
+			{
+				std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+				return;
+			}
+				
+			// Set size to load glyphs as
+			FT_Set_Pixel_Sizes(face, 0, 48);
+
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
 
-			//Loop through all available characters
-			for (Uint16 unicode = 20; unicode < 128; ++unicode)
+												   // Load first 128 characters of ASCII set
+			for (GLubyte c = 0; c < 128; c++)
 			{
-				SetupGlyph(unicode, f);
-			}
-			TTF_CloseFont(f);
-		}
-		void Font::SetupGlyph(Uint16 c, TTF_Font * f)
-		{
-			if (!TTF_GlyphIsProvided(f, c)) {
-				printf("45: TTF_OpenFont: Glyph is not provided for %i\n", c);
-			}
-			else {
-				unsigned int texture;
+				// Load character glyph 
+				if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+				{
+					std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+					continue;
+				}
+				// Generate texture
+				GLuint texture;
 				glGenTextures(1, &texture);
 				glBindTexture(GL_TEXTURE_2D, texture);
-
-				//Glyph Metrics
-				int minX, maxX, minY, maxY, advance;
-				TTF_GlyphMetrics(f, c, &minX, &maxX, &minY, &maxY, &advance);
-
-				SDL_Surface * glyph = TTF_RenderGlyph_Blended(f, c, { 255, 255 , 255 });
-
-				unsigned int colors = glyph->format->BytesPerPixel;
-				unsigned int texture_format;
-				if (colors == 4) {   // alpha
-					if (glyph->format->Rmask == 0x000000ff)
-						texture_format = GL_RGBA;
-					else
-						texture_format = GL_BGRA;
-				}
-				else {             // no alpha
-					if (glyph->format->Rmask == 0x000000ff)
-						texture_format = GL_RGB;
-					else
-						texture_format = GL_BGR;
-				}
 				glTexImage2D(
 					GL_TEXTURE_2D,
 					0,
-					GL_RGB,
-					glyph->w,
-					glyph->h,
+					GL_RED,
+					face->glyph->bitmap.width,
+					face->glyph->bitmap.rows,
 					0,
-					GL_RGB,
+					GL_RED,
 					GL_UNSIGNED_BYTE,
-					glyph->pixels
+					face->glyph->bitmap.buffer
 				);
-
 				// Set texture options
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-				Character character =
-				{
+				// Now store character for later use
+				Character character = {
 					texture,
-					glm::ivec2(glyph->w, glyph->h),
-					glm::ivec2(minX, maxY),
-					advance
+					glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+					glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+					face->glyph->advance.x
 				};
-
 				characters.insert(std::pair<char, Character>(c, character));
-				SDL_FreeSurface(glyph);
 			}
+			// Destroy FreeType once we're finished
+			FT_Done_Face(face);
+			FT_Done_FreeType(ft);
 		}
 	}
 }

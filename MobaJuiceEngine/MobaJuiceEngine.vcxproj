@@ -128,7 +128,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>Engine\include;Engine\dependencies\SDL2-2.0.6\include;Engine\dependencies\irrKlang-1.5.0\include;Engine\dependencies\glm-0.9.8.5\glm;Engine\dependencies\glew-2.1.0\include;Engine\dependencies\DevIL-1.8.0\include;Engine\dependencies\cereal-1.2.2\include;Engine\dependencies\assimp-3.3.1\include;Engine\dependencies\boost-1.65.1\includes;Engine\dependencies\SDL2_ttf-2.0.14\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Engine\include;Engine\dependencies\SDL2-2.0.6\include;Engine\dependencies\irrKlang-1.5.0\include;Engine\dependencies\glm-0.9.8.5\glm;Engine\dependencies\glew-2.1.0\include;Engine\dependencies\DevIL-1.8.0\include;Engine\dependencies\cereal-1.2.2\include;Engine\dependencies\assimp-3.3.1\include;Engine\dependencies\boost-1.65.1\includes;Engine\dependencies\SDL2_ttf-2.0.14\include;Engine\dependencies\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>Engine\dependencies\glew-2.1.0\lib\Debug\x64;Engine\dependencies\SDL2-2.0.6\lib\Release\x64;Engine\dependencies\irrKlang-1.5.0\lib\x64;Engine\dependencies\DevIL-1.8.0\lib\x64\Release;Engine\dependencies\assimp-3.3.1\lib\Debug\x64;Engine\dependencies\boost-1.65.1\libs;Engine\dependencies\SDL2_ttf-2.0.14\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
