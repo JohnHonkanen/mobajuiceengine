@@ -14,9 +14,9 @@ namespace Engine
 		public:
 			static unsigned int VAO, VBO;
 
-			static TextWidget * Create(HUDElement * element, HUDRect rect, string text, string font, float scale, vec3 color);
+			static TextWidget * Create(HUDElement * element, HUDRect rect, string text, string font, unsigned int fontsize, float scale, vec3 color);
 			TextWidget();
-			TextWidget(HUDRect rect, string text, string font, float scale, vec3 color);
+			TextWidget(HUDRect rect, string text, string font, unsigned int fontsize, float scale, vec3 color);
 			//Initialize our HUD in runtime
 			void Start();
 
@@ -31,6 +31,7 @@ namespace Engine
 
 			string text;
 			string font;
+			unsigned int fontsize;
 			float scale;
 			vec3 color;
 

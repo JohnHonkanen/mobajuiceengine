@@ -21,11 +21,12 @@ namespace Engine
 		public:
 			Font(std::string name);
 			//Get our character map for this font
-			std::map<char, Character> GetCharacters() const;
+			std::map<char, Character> GetCharacters(unsigned int fontsize);
 		private:
-			void LoadFont(std::string name);
+			std::string name;
+			void LoadFont(std::string name, unsigned int fontsize);
 			//Character map
-			std::map<char, Character> characters;
+			std::map<unsigned int, std::map<char, Character>> characters;
 		};
 	}
 }

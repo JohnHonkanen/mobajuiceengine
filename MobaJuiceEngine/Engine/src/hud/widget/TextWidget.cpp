@@ -13,9 +13,9 @@ namespace Engine
 		unsigned int TextWidget::VAO = 0;	// static field is initialised
 		unsigned int TextWidget::VBO = 0;	// static field is initialised
 
-		TextWidget * TextWidget::Create(HUDElement * element, HUDRect rect, string text, string font, float scale, vec3 color)
+		TextWidget * TextWidget::Create(HUDElement * element, HUDRect rect, string text, string font, unsigned int fontsize, float scale, vec3 color)
 		{
-			TextWidget *w = new TextWidget(rect, text, font, scale, color);
+			TextWidget *w = new TextWidget(rect, text, font, fontsize, scale, color);
 			element->AttachWidget(w);
 
 			return w;
@@ -24,8 +24,8 @@ namespace Engine
 		TextWidget::TextWidget()
 		{
 		}
-		TextWidget::TextWidget(HUDRect r, string text, string font, float scale, vec3 color)
-			:text(text), font(font), scale(scale), color(color)
+		TextWidget::TextWidget(HUDRect r, string text, string font, unsigned int fontsize, float scale, vec3 color)
+			:text(text), font(font), fontsize(fontsize), scale(scale), color(color)
 		{
 			rect = r;
 		}
@@ -54,13 +54,13 @@ namespace Engine
 			glBindVertexArray(VAO);
 
 			//Get our character map for the font
-			std::map<char, Character> characters = GameEngine::manager.fontManager.GetFont(font)->GetCharacters();
+			std::map<char, Character> characters = GameEngine::manager.fontManager.GetFont(font)->GetCharacters(fontsize);
 			std::string::const_iterator c;
 
 			//Create copy of rect position
 			float x, y;
-			x = rect.x;
-			y = rect.y;
+			x = parent.x + rect.x;
+			y =  parent.y - rect.y;
 
 			//Loop through our text and setup the characters
 			for (c = text.begin(); c != text.end(); c++)

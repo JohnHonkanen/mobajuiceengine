@@ -9,21 +9,20 @@ namespace Engine
 	namespace Utility
 	{
 
-		Font::Font(std::string name) {
-			if (TTF_Init() == -1)
-			{
-				assert(0); //Unable to Load TTF_INIT
+		Font::Font(std::string name) : name(name) {
+		}
+
+		std::map<char, Character> Font::GetCharacters(unsigned int fontsize )
+		{
+			auto it = characters.find(fontsize);
+			if (it == characters.end()) {
+				LoadFont(name, fontsize);
 			}
 
-			LoadFont(name);
+			return characters.at(fontsize);
 		}
 
-		std::map<char, Character> Font::GetCharacters() const
-		{
-			return characters;
-		}
-
-		void Font::LoadFont(std::string name)
+		void Font::LoadFont(std::string name, unsigned int fontsize)
 		{
 			FT_Library ft;
 			// All functions return a value different than 0 whenever an error occurred
@@ -41,11 +40,12 @@ namespace Engine
 			}
 				
 			// Set size to load glyphs as
-			FT_Set_Pixel_Sizes(face, 0, 48);
+			FT_Set_Pixel_Sizes(face, 0, fontsize);
 
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
 
-												   // Load first 128 characters of ASCII set
+			std::map<char, Character> characterGlyph;
+			// Load first 128 characters of ASCII set
 			for (GLubyte c = 0; c < 128; c++)
 			{
 				// Load character glyph 
@@ -81,8 +81,11 @@ namespace Engine
 					glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
 					face->glyph->advance.x
 				};
-				characters.insert(std::pair<char, Character>(c, character));
+
+				characterGlyph.insert(std::pair<char, Character>(c, character));
 			}
+
+			characters.insert(std::pair<unsigned int, std::map<char, Character>>(fontsize, characterGlyph));
 			// Destroy FreeType once we're finished
 			FT_Done_Face(face);
 			FT_Done_FreeType(ft);
