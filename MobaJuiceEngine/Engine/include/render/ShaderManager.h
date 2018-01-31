@@ -30,6 +30,7 @@ namespace Engine {
 			Gets the shader with this slug
 		*/
 		GLuint GetShader(std::string name);
+		OGLShader *GetShaderProgram(std::string name);
 	private:
 		map<string, ShaderUptr> shaders;
 	};

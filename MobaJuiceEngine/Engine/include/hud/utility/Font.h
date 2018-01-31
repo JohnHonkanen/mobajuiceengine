@@ -2,6 +2,8 @@
 #include <glm\glm.hpp>
 #include <string>
 #include <map>
+#include <SDL.h>								// Base SDL is needed for SDL attributes and methods
+#include <SDL_ttf.h>							// Needs the extension to use the True type fonts
 
 namespace Engine 
 {
@@ -22,7 +24,7 @@ namespace Engine
 			std::map<char, Character> GetCharacters() const;
 		private:
 			void LoadFont(std::string name);
-
+			void SetupGlyph(Uint16 unicode, TTF_Font* font);
 			//Character map
 			std::map<char, Character> characters;
 		};

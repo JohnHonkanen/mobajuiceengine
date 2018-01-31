@@ -3,6 +3,9 @@
 #include "render\OGLShader.h"
 #include "hud\utility\Font.h"
 
+#include "glm\gtc\type_ptr.hpp"
+#include "glm\gtc\matrix_transform.hpp"
+
 namespace Engine
 {
 	namespace HUD
@@ -41,6 +44,10 @@ namespace Engine
 			unsigned int shader = GameEngine::manager.shaderManager.GetShader("text");
 
 			glUseProgram(shader);
+
+			//Send information to shader
+			glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(hud->GetProjection()));
+			//glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
 
 			glUniform3f(glGetUniformLocation(shader, "textColor"), color.x, color.y, color.z);
 			glActiveTexture(GL_TEXTURE0);
@@ -85,7 +92,7 @@ namespace Engine
 				glDrawArrays(GL_TRIANGLES, 0, 6);
 
 				// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-				x += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
+				x += ch.advance * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
 			}
 		}
 

@@ -14,6 +14,7 @@
 namespace Engine {
 
 	ManagerCollection GameEngine::manager = ManagerCollection();
+	GameEngine::Paths GameEngine::path = GameEngine::Paths();
 
 	GameEngine::GameEngine()
 	{
@@ -23,6 +24,7 @@ namespace Engine {
 		path.assetPath = "../GameEngine/MobaJuiceEngine/Engine/assets/";
 		path.shaderPath = "../GameEngine/MobaJuiceEngine/Engine/shaders/";
 		path.settingPath = "../GameEngine/MobaJuiceEngine/Engine/settings/";
+		path.enginePath = "../GameEngine/";
 	}
 
 	Scene * GameEngine::CreateScene(string name)
@@ -78,6 +80,7 @@ namespace Engine {
 		manager.shaderManager.CreateShader("terrainGridShader", string(path.shaderPath + "terrainGrid.vert").c_str(), string(path.shaderPath + "terrainGrid.frag").c_str());
 		manager.shaderManager.CreateShader("skyBoxShader", string(path.shaderPath + "skyBoxBasic.vert").c_str(), string(path.shaderPath + "skyBoxBasic.frag").c_str());
 		manager.shaderManager.CreateShader("text", string(path.shaderPath + "text2D.vert").c_str(), string(path.shaderPath + "text2D.frag").c_str());
+		manager.shaderManager.CreateShader("defaultHUDShader", string(path.shaderPath + "defaultHUD.vert").c_str(), string(path.shaderPath + "defaultHUD.frag").c_str());
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 
@@ -129,6 +132,9 @@ namespace Engine {
 		case Paths::PATH_TYPE::SETTINGS:
 			path.settingPath = p;
 			break;
+		case Paths::PATH_TYPE::ENGINE:
+			path.enginePath = p;
+			break;
 		default:
 			//To DO Add error code.
 			break;
@@ -144,6 +150,8 @@ namespace Engine {
 			return path.shaderPath;
 		case Paths::PATH_TYPE::SETTINGS:
 			return path.settingPath;
+		case Paths::PATH_TYPE::ENGINE:
+			return path.enginePath;
 		default:
 			return nullptr;
 		}

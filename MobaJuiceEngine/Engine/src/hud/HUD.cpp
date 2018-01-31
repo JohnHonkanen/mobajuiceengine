@@ -15,8 +15,8 @@ namespace Engine
 		{
 			quad = new HUDQuad();
 			canTick = true;
-			defaultVertexShader = "Assets/Shaders/defaultHUD.vert";
-			defaultFramentShader = "Assets/Shaders/defaultHUD.frag";
+			defaultVertexShader = string(GameEngine::path.shaderPath + ("defaultHUD.vert")).c_str();
+			defaultFramentShader = string(GameEngine::path.shaderPath + ("defaultHUD.frag")).c_str();
 		}
 
 		HUD::~HUD() 
@@ -37,7 +37,7 @@ namespace Engine
 		{
 			quad->SetupQuad();
 			//Create and get our shader from the shader manager
-			shader = GameEngine::manager.shaderManager.CreateShader("defaultHUDShader", defaultVertexShader, defaultFramentShader);
+			shader = GameEngine::manager.shaderManager.GetShaderProgram("defaultHUDShader");
 
 			CalculateProjection();
 
@@ -106,7 +106,7 @@ namespace Engine
 		//Calculates the projection of our HUD
 		void HUD::CalculateProjection()
 		{
-			projection = glm::ortho(0.0f, resolutionWidth, 0.0f, resolutionHeight, 0.1f, 10.0f);
+			projection = glm::ortho(0.0f, resolutionWidth, 0.0f, resolutionHeight);
 		}
 	}
 }

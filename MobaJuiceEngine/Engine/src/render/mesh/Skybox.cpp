@@ -8,6 +8,7 @@
 namespace Engine {
 	Skybox::Skybox()
 	{
+		cube = "Game/Assets/Models/cube/cube.obj";
 	}
 	Skybox::~Skybox()
 	{

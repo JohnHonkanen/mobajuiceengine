@@ -22,5 +22,14 @@ namespace Engine {
 
 		return 0;
 	}
+	OGLShader * ShaderManager::GetShaderProgram(std::string name)
+	{
+		auto it = shaders.find(name);
+		if (it != shaders.end()) {
+			return shaders[name].get();
+		}
+
+		return nullptr;
+	}
 }
 

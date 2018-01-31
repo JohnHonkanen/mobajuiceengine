@@ -1,7 +1,6 @@
 #include "hud\utility\Font.h"
-#include <SDL.h>								// Base SDL is needed for SDL attributes and methods
-#include <SDL_ttf.h>							// Needs the extension to use the True type fonts
 #include <GL\glew.h>
+#include <iostream>
 
 namespace Engine
 {
@@ -13,6 +12,8 @@ namespace Engine
 			{
 				assert(0); //Unable to Load TTF_INIT
 			}
+
+			LoadFont(name);
 		}
 
 		std::map<char, Character> Font::GetCharacters() const
@@ -22,46 +23,63 @@ namespace Engine
 
 		void Font::LoadFont(std::string name)
 		{
+			printf("Loading Font: %s \n", name);
 			TTF_Font *f = TTF_OpenFont(name.c_str(), 36);
 
 			//If font is not loaded
 			if (!f)
 			{
-				printf("TTF_OpenFont: %s\n", TTF_GetError());
+				printf("35: TTF_OpenFont: %s\n", TTF_GetError());
 				return;
 			}
 
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
 
 			//Loop through all available characters
-			for (GLubyte c = 0; c < 128; c++)
+			for (Uint16 unicode = 20; unicode < 128; ++unicode)
 			{
-				if (!TTF_GlyphIsProvided(f, c)) {
-					printf("%s\n", TTF_GetError());
-					return;
-				}
+				SetupGlyph(unicode, f);
+			}
+			TTF_CloseFont(f);
+		}
+		void Font::SetupGlyph(Uint16 c, TTF_Font * f)
+		{
+			if (!TTF_GlyphIsProvided(f, c)) {
+				printf("45: TTF_OpenFont: Glyph is not provided for %i\n", c);
+			}
+			else {
 				unsigned int texture;
 				glGenTextures(1, &texture);
 				glBindTexture(GL_TEXTURE_2D, texture);
 
 				//Glyph Metrics
 				int minX, maxX, minY, maxY, advance;
-				if (!TTF_GlyphMetrics(f, c, &minX, &maxX, &minY, &maxY, &advance))
-				{
-					//Loading Fail
-					printf("%s\n", TTF_GetError());
-					return;
-				}
+				TTF_GlyphMetrics(f, c, &minX, &maxX, &minY, &maxY, &advance);
 
-				SDL_Surface * glyph = TTF_RenderGlyph_Blended(f, c, {255, 0 ,0});
+				SDL_Surface * glyph = TTF_RenderGlyph_Blended(f, c, { 255, 255 , 255 });
+
+				unsigned int colors = glyph->format->BytesPerPixel;
+				unsigned int texture_format;
+				if (colors == 4) {   // alpha
+					if (glyph->format->Rmask == 0x000000ff)
+						texture_format = GL_RGBA;
+					else
+						texture_format = GL_BGRA;
+				}
+				else {             // no alpha
+					if (glyph->format->Rmask == 0x000000ff)
+						texture_format = GL_RGB;
+					else
+						texture_format = GL_BGR;
+				}
 				glTexImage2D(
 					GL_TEXTURE_2D,
 					0,
-					GL_RED,
+					GL_RGB,
 					glyph->w,
 					glyph->h,
 					0,
-					GL_RED,
+					GL_RGB,
 					GL_UNSIGNED_BYTE,
 					glyph->pixels
 				);
@@ -72,7 +90,7 @@ namespace Engine
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-				Character character = 
+				Character character =
 				{
 					texture,
 					glm::ivec2(glyph->w, glyph->h),
@@ -83,7 +101,6 @@ namespace Engine
 				characters.insert(std::pair<char, Character>(c, character));
 				SDL_FreeSurface(glyph);
 			}
-			TTF_CloseFont(f);
 		}
 	}
 }

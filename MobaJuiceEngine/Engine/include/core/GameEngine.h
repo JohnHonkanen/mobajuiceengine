@@ -24,17 +24,20 @@ namespace Engine {
 			enum PATH_TYPE {
 				SHADER,
 				ASSET,
-				SETTINGS
+				SETTINGS,
+				ENGINE
 			};
 			string shaderPath;
 			string assetPath;
 			string settingPath;
+			string enginePath;
 		};
 
 		void SetDefaultPath(Paths::PATH_TYPE type, string path);
 		string GetPath(Paths::PATH_TYPE type) const;
 
 		static ManagerCollection manager;
+		static Paths path;
 	private:
 		std::unique_ptr<Scene> activeScene;
 		const int FPS = 60;
@@ -43,6 +46,6 @@ namespace Engine {
 		Uint32 frameStart;
 
 		//Default Engine Paths
-		Paths path;
+		
 	};
 }

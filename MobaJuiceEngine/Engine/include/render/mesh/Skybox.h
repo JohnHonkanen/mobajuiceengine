@@ -17,9 +17,7 @@ namespace Engine {
 		void SetSkyboxCubeMap(string directory);
 	private:
 
-		
-
-		string cube = "Assets/Models/cube/cube.obj";
+		string cube;
 		string shader = "skyBoxShader";
 		unsigned int program;
 		unsigned int vao;
