@@ -15,6 +15,7 @@ namespace Engine {
 
 	ManagerCollection GameEngine::manager = ManagerCollection();
 	GameEngine::Paths GameEngine::path = GameEngine::Paths();
+	vec2 GameEngine::screenSize = vec2(1280, 720);
 
 	GameEngine::GameEngine()
 	{
@@ -99,6 +100,8 @@ namespace Engine {
 		while (running) {
 
 			frameStart = SDL_GetTicks();
+			//Event Poll
+			manager.eventManager.Update();
 			//Input Poll
 			manager.inputManager.Update(running, graphicsHandler.GetWindow());
 

@@ -38,6 +38,7 @@ namespace Engine {
 
 		static ManagerCollection manager;
 		static Paths path;
+		static vec2 screenSize;
 	private:
 		std::unique_ptr<Scene> activeScene;
 		const int FPS = 60;

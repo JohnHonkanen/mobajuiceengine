@@ -6,14 +6,21 @@ namespace Engine
 {
 	namespace HUD
 	{
-		WHUDContainer * WHUDContainer::Create(HUDElement * element, HUDRect rect, std::string background)
+		WHUDContainer * WHUDContainer::Create(HUDElement * element, HUDRect rect, std::string background, bool callEvents)
 		{
-			WHUDContainer * container = new WHUDContainer();
-			container->rect = rect;
+			WHUDContainer * container = new WHUDContainer(callEvents, rect);
 			container->background = background;
 			element->AttachWidget(container);
 
 			return container;
+		}
+		WHUDContainer::WHUDContainer(bool callEvents, HUDRect rect)
+		{
+			HUDElement::rect = rect;
+			if (callEvents)
+			{
+				ActivateEvents();
+			}
 		}
 		void WHUDContainer::Start()
 		{

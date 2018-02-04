@@ -8,7 +8,8 @@ namespace Engine
 		class WHUDContainer : public HUDWidget {
 		public:
 
-			static WHUDContainer * Create(HUDElement * element, HUDRect rect, std::string backGround);
+			static WHUDContainer * Create(HUDElement * element, HUDRect rect, std::string backGround, bool callEvents);
+			WHUDContainer(bool callEvents, HUDRect rect);
 			//Initialize our HUD in runtime
 			void Start();
 

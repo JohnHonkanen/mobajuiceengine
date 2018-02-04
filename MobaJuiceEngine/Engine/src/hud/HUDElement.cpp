@@ -5,8 +5,16 @@ namespace Engine
 {
 	namespace HUD
 	{
+		HUDElement::HUDElement()
+		{
+		}
+		HUDElement::HUDElement(bool isActive, bool canHandleEvent)
+		{
+			active = isActive;
+		}
 		void HUDElement::AttachWidget(HUDWidget * widget)
 		{
+			widget->AttachParentToRect(&rect);
 			widgets.push_back(unique_ptr<HUDWidget>(widget));
 		}
 		void HUDElement::RemoveWidget(unsigned int widget)
@@ -33,6 +41,27 @@ namespace Engine
 		bool HUDElement::IsActive() const
 		{
 			return active;
+		}
+
+		void HUDElement::ActivateEvents()
+		{
+			handleEvents = true;
+
+			if (handleEvents)
+			{
+				//Register to handle Events
+				IPointerEnter::RegisterToEvents(rect);
+
+			}
+		}
+
+		void HUDElement::OnPointerEnter(EventData data)
+		{
+			printf("Entered HUD Element \n");
+		}
+		void HUDElement::AttachParentToRect(HUDRect *parent)
+		{
+			rect.parent = parent;
 		}
 	}
 }

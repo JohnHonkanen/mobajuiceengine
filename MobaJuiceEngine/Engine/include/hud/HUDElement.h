@@ -1,16 +1,23 @@
 #pragma once
 #include "hud\HUDRect.h"
+#include "events\EventData.h"
+#include "events\IPointerEnter.h"
 #include <vector>
 #include <memory>
 
 using namespace std;
+using namespace Engine::Events;
+
 namespace Engine
 {
 	namespace HUD
 	{
-		class HUDElement
+		class HUDElement : public IPointerEnter
 		{
 		public:
+			HUDElement();
+			HUDElement(bool isActive, bool canHandleEvent);
+
 			//Attach a widget to the element
 			void AttachWidget(class HUDWidget * widget);
 			//Removes the widget from the element
@@ -24,7 +31,13 @@ namespace Engine
 			void SetActive(bool active);
 			//Get the active boolean
 			bool IsActive() const;
+
+			//Event Handlers
+			void ActivateEvents();
+			virtual void OnPointerEnter(EventData data);
 		protected:
+			void AttachParentToRect(HUDRect *parent);
+			bool handleEvents = false;
 			bool active = true;
 			//Array of attached widgets
 			std::vector<unique_ptr<class HUDWidget>> widgets;
