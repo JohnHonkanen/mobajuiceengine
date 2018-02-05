@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include "IPointerEnter.h"
 #include "EventData.h"
 
 using namespace std;
@@ -13,9 +12,9 @@ namespace Engine
 		public:
 			void Update();
 			void LoopPointerEnterEvent();
-			void AddPointerEnterEvent(IPointerEnter *object);
+			void AddPointerEnterEvent(class IPointerEnter *object);
 		private:
-			vector<IPointerEnter *> pointerEnterObject;
+			vector<class IPointerEnter *> pointerEnterObject;
 			EventData data;
 		};
 	}

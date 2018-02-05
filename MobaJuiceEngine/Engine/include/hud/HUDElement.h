@@ -36,7 +36,6 @@ namespace Engine
 			void ActivateEvents();
 			virtual void OnPointerEnter(EventData data);
 		protected:
-			void AttachParentToRect(HUDRect *parent);
 			bool handleEvents = false;
 			bool active = true;
 			//Array of attached widgets

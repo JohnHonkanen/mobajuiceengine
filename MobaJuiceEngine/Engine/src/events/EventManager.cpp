@@ -1,5 +1,7 @@
 #include "events\EventManager.h"
 #include "core\GameEngine.h"
+#include "events\IPointerEnter.h"
+
 namespace Engine
 {
 	namespace Events
@@ -17,9 +19,9 @@ namespace Engine
 			vec2 screen = GameEngine::screenSize;
 			my = screen.y - my;
 
-			printf("mouseX: %i, mouseY: %i \n", mx, my);
+			//printf("mouseX: %i, mouseY: %i \n", mx, my);
 			for (auto &pointerEnterEvent : pointerEnterObject) {
-				if (pointerEnterEvent->Contains(vec2(mx, my)))
+				if (pointerEnterEvent->Condition(ivec2(mx, my)))
 				{
 					pointerEnterEvent->OnPointerEnter(data);
 				}

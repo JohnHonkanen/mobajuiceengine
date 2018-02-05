@@ -196,6 +196,7 @@
     <ClCompile Include="Engine\src\core\Scene.cpp" />
     <ClCompile Include="Engine\src\core\Transform.cpp" />
     <ClCompile Include="Engine\src\events\EventManager.cpp" />
+    <ClCompile Include="Engine\src\events\IPointer.cpp" />
     <ClCompile Include="Engine\src\events\IPointerEnter.cpp" />
     <ClCompile Include="Engine\src\hud\HUD.cpp" />
     <ClCompile Include="Engine\src\hud\HUDCanvas.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="Engine\include\core\Transform.h" />
     <ClInclude Include="Engine\include\events\EventData.h" />
     <ClInclude Include="Engine\include\events\EventManager.h" />
+    <ClInclude Include="Engine\include\events\IPointer.h" />
     <ClInclude Include="Engine\include\events\IPointerEnter.h" />
     <ClInclude Include="Engine\include\hud\HUD.h" />
     <ClInclude Include="Engine\include\hud\HUDCanvas.h" />

@@ -1,5 +1,6 @@
 #pragma once
 #include <glm\glm.hpp>
+#include "core\GameEngine.h"
 #include <stdio.h>
 using namespace std;
 
@@ -25,7 +26,7 @@ namespace Engine
 
 			//Move to source
 			//Check if point is contained within the rect
-			bool Contains(float px, float py)
+			bool Contains(int px, int py)
 			{
 				//Parent + Our position
 				int fx = x; 
@@ -37,10 +38,11 @@ namespace Engine
 					fy += parent->y;
 				}
 
-				printf("mouseX: %i, mouseY: %i \n", px, py);
-				printf("rectx: %i, recty: %i \n", fx, fy);
+				fy = Engine::GameEngine::screenSize.y - fy;
+
+				//printf("rectx: %i, recty: %i \n", fx, fy);
 				if (px > fx && px < fx + width &&
-					py > fy && py < fy + height)
+					py < fy && py > fy - height)
 				{
 					return true;
 				}

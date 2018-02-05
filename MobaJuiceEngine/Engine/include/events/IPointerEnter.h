@@ -1,21 +1,27 @@
 #pragma once
 #include "EventData.h"
-#include "hud\HUDRect.h"
-
+#include "IPointer.h"
 #include <glm\glm.hpp>
+
+
 namespace Engine
 {
+	namespace HUD
+	{
+		class HUDRect;
+	}
+
 	namespace Events
 	{
-		class IPointerEnter {
+		class IPointerEnter: public IPointer {
 		public:
 			//Is called when event is true
 			virtual void OnPointerEnter(EventData data) = 0;
 			//Checks if position contains our bounds
-			bool Contains(glm::vec2 position) { return bounds.Contains(position.x, position.y); };
-			void RegisterToEvents(Engine::HUD::HUDRect in_bounds);
+			bool Condition(glm::ivec2 position);
+			void RegisterToEvents(HUD::HUDRect *in_bounds);
 		private:
-			Engine::HUD::HUDRect bounds;
+			bool inBounds = false;;
 		};
 	}
 }

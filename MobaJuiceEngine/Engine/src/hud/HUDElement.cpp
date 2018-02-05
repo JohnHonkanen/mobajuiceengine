@@ -14,7 +14,7 @@ namespace Engine
 		}
 		void HUDElement::AttachWidget(HUDWidget * widget)
 		{
-			widget->AttachParentToRect(&rect);
+			widget->rect.parent = &rect;
 			widgets.push_back(unique_ptr<HUDWidget>(widget));
 		}
 		void HUDElement::RemoveWidget(unsigned int widget)
@@ -50,7 +50,7 @@ namespace Engine
 			if (handleEvents)
 			{
 				//Register to handle Events
-				IPointerEnter::RegisterToEvents(rect);
+				IPointerEnter::RegisterToEvents(&rect);
 
 			}
 		}
@@ -58,10 +58,6 @@ namespace Engine
 		void HUDElement::OnPointerEnter(EventData data)
 		{
 			printf("Entered HUD Element \n");
-		}
-		void HUDElement::AttachParentToRect(HUDRect *parent)
-		{
-			rect.parent = parent;
 		}
 	}
 }
