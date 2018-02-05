@@ -1,10 +1,11 @@
 #pragma once
+#include "EventData.h"
 #include <glm\glm.hpp>
 namespace Engine
 {
 	namespace HUD
 	{
-		class HUDRect;
+		struct HUDRect;
 	}
 
 	namespace Events

@@ -1,6 +1,5 @@
 #include "events\IPointerEnter.h"
 #include "core\GameEngine.h"
-#include "hud\HUDRect.h"
 namespace Engine
 {
 	namespace Events

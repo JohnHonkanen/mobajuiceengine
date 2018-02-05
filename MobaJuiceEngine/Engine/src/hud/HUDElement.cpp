@@ -51,13 +51,17 @@ namespace Engine
 			{
 				//Register to handle Events
 				IPointerEnter::RegisterToEvents(&rect);
-
+				IPointerExit::RegisterToEvents(&rect);
 			}
 		}
 
 		void HUDElement::OnPointerEnter(EventData data)
 		{
 			printf("Entered HUD Element \n");
+		}
+		void HUDElement::OnPointerExit(EventData data)
+		{
+			printf("Exited HUD Element \n");
 		}
 	}
 }

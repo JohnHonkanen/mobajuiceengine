@@ -2,6 +2,7 @@
 #include "hud\HUDRect.h"
 #include "events\EventData.h"
 #include "events\IPointerEnter.h"
+#include "events\IPointerExit.h"
 #include <vector>
 #include <memory>
 
@@ -12,7 +13,7 @@ namespace Engine
 {
 	namespace HUD
 	{
-		class HUDElement : public IPointerEnter
+		class HUDElement : public IPointerEnter, public IPointerExit
 		{
 		public:
 			HUDElement();
@@ -35,6 +36,7 @@ namespace Engine
 			//Event Handlers
 			void ActivateEvents();
 			virtual void OnPointerEnter(EventData data);
+			virtual void OnPointerExit(EventData data);
 		protected:
 			bool handleEvents = false;
 			bool active = true;

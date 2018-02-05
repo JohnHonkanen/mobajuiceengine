@@ -141,6 +141,9 @@
     <ClCompile Include="Engine\src\events\IPointer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\src\events\IPointerExit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\include\MobaJuiceCore.h">
@@ -306,6 +309,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\include\events\IPointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\include\events\IPointerExit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,7 +18,7 @@ namespace Engine
 				ON_DRAG
 			};
 			void Update();
-			void LoopPointerEnterEvent();
+			void LoopIPointerEvents();
 			void AddIPointerEvent(IPOINTER_EVENT type, class IPointer *eventObject);
 		private:
 			vector<class IPointerEnter *> pointerEnterObject;

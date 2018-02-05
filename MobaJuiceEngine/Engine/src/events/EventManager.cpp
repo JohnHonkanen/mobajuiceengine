@@ -2,6 +2,7 @@
 #include "core\GameEngine.h"
 #include "events\IPointer.h"
 #include "events\IPointerEnter.h"
+#include "events\IPointerExit.h"
 
 namespace Engine
 {
@@ -9,9 +10,9 @@ namespace Engine
 	{
 		void EventManager::Update()
 		{
-			LoopPointerEnterEvent();
+			LoopIPointerEvents();
 		}
-		void EventManager::LoopPointerEnterEvent()
+		void EventManager::LoopIPointerEvents()
 		{
 			//Mouse Position
 			int mx, my;
@@ -20,11 +21,19 @@ namespace Engine
 			vec2 screen = GameEngine::screenSize;
 			my = screen.y - my;
 
-			//printf("mouseX: %i, mouseY: %i \n", mx, my);
+			//Pointer Enter event
 			for (auto &pointerEnterEvent : pointerEnterObject) {
 				if (pointerEnterEvent->Condition(ivec2(mx, my)))
 				{
 					pointerEnterEvent->OnPointerEnter(data);
+				}
+			}
+
+			//Pointer Exit event
+			for (auto &pointerExitEvent : pointerExitObject) {
+				if (pointerExitEvent->Condition(ivec2(mx, my)))
+				{
+					pointerExitEvent->OnPointerExit(data);
 				}
 			}
 		}
@@ -37,6 +46,7 @@ namespace Engine
 				pointerEnterObject.push_back(dynamic_cast<IPointerEnter*>(eventObject));
 				break;
 			case Engine::Events::EventManager::EXIT:
+				pointerExitObject.push_back(dynamic_cast<IPointerExit*>(eventObject));
 				break;
 			case Engine::Events::EventManager::MOUSE_DOWN:
 				break;
