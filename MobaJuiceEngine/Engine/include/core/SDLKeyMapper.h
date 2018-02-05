@@ -33,8 +33,8 @@ namespace Engine {
 		keyMap["y"] = 28;
 		keyMap["z"] = 29;
 
-		mouseMap["mouse 0"] = SDL_BUTTON_LEFT; // Left
-		mouseMap["mouse 1"] = SDL_BUTTON_RIGHT; // Right
-		mouseMap["mouse 2"] = SDL_BUTTON_MIDDLE; // Middle
+		mouseMap["mouse0"] = SDL_BUTTON_LEFT; // Left
+		mouseMap["mouse1"] = SDL_BUTTON_RIGHT; // Right
+		mouseMap["mouse2"] = SDL_BUTTON_MIDDLE; // Middle
 	}
 }

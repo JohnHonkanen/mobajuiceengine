@@ -52,6 +52,7 @@ namespace Engine
 				//Register to handle Events
 				IPointerEnter::RegisterToEvents(&rect);
 				IPointerExit::RegisterToEvents(&rect);
+				IPointerMouseDown::RegisterToEvents(&rect);
 			}
 		}
 
@@ -62,6 +63,10 @@ namespace Engine
 		void HUDElement::OnPointerExit(EventData data)
 		{
 			printf("Exited HUD Element \n");
+		}
+		void HUDElement::OnPointerMouseDown(EventData data)
+		{
+			printf("Mouse Down on Element \n");
 		}
 	}
 }

@@ -134,13 +134,9 @@ void Engine::InputManager::QueryKeys(const Uint8 *keys, const Uint8 *mouseButton
 	pos = 0;
 	neg = 0;
 
-	if (positive.substr(0, positive.find_last_of(" ")) == "mouse") {
-		if (mouseButton[mouseMap[positive]]) {
+	if (positive.length() > 2) {
+		if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(mouseMap[positive])) {
 			pos = 1;
-		}
-
-		if (mouseButton[mouseMap[negative]]) {
-			neg = 1;
 		}
 	}
 	else {

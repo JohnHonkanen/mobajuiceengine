@@ -6,7 +6,8 @@ namespace Engine
 	{
 		struct EventData
 		{
-
+			int mouseButton0 = 0;
+			int mouseButton1 = 0;
 		};
 	}
 }

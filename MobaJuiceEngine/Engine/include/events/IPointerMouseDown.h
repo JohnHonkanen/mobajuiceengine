@@ -14,6 +14,8 @@ namespace Engine
 			void RegisterToEvents(HUD::HUDRect *in_bounds);
 		private:
 			bool inBounds = false;
+			bool mouse0Down = false;
+			bool mouse1Down = false;
 		};
 	}
 }

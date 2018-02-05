@@ -85,6 +85,10 @@ namespace Engine {
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 
+		//Mouse keybind for the event system
+		manager.inputManager.AddKey("mouse0", "mouse0"); //Left
+		manager.inputManager.AddKey("mouse1", "mouse1"); //Right
+
 		activeScene->OnLoad();
 	}
 

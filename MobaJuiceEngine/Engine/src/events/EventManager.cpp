@@ -3,6 +3,7 @@
 #include "events\IPointer.h"
 #include "events\IPointerEnter.h"
 #include "events\IPointerExit.h"
+#include "events\IPointerMouseDown.h"
 
 namespace Engine
 {
@@ -10,7 +11,15 @@ namespace Engine
 	{
 		void EventManager::Update()
 		{
+			UpdateEventData();
 			LoopIPointerEvents();
+		}
+		void EventManager::UpdateEventData()
+		{
+			data.mouseButton0 = GameEngine::manager.inputManager.GetKey("mouse0");
+			data.mouseButton1 = GameEngine::manager.inputManager.GetKey("mouse1");
+
+			printf("mouse1 %i\n", data.mouseButton1);
 		}
 		void EventManager::LoopIPointerEvents()
 		{
@@ -49,6 +58,7 @@ namespace Engine
 				pointerExitObject.push_back(dynamic_cast<IPointerExit*>(eventObject));
 				break;
 			case Engine::Events::EventManager::MOUSE_DOWN:
+				pointerDownObject.push_back(dynamic_cast<IPointerMouseDown*>(eventObject));
 				break;
 			case Engine::Events::EventManager::MOUSE_UP:
 				break;

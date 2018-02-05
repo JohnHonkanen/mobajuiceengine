@@ -18,11 +18,13 @@ namespace Engine
 				ON_DRAG
 			};
 			void Update();
+			void UpdateEventData();
 			void LoopIPointerEvents();
 			void AddIPointerEvent(IPOINTER_EVENT type, class IPointer *eventObject);
 		private:
 			vector<class IPointerEnter *> pointerEnterObject;
 			vector<class IPointerExit *> pointerExitObject;
+			vector<class IPointerMouseDown *> pointerDownObject;
 			EventData data;
 		};
 	}
