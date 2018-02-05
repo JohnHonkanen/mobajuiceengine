@@ -10,11 +10,19 @@ namespace Engine
 		class EventManager
 		{
 		public:
+			enum IPOINTER_EVENT {
+				ENTER,
+				EXIT,
+				MOUSE_DOWN,
+				MOUSE_UP,
+				ON_DRAG
+			};
 			void Update();
 			void LoopPointerEnterEvent();
-			void AddPointerEnterEvent(class IPointerEnter *object);
+			void AddIPointerEvent(IPOINTER_EVENT type, class IPointer *eventObject);
 		private:
 			vector<class IPointerEnter *> pointerEnterObject;
+			vector<class IPointerExit *> pointerExitObject;
 			EventData data;
 		};
 	}

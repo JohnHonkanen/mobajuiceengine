@@ -1,5 +1,6 @@
 #include "events\EventManager.h"
 #include "core\GameEngine.h"
+#include "events\IPointer.h"
 #include "events\IPointerEnter.h"
 
 namespace Engine
@@ -27,9 +28,25 @@ namespace Engine
 				}
 			}
 		}
-		void EventManager::AddPointerEnterEvent(IPointerEnter * object)
+
+		void EventManager::AddIPointerEvent(IPOINTER_EVENT type, IPointer *eventObject)
 		{
-			pointerEnterObject.push_back(object);
+			switch (type)
+			{
+			case Engine::Events::EventManager::ENTER:
+				pointerEnterObject.push_back(dynamic_cast<IPointerEnter*>(eventObject));
+				break;
+			case Engine::Events::EventManager::EXIT:
+				break;
+			case Engine::Events::EventManager::MOUSE_DOWN:
+				break;
+			case Engine::Events::EventManager::MOUSE_UP:
+				break;
+			case Engine::Events::EventManager::ON_DRAG:
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }

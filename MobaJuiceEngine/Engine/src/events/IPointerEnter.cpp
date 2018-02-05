@@ -30,7 +30,7 @@ namespace Engine
 		{
 			bounds = in_bounds;
 
-			GameEngine::manager.eventManager.AddPointerEnterEvent(this);
+			GameEngine::manager.eventManager.AddIPointerEvent(EventManager::ENTER, this);
 		}
 	}
 }
