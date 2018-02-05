@@ -4,7 +4,7 @@ namespace Engine
 {
 	namespace Events
 	{
-		bool IPointerExit::Condition(glm::ivec2 position)
+		bool IPointerExit::Condition(glm::ivec2 position, EventData data)
 		{
 			bool pointerInBounds = Contains(position);
 

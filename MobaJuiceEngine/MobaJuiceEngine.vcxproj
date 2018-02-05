@@ -199,6 +199,7 @@
     <ClCompile Include="Engine\src\events\IPointer.cpp" />
     <ClCompile Include="Engine\src\events\IPointerEnter.cpp" />
     <ClCompile Include="Engine\src\events\IPointerExit.cpp" />
+    <ClCompile Include="Engine\src\events\IPointerMouseDown.cpp" />
     <ClCompile Include="Engine\src\hud\HUD.cpp" />
     <ClCompile Include="Engine\src\hud\HUDCanvas.cpp" />
     <ClCompile Include="Engine\src\hud\HUDElement.cpp" />
@@ -247,6 +248,8 @@
     <ClInclude Include="Engine\include\events\IPointer.h" />
     <ClInclude Include="Engine\include\events\IPointerEnter.h" />
     <ClInclude Include="Engine\include\events\IPointerExit.h" />
+    <ClInclude Include="Engine\include\events\IPointerMouseDown.h" />
+    <ClInclude Include="Engine\include\events\IPointerMouseUp.h" />
     <ClInclude Include="Engine\include\hud\HUD.h" />
     <ClInclude Include="Engine\include\hud\HUDCanvas.h" />
     <ClInclude Include="Engine\include\hud\HUDElement.h" />

@@ -14,7 +14,7 @@ namespace Engine
 		{
 		public:
 			//Check if our condition passes
-			virtual bool Condition(glm::ivec2 position) = 0;
+			virtual bool Condition(glm::ivec2 position, EventData data) = 0;
 			//Register ourselves to the appropriate event
 			virtual void RegisterToEvents(HUD::HUDRect *in_bounds) = 0;
 		protected:

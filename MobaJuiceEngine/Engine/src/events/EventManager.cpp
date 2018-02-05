@@ -23,7 +23,7 @@ namespace Engine
 
 			//Pointer Enter event
 			for (auto &pointerEnterEvent : pointerEnterObject) {
-				if (pointerEnterEvent->Condition(ivec2(mx, my)))
+				if (pointerEnterEvent->Condition(ivec2(mx, my), data))
 				{
 					pointerEnterEvent->OnPointerEnter(data);
 				}
@@ -31,7 +31,7 @@ namespace Engine
 
 			//Pointer Exit event
 			for (auto &pointerExitEvent : pointerExitObject) {
-				if (pointerExitEvent->Condition(ivec2(mx, my)))
+				if (pointerExitEvent->Condition(ivec2(mx, my), data))
 				{
 					pointerExitEvent->OnPointerExit(data);
 				}

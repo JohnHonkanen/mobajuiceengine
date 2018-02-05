@@ -17,7 +17,7 @@ namespace Engine
 			//Is called when event is true
 			virtual void OnPointerEnter(EventData data) = 0;
 			//Checks if condition is passed
-			bool Condition(glm::ivec2 position);
+			bool Condition(glm::ivec2 position, EventData data);
 			void RegisterToEvents(HUD::HUDRect *in_bounds);
 		private:
 			bool inBounds = false;;
