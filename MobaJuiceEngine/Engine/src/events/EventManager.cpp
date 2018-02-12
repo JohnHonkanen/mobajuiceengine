@@ -18,8 +18,6 @@ namespace Engine
 		{
 			data.mouseButton0 = GameEngine::manager.inputManager.GetKey("mouse0");
 			data.mouseButton1 = GameEngine::manager.inputManager.GetKey("mouse1");
-
-			printf("mouse1 %i\n", data.mouseButton1);
 		}
 		void EventManager::LoopIPointerEvents()
 		{
@@ -43,6 +41,14 @@ namespace Engine
 				if (pointerExitEvent->Condition(ivec2(mx, my), data))
 				{
 					pointerExitEvent->OnPointerExit(data);
+				}
+			}
+
+			//Pointer Down event
+			for (auto &pointerDownEvent : pointerDownObject) {
+				if (pointerDownEvent->Condition(ivec2(mx, my), data))
+				{
+					pointerDownEvent->OnPointerMouseDown(data);
 				}
 			}
 		}

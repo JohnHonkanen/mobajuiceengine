@@ -5,7 +5,7 @@
 
 using namespace std;
 namespace Engine {
-	void InitKeyMap(map<string, Uint8> &keyMap, map<string, Uint8> &mouseMap) {
+	void InitKeyMap(map<string, Uint8> &keyMap, map<string, int> &mouseMap) {
 		keyMap["a"] = 4;
 		keyMap["b"] = 5;
 		keyMap["c"] = 6;
@@ -33,8 +33,8 @@ namespace Engine {
 		keyMap["y"] = 28;
 		keyMap["z"] = 29;
 
-		mouseMap["mouse0"] = SDL_BUTTON_LEFT; // Left
-		mouseMap["mouse1"] = SDL_BUTTON_RIGHT; // Right
-		mouseMap["mouse2"] = SDL_BUTTON_MIDDLE; // Middle
+		mouseMap["mouse0"] = 0; // Left
+		mouseMap["mouse1"] = 0; // Right
+		mouseMap["mouse2"] = 0; // Middle
 	}
 }

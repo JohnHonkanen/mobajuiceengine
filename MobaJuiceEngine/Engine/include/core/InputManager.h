@@ -42,7 +42,7 @@ namespace Engine {
 		bool mouseMotion = false;
 		bool centerMouse = true;
 		map<string, Uint8> keyMap;
-		map<string, Uint8> mouseMap;
+		map<string, int> mouseMap;
 
 		std::map<std::string, KeyAxis> axis;
 		

@@ -42,31 +42,5 @@ namespace Engine
 		{
 			return active;
 		}
-
-		void HUDElement::ActivateEvents()
-		{
-			handleEvents = true;
-
-			if (handleEvents)
-			{
-				//Register to handle Events
-				IPointerEnter::RegisterToEvents(&rect);
-				IPointerExit::RegisterToEvents(&rect);
-				IPointerMouseDown::RegisterToEvents(&rect);
-			}
-		}
-
-		void HUDElement::OnPointerEnter(EventData data)
-		{
-			printf("Entered HUD Element \n");
-		}
-		void HUDElement::OnPointerExit(EventData data)
-		{
-			printf("Exited HUD Element \n");
-		}
-		void HUDElement::OnPointerMouseDown(EventData data)
-		{
-			printf("Mouse Down on Element \n");
-		}
 	}
 }

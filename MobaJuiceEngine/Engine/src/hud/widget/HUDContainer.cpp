@@ -17,10 +17,6 @@ namespace Engine
 		WHUDContainer::WHUDContainer(bool callEvents, HUDRect rect)
 		{
 			HUDElement::rect = rect;
-			if (callEvents)
-			{
-				ActivateEvents();
-			}
 		}
 		void WHUDContainer::Start()
 		{

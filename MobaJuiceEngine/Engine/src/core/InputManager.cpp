@@ -17,7 +17,6 @@ Engine::InputManager::~InputManager()
 void Engine::InputManager::Update(bool & running, SDL_Window* window)
 {
 	mouseMotion = false;
-	SDL_Event sdlEvent;
 	
 	//SDL_GetMouseState(&mouseX, &mouseY);
 
@@ -44,6 +43,39 @@ void Engine::InputManager::Update(bool & running, SDL_Window* window)
 			mouseOffsetX = 0;
 		if (mouseOffsetY > 10)
 			mouseOffsetY = 0;
+
+		//Do Mouse Polling
+		if (sdlEvent.type == SDL_MOUSEBUTTONDOWN)
+		{
+			switch (sdlEvent.button.button)
+			{
+			case SDL_BUTTON_LEFT:
+				//Left is pressed
+				mouseMap["mouse0"] = 1;
+				break;
+			case SDL_BUTTON_RIGHT:
+				//Right is pressed
+				mouseMap["mouse1"] = 1;
+				break;
+
+			}
+
+		} 
+		else if (sdlEvent.type == SDL_MOUSEBUTTONUP)
+		{
+			switch (sdlEvent.button.button)
+			{
+			case SDL_BUTTON_LEFT:
+				//Left is pressed
+				mouseMap["mouse0"] = 0;
+				break;
+			case SDL_BUTTON_RIGHT:
+				//Right is pressed
+				mouseMap["mouse1"] = 0;
+				break;
+
+			}
+		}
 		
 		QueryKeys(keys, &mouseButton);
 
@@ -134,10 +166,9 @@ void Engine::InputManager::QueryKeys(const Uint8 *keys, const Uint8 *mouseButton
 	pos = 0;
 	neg = 0;
 
+	//If is a mouse event
 	if (positive.length() > 2) {
-		if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(mouseMap[positive])) {
-			pos = 1;
-		}
+		pos = mouseMap[positive];
 	}
 	else {
 		if (keys[keyMap[positive]]) {

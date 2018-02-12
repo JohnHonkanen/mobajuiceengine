@@ -14,7 +14,7 @@ namespace Engine
 {
 	namespace HUD
 	{
-		class HUDElement : public IPointerEnter, public IPointerExit, public IPointerMouseDown
+		class HUDElement
 		{
 		public:
 			HUDElement();
@@ -34,11 +34,6 @@ namespace Engine
 			//Get the active boolean
 			bool IsActive() const;
 
-			//Event Handlers
-			void ActivateEvents();
-			virtual void OnPointerEnter(EventData data);
-			virtual void OnPointerExit(EventData data);
-			virtual void OnPointerMouseDown(EventData data);
 		protected:
 			bool handleEvents = false;
 			bool active = true;

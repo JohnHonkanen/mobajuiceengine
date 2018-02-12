@@ -26,14 +26,16 @@ namespace Engine
 			void Draw(class HUD const * hud, HUDRect parent);
 
 			void DrawWidget(unsigned int shader);
-		private:
-			void SetupVAO();
 
 			string text;
-			string font;
 			unsigned int fontsize;
 			float scale;
 			vec3 color;
+		private:
+			void SetupVAO();
+
+			string font;
+			
 
 		};
 	}

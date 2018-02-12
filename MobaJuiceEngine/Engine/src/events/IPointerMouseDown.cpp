@@ -10,10 +10,11 @@ namespace Engine
 
 			if (pointerInBounds)
 			{
-				if (!mouse0Down || !mouse1Down)
+				mouse0Down = data.mouseButton0;
+				mouse1Down = data.mouseButton1;
+
+				if (mouse0Down == 1 || mouse1Down == 1)
 				{
-					mouse0Down = data.mouseButton0;
-					mouse1Down = data.mouseButton1;
 					return true;
 				}
 
@@ -21,12 +22,6 @@ namespace Engine
 
 			}
 			else{
-
-				if (mouse0Down || mouse1Down)
-				{
-					mouse0Down = data.mouseButton0;
-					mouse1Down = data.mouseButton1;
-				}
 				return false;
 			}
 		}
