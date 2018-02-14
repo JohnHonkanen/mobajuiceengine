@@ -21,7 +21,7 @@ namespace Engine {
 		void OnLoad();
 		void Start();
 		void Input();
-		void Update();
+		void Update(double dt);
 		void Draw();
 
 		/* Create a copy of the Gameobject. */

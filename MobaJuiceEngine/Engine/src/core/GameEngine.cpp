@@ -110,7 +110,7 @@ namespace Engine {
 			manager.inputManager.Update(running, graphicsHandler.GetWindow());
 
 			activeScene->Input();
-			activeScene->Update();
+			activeScene->Update(frameTime);
 
 			graphicsHandler.Start();
 			activeScene->Draw();

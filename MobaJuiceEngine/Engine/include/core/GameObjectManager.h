@@ -31,7 +31,7 @@ namespace Engine {
 		/*
 			Calls the update functions for all GameObjects in the manager
 		*/
-		void Update();
+		void Update(double dt);
 		/*
 			Calls the draw functions for all GameObjects in the manager
 		*/

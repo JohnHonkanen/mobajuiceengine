@@ -37,9 +37,9 @@ namespace Engine {
 	{
 		gameObjects->Input();
 	}
-	void Scene::Update()
+	void Scene::Update(double dt)
 	{
-		gameObjects->Update();
+		gameObjects->Update(dt);
 		if (hud) 
 		{
 			hud->Update();

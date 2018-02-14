@@ -323,5 +323,8 @@
     <ClInclude Include="Engine\include\events\IPointerMouseUp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\include\utility\Clock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

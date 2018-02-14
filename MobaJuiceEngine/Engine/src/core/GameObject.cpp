@@ -43,10 +43,11 @@ namespace Engine {
 		}
 	}
 
-	void GameObject::Update()
+	void GameObject::Update(double dt)
 	{
 		for (int i = 0; i < components.size(); i++) {
 			components.at(i)->Update();
+			components.at(i)->Update(dt);
 		}
 	}
 

@@ -33,10 +33,10 @@ namespace Engine {
 		}
 	}
 
-	void GameObjectManager::Update()
+	void GameObjectManager::Update(double dt)
 	{
 		for (auto const &gameobjectPair : gameObjects) {
-			gameobjectPair.second->Update();
+			gameobjectPair.second->Update(dt);
 		}
 	}
 

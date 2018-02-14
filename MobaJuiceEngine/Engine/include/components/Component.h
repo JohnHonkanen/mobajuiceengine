@@ -15,7 +15,7 @@ namespace Engine {
 	{
 	public:
 		Component();
-		Component(std::string name) : name(name) {};
+		Component(string name) : name(name) {};
 		virtual ~Component();
 		//Called when the program is loaded
 		virtual void OnLoad() {};
@@ -25,6 +25,8 @@ namespace Engine {
 		virtual void Input() {};
 		//Logic Loop
 		virtual void Update() {};
+		//Logic Loop with DT
+		virtual void Update(double dt) {};
 		//Rendering Loop
 		virtual void Draw() {};
 

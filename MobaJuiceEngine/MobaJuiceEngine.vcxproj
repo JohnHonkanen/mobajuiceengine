@@ -281,6 +281,7 @@
     <ClInclude Include="Engine\include\render\texture\TextureManager.h" />
     <ClInclude Include="Engine\include\render\window\SDLWindow.h" />
     <ClInclude Include="Engine\include\render\window\Window.h" />
+    <ClInclude Include="Engine\include\utility\Clock.h" />
     <ClInclude Include="Engine\include\utility\SimplexNoise.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
