@@ -2,6 +2,7 @@
 #include <GL\glew.h>
 #include <iostream>
 #include <ft2build.h>
+#include "core\GameEngine.h"
 #include FT_FREETYPE_H
 
 namespace Engine
@@ -24,6 +25,11 @@ namespace Engine
 
 		void Font::LoadFont(std::string name, unsigned int fontsize)
 		{
+			if (GameEngine::DEBUG)
+			{
+				std::cout << "Loading Font: " << name << ", " << fontsize << std::endl;
+			}
+			
 			FT_Library ft;
 			// All functions return a value different than 0 whenever an error occurred
 			if (FT_Init_FreeType(&ft))

@@ -7,6 +7,7 @@ namespace Engine {
 	class GameEngine {
 	public:
 		GameEngine();
+		GameEngine(bool debug);
 		Scene * CreateScene(string name);
 		Scene * GetActiveScene();
 		void Save();
@@ -39,6 +40,7 @@ namespace Engine {
 		static ManagerCollection manager;
 		static Paths path;
 		static vec2 screenSize;
+		static bool DEBUG;
 	private:
 		std::unique_ptr<Scene> activeScene;
 		const int FPS = 60;

@@ -37,6 +37,7 @@ namespace Engine
 		protected:
 			bool handleEvents = false;
 			bool active = true;
+			bool debugOnce = false;
 			//Array of attached widgets
 			std::vector<unique_ptr<class HUDWidget>> widgets;
 			HUDRect rect;

@@ -42,5 +42,7 @@ namespace Engine {
 		GameObject *gameObject;
 		Transform *transform;
 		std::string name;
+	protected:
+		bool debugOnce = false;
 	};
 }

@@ -31,6 +31,11 @@ namespace Engine
 		}
 		void TextWidget::Start()
 		{
+			if (GameEngine::DEBUG)
+			{
+				std::cout << "Setting Up VAO" << std::endl;
+			}
+
 			if (VAO == 0) {
 				SetupVAO();
 			}
@@ -41,7 +46,16 @@ namespace Engine
 
 		void TextWidget::Draw(HUD const * hud, HUDRect parent)
 		{
+			if (GameEngine::DEBUG && !debugOnce)
+			{
+				std::cout << "Trying to draw text" << std::endl;
+			}
 			unsigned int shader = GameEngine::manager.shaderManager.GetShader("text");
+
+			if (GameEngine::DEBUG && !debugOnce)
+			{
+				std::cout << "Using Shader: " << shader << std::endl;
+			}
 
 			glUseProgram(shader);
 
@@ -62,6 +76,10 @@ namespace Engine
 			x = parent.x + rect.x;
 			y =  parent.y - rect.y;
 
+			if (GameEngine::DEBUG && !debugOnce)
+			{
+				std::cout << "Looping through character glyph" << std::endl;
+			}
 			//Loop through our text and setup the characters
 			for (c = text.begin(); c != text.end(); c++)
 			{
@@ -93,6 +111,11 @@ namespace Engine
 
 				// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
 				x += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
+			}
+
+			if (!debugOnce)
+			{
+				debugOnce = true;
 			}
 		}
 

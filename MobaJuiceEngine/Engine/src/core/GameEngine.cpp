@@ -16,9 +16,15 @@ namespace Engine {
 	ManagerCollection GameEngine::manager = ManagerCollection();
 	GameEngine::Paths GameEngine::path = GameEngine::Paths();
 	vec2 GameEngine::screenSize = vec2(1280, 720);
+	bool GameEngine::DEBUG = false;
 
-	GameEngine::GameEngine()
+	GameEngine::GameEngine() : GameEngine(false)
+	{	
+	}
+
+	GameEngine::GameEngine(bool debug)
 	{
+		DEBUG = debug;
 		srand(time(NULL));
 
 		//Create Default Paths

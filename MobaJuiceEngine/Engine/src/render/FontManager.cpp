@@ -6,10 +6,6 @@ using namespace std;
 namespace Engine {
 	FontManager::FontManager()
 	{
-		if (TTF_Init() == -1)
-		{
-			cout << "Unable to load font. :(" << endl;
-		}
 	}
 	FontManager::~FontManager()
 	{}
