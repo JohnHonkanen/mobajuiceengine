@@ -36,8 +36,8 @@ namespace Engine {
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CCW);
 		glEnable(GL_DEPTH_TEST); // Enable Z Buffer
-		//glEnable(GL_BLEND); // Enable Blending
-		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND); // Enable Blending
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	/*
