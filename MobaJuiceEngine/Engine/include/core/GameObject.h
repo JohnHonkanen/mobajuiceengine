@@ -40,11 +40,12 @@ namespace Engine {
 		std::unique_ptr<Transform> transform;
 		int id;
 		std::string name = "";
+		bool enabled = true;
 
 		template<class Archive>
 		void serialize(Archive & ar)
 		{
-			ar(CEREAL_NVP(name), CEREAL_NVP(transform), CEREAL_NVP(components));
+			ar(CEREAL_NVP(name), CEREAL_NVP(transform), CEREAL_NVP(components), CEREAL_NVP(enabled));
 		}
 	private:
 		std::vector<ComponentUP> components;

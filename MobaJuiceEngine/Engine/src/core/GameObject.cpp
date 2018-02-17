@@ -38,6 +38,9 @@ namespace Engine {
 
 	void GameObject::Input()
 	{
+		if (!enabled)
+			return;
+
 		for (int i = 0; i < components.size(); i++) {
 			components.at(i)->Input();
 		}
@@ -45,6 +48,9 @@ namespace Engine {
 
 	void GameObject::Update(double dt)
 	{
+		if (!enabled)
+			return;
+
 		for (int i = 0; i < components.size(); i++) {
 			components.at(i)->Update();
 			components.at(i)->Update(dt);
@@ -53,6 +59,9 @@ namespace Engine {
 
 	void GameObject::Draw()
 	{
+		if (!enabled)
+			return;
+
 		for (int i = 0; i < components.size(); i++) {
 			components.at(i)->Draw();
 		}
