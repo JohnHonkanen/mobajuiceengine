@@ -14,6 +14,9 @@ namespace Engine
 	{
 		void HUDWidget::Draw(HUD const * hud, HUDRect parent)
 		{
+			if (!active)
+				return;
+
 			//Get our shader and use it
 			OGLShader * shader = hud->GetShader();
 			shader->Use();
