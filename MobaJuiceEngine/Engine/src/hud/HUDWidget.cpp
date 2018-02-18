@@ -12,6 +12,12 @@ namespace Engine
 {
 	namespace HUD
 	{
+		void HUDWidget::StartChildWidgets()
+		{
+			for (int i = 0; i < widgets.size(); i++) {
+				widgets[i]->Start();
+			}
+		}
 		void HUDWidget::Draw(HUD const * hud, HUDRect parent)
 		{
 			if (!active)
@@ -25,10 +31,12 @@ namespace Engine
 			glm::mat4 model;
 
 			//To do: Move this to Start. Only needs to be calculated once
+			vec3 finalPos = vec3(parent.x + rect.x + rect.width / 2.0f,
+				parent.y - (rect.y + rect.height / 2.0f),
+				-1.0f);
+
 			model = translate(model, 
-				vec3(parent.x + rect.x + rect.width/2.0f, 
-				parent.y - (rect.y + rect.height/2.0f), 
-					-1.0f));
+				finalPos);
 			model = scale(model, vec3(rect.width/2.0f, rect.height/2.0f, 1.0f));
 
 
@@ -41,10 +49,10 @@ namespace Engine
 			//Draw the quad
 			hud->GetQuad()->Draw();
 
-
+			HUDRect fRect = {rect.x, -rect.y, rect.width, rect.height};
 			//Go through widgets and draw them
 			for (int i = 0; i < widgets.size(); i++) {
-				widgets[i]->Draw(hud, parent + rect);
+				widgets[i]->Draw(hud, parent + fRect);
 			}
 			
 		}

@@ -74,7 +74,12 @@ namespace Engine
 			//Create copy of rect position
 			float x, y;
 			x = parent.x + rect.x;
-			y =  parent.y - rect.y;
+			y = parent.y - rect.y;
+
+			if (GameEngine::DEBUG && !debugOnce)
+			{
+				std::cout << "Position: " << x << " ," << y << std::endl;
+			}
 
 			if (GameEngine::DEBUG && !debugOnce)
 			{

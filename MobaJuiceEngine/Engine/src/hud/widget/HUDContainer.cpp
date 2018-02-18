@@ -20,6 +20,7 @@ namespace Engine
 		}
 		void WHUDContainer::Start()
 		{
+			StartChildWidgets();
 		}
 		void WHUDContainer::Update()
 		{
