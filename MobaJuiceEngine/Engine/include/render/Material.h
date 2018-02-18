@@ -22,6 +22,7 @@ namespace Engine {
 				CEREAL_NVP(diffuse.z), CEREAL_NVP(shininess));
 		}
 
+		Material *Copy();
 		std::string shader;
 		std::string diffuseMap; //Color Map
 		std::string normalMap;

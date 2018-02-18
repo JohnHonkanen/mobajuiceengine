@@ -9,6 +9,7 @@
 #include <cereal\types\vector.hpp>
 #include "Transform.h"
 #include "../components/Component.h"
+#include "render\Material.h"
 
 namespace Engine {
 	typedef std::unique_ptr<Component> ComponentUP;
@@ -41,6 +42,7 @@ namespace Engine {
 		int id;
 		std::string name = "";
 		bool enabled = true;
+		Material *material;
 
 		template<class Archive>
 		void serialize(Archive & ar)

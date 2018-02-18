@@ -147,6 +147,9 @@
     <ClCompile Include="Engine\src\events\IPointerMouseDown.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\src\render\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\include\MobaJuiceCore.h">

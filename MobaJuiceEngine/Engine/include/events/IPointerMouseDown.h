@@ -16,6 +16,7 @@ namespace Engine
 			bool inBounds = false;
 			bool mouse0Down = false;
 			bool mouse1Down = false;
+			bool buttonHeld = false;
 		};
 	}
 }

@@ -15,9 +15,17 @@ namespace Engine
 
 				if (mouse0Down == 1 || mouse1Down == 1)
 				{
-					return true;
+					if (!buttonHeld)
+					{
+						buttonHeld = true;
+						return true;
+					}
+					else {
+						return false;
+					}
+					
 				}
-
+				buttonHeld = false;
 				return false;
 
 			}

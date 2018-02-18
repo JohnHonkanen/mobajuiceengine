@@ -212,6 +212,7 @@
     <ClCompile Include="Engine\src\physics\RaycastUtility.cpp" />
     <ClCompile Include="Engine\src\render\FontManager.cpp" />
     <ClCompile Include="Engine\src\render\graphics\OGLGraphicHandler.cpp" />
+    <ClCompile Include="Engine\src\render\Material.cpp" />
     <ClCompile Include="Engine\src\render\mesh\AiModel.cpp" />
     <ClCompile Include="Engine\src\render\mesh\OGLMesh.cpp" />
     <ClCompile Include="Engine\src\render\mesh\OGLMeshManager.cpp" />

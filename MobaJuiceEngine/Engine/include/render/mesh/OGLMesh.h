@@ -11,7 +11,7 @@ namespace Engine {
 	public:
 		OGLMesh(std::string name, Shape *shape);
 		~OGLMesh();
-		void Render();
+		void Render(Material *material);
 		void SetVAO(GLuint VAO);
 		const std::vector<MeshData> GetMeshData();
 		const std::vector<Material> GetMaterials();
