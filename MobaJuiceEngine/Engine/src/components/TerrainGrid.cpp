@@ -145,6 +145,18 @@ namespace Engine {
 			return vec3(gridX * cellSize, heightmap[gridZ][gridX], gridZ * cellSize) + tp;
 		}
 
+		vec2 TerrainGrid::GetCoordinates(vec3 position)
+		{
+			vec3 tp = transform->GetPosition();
+			float terrainX = position.x - tp.x;
+			float terrainZ = position.z - tp.z;
+
+			int gridX = (int)floor(terrainX / cellSize);
+			int gridZ = (int)floor(terrainZ / cellSize);
+
+			return vec2(gridX, gridZ);
+		}
+
 		vec3 TerrainGrid::GetNormal(vec3 position)
 		{
 			vec3 tp = transform->GetPosition();

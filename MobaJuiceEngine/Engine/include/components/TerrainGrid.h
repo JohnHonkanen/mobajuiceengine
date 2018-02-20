@@ -24,6 +24,7 @@ namespace Engine {
 			void GetData(vector<vec3> &verts, vector<vec2> &uv, vector<vec3> &normals, unsigned int &xLength, unsigned int &zLength);
 			float GetHeight(float x, float z);
 			vec3 GetSnapPoint(vec3 position);
+			vec2 GetCoordinates(vec3 position);
 			vec3 GetNormal(vec3 position);
 
 			template<class Archive>
