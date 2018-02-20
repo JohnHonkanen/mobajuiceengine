@@ -32,6 +32,16 @@ namespace Engine {
 		keyMap["x"] = 27;
 		keyMap["y"] = 28;
 		keyMap["z"] = 29;
+		keyMap["1"] = 30;
+		keyMap["2"] = 31;
+		keyMap["3"] = 32;
+		keyMap["4"] = 33;
+		keyMap["5"] = 34;
+		keyMap["6"] = 35;
+		keyMap["7"] = 36;
+		keyMap["8"] = 37;
+		keyMap["9"] = 38;
+		keyMap["0"] = 39;
 
 		mouseMap["mouse0"] = 0; // Left
 		mouseMap["mouse1"] = 0; // Right
