@@ -24,6 +24,12 @@ namespace Engine
 		}
 		void WHUDContainer::Update()
 		{
+			if (!active)
+				return;
+
+			for (int i = 0; i < widgets.size(); i++) {
+				widgets[i]->Update();
+			}
 		}
 		void WHUDContainer::DrawWidget(unsigned int shader)
 		{
