@@ -27,9 +27,7 @@ namespace Engine
 			if (!active)
 				return;
 
-			for (int i = 0; i < widgets.size(); i++) {
-				widgets[i]->Update();
-			}
+			UpdateChildWidgets();
 		}
 		void WHUDContainer::DrawWidget(unsigned int shader)
 		{

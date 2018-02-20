@@ -13,6 +13,7 @@ namespace Engine
 			//Initialize our HUD in runtime
 			virtual void Start() = 0;
 			void StartChildWidgets();
+			void UpdateChildWidgets();
 
 			//Per frame tick of the engine
 			virtual void Update() = 0;
