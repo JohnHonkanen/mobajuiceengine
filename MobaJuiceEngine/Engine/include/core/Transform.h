@@ -56,6 +56,8 @@ namespace Engine {
 		//Get the rotation quaternion
 		quat GetQuaternion();
 
+		void SetQuaternion(quat q);
+
 		/*
 			Translate the position by translational distance
 			@param translation	translational distance
@@ -135,6 +137,8 @@ namespace Engine {
 			Get the top vector
 		*/
 		vec3 Up();
+
+		void LookAt(vec3 dir);
 
 		template<class Archive>
 		void serialize(Archive & ar)

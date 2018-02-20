@@ -67,6 +67,11 @@ namespace Engine {
 		return rotation;
 	}
 
+	void Transform::SetQuaternion(quat q)
+	{
+		rotation = q;
+	}
+
 	void Transform::Translate(vec3 translation)
 	{
 		localPosition += translation;
@@ -177,6 +182,10 @@ namespace Engine {
 	{
 		vec4 v = rotation * vec4(up, 1);
 		return vec3(v.x, v.y, v.z);
+	}
+	void Transform::LookAt(vec3 dir)
+	{
+		Transform::rotation = toQuat(glm::lookAt(localPosition + dir, localPosition, up));
 	}
 	void Transform::OnLoad()
 	{
