@@ -167,7 +167,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>Engine\include;Engine\dependencies\SDL2_ttf-2.0.14\include;Engine\dependencies\cereal-1.2.2\include;Engine\dependencies\SDL2-2.0.6\include;Engine\dependencies\irrKlang-1.5.0\include;Engine\dependencies\boost-1.65.1\includes;Engine\dependencies\assimp-3.3.1\include;Engine\dependencies\DevIL-1.8.0\include;Engine\dependencies\glew-2.1.0\include;Engine\dependencies\catch-2.0.0.4\include;Engine\dependencies\glm-0.9.8.5\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Engine\include;Engine\dependencies\SDL2_ttf-2.0.14\include;Engine\dependencies\cereal-1.2.2\include;Engine\dependencies\SDL2-2.0.6\include;Engine\dependencies\irrKlang-1.5.0\include;Engine\dependencies\boost-1.65.1\includes;Engine\dependencies\assimp-3.3.1\include;Engine\dependencies\DevIL-1.8.0\include;Engine\dependencies\glew-2.1.0\include;Engine\dependencies\catch-2.0.0.4\include;Engine\dependencies\glm-0.9.8.5\glm;Engine\dependencies\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
