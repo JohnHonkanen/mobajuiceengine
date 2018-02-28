@@ -98,7 +98,7 @@ namespace Engine {
 			Set the Parent Transform
 			@parem _parent The parent transform the attach to
 		*/
-		void SetParent(const Transform& _parent);
+		void SetParent(Transform * _parent);
 
 		/*
 			Get the parent Transfor Read Only
@@ -108,7 +108,7 @@ namespace Engine {
 		/*
 			Add Children to this transform
 		*/
-		void AddChildren(Transform& transform);
+		void AddChildren(Transform * transform);
 		/*
 			Remove Children from this transform
 			@param slot to remove;
@@ -157,8 +157,8 @@ namespace Engine {
 	private:
 		int slot = -1;
 		int numOfChildren = 0;
-		shared_ptr<Transform> parent;
-		vector<shared_ptr<Transform>> children;
+		Transform * parent;
+		vector<Transform *> children;
 
 		vec3 localPosition;
 		vec3 localScale;

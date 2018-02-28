@@ -49,6 +49,10 @@ namespace Engine {
 
 	vec3 Transform::GetPosition()
 	{
+		if (parent != nullptr)
+		{
+			return localPosition + parent->GetPosition();
+		}
 		return localPosition;
 	}
 
@@ -113,7 +117,7 @@ namespace Engine {
 	mat4 Transform::GetLocalToWorldMatrix()
 	{
 		if (parent) {
-			return parent->CalculateLocalToWorldMatrix(mat4(1.0)) * CalculateLocalToWorldMatrix(mat4(1.0));
+			return CalculateLocalToWorldMatrix(parent->CalculateLocalToWorldMatrix(mat4(1.0)));
 		}
 		else {
 			return CalculateLocalToWorldMatrix(mat4(1.0));
@@ -125,22 +129,21 @@ namespace Engine {
 		return matrixStack * CalculateLocalToWorldMatrix(mat4(1.0));
 	}
 
-	void Transform::SetParent(const Transform& _parent)
+	void Transform::SetParent(Transform * _parent)
 	{
-		parent = make_shared<Transform>(_parent);
+		parent = _parent;
 	}
 
 	Transform * Transform::GetParent()
 	{
-		return parent.get();
+		return parent;
 	}
 
-	void Transform::AddChildren(Transform& transform)
+	void Transform::AddChildren(Transform * transform)
 	{
-		transform.slot = numOfChildren;
-		transform.SetParent(*this);
-		transform.CalculateLocalToWorldMatrix();
-		children.push_back(make_shared<Transform>(transform));
+		transform->slot = numOfChildren;
+		transform->SetParent(this);
+		children.push_back(transform);
 		numOfChildren++;
 	}
 
@@ -161,7 +164,7 @@ namespace Engine {
 
 		parent->numOfChildren--;
 		parent->RemoveChildren(slot);
-		parent == nullptr;
+		parent = nullptr;
 
 		localToWorld = mat4(1.0);
 	}

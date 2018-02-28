@@ -58,6 +58,11 @@ namespace Engine {
 		return view;
 	}
 
+	void Camera::SetViewMatrix(mat4 viewMatrix)
+	{
+		view = viewMatrix;
+	}
+
 	mat4 Camera::GetProjectionMatrix()
 	{
 		return projection;
@@ -75,7 +80,11 @@ namespace Engine {
 
 	void Camera::CalculateViewMatrix() // GetView();
 	{
-		view = lookAt(transform->GetPosition(), transform->GetPosition() + transform->Front(), transform->Up());
+		if (!customViewMatrix)
+		{
+			view = lookAt(transform->GetPosition(), transform->GetPosition() + transform->Front(), transform->Up());
+		}
+		
 	}
 
 	void Camera::Copy(GameObject * copyObject)

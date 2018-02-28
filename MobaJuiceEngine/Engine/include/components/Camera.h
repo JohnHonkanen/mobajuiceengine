@@ -61,6 +61,8 @@ namespace Engine {
 			Get the view matrix
 		*/
 		mat4 GetViewMatrix();
+
+		void SetViewMatrix(mat4 viewMatrix);
 		/*
 			Get the projection matrix
 		*/
@@ -83,6 +85,8 @@ namespace Engine {
 			ar(CEREAL_NVP(fov), CEREAL_NVP(aspectRatio), CEREAL_NVP(near), CEREAL_NVP(far));
 		}
 
+		bool customViewMatrix = false;
+
 	private:
 		
 		mat4 projection;
@@ -91,6 +95,7 @@ namespace Engine {
 		vec3 front;
 		vec3 up;
 
+		
 		float fov = 45.0f;
 		float aspectRatio = float(16.0f / 9.0f);
 		float near = 1.0f;
