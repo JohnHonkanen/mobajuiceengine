@@ -49,6 +49,8 @@ namespace Engine {
 		Material *material;
 		std::string meshPath;
 		OGLMeshManager * meshManager;
+		float partialRenderValue;
+		bool cullBackFace;
 	private:
 		Mesh *mesh;
 	};

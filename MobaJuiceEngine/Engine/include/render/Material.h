@@ -25,6 +25,7 @@ namespace Engine {
 		Material *Copy();
 		std::string shader;
 		std::string diffuseMap; //Color Map
+		std::string altDiffuseMap; //Secondary DiffuseMap
 		std::string normalMap;
 		std::string specularMap;
 		std::string occulusionMap;

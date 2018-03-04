@@ -15,6 +15,8 @@ namespace Engine {
 	{
 		MeshRenderer *r = new MeshRenderer();
 		r->meshPath = path;
+		r->partialRenderValue = 3000; //Default Value
+		r->cullBackFace = true;
 		//Adds ownership
 		gameObject->AddComponent(r);
 
@@ -56,6 +58,10 @@ namespace Engine {
 
 		model = transform->GetLocalToWorldMatrix();
 		glDepthMask(GL_TRUE);
+		if (!cullBackFace)
+		{
+			glDisable(GL_CULL_FACE);
+		}
 		/*
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDisable(GL_CULL_FACE);*/
@@ -69,8 +75,14 @@ namespace Engine {
 		glUniform3fv(glGetUniformLocation(shader, "objectColor"), 1, glm::value_ptr(objectColor));
 		glUniform3fv(glGetUniformLocation(shader, "lightColor"), 1, glm::value_ptr(lightColor));
 		glUniform3fv(glGetUniformLocation(shader, "lightPos"), 1, glm::value_ptr(lightPos));
+		glUniform1f(glGetUniformLocation(shader, "partialRenderV"), partialRenderValue);
 		//ENDOFMVP
 
 		mesh->Render(gameObject->material);
+
+		if (!cullBackFace)
+		{
+			glEnable(GL_CULL_FACE);
+		}
 	}
 }
