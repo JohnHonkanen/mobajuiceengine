@@ -24,6 +24,12 @@ namespace Engine
 				widgets[i]->Update();
 			}
 		}
+		void HUDWidget::UpdateChildWidgets(double dt)
+		{
+			for (int i = 0; i < widgets.size(); i++) {
+				widgets[i]->Update(dt);
+			}
+		}
 		void HUDWidget::Draw(HUD const * hud, HUDRect parent)
 		{
 			if (!active)

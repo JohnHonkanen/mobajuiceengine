@@ -29,6 +29,13 @@ namespace Engine
 
 			UpdateChildWidgets();
 		}
+		void WHUDContainer::Update(double dt)
+		{
+			if (!active)
+				return;
+
+			UpdateChildWidgets(dt);
+		}
 		void WHUDContainer::DrawWidget(unsigned int shader)
 		{
 			if (background != "") {

@@ -14,6 +14,7 @@ namespace Engine
 			virtual void Start() = 0;
 			void StartChildWidgets();
 			void UpdateChildWidgets();
+			void UpdateChildWidgets(double dt);
 
 			//Per frame tick of the engine
 			virtual void Update() = 0;

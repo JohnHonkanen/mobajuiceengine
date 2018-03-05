@@ -16,6 +16,8 @@ namespace Engine
 			//Per frame tick of the engine
 			void Update();
 
+			void Update(double dt);
+
 			void DrawWidget(unsigned int shader);
 		private:
 			//Image of our canvas Background
