@@ -36,6 +36,10 @@ namespace Engine {
 	void Scene::Input()
 	{
 		gameObjects->Input();
+
+		if (hud) {
+			hud->Input();
+		}
 	}
 	void Scene::Update(double dt)
 	{

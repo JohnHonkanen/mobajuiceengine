@@ -20,6 +20,8 @@ namespace Engine
 			virtual void Update() = 0;
 			virtual void Update(double dt) {};
 
+			virtual void Input() {};
+
 			//Per frame draw call of the engine
 			void virtual Draw(class HUD const * hud, HUDRect parent);
 

@@ -26,6 +26,8 @@ namespace Engine
 			virtual void Update();
 			virtual void Update(double dt);
 
+			virtual void Input();
+
 			//Per frame draw call of the engine
 			virtual void Draw(HUD const * hud);
 

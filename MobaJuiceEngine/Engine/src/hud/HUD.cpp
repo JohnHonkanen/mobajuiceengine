@@ -62,6 +62,13 @@ namespace Engine
 			}
 		}
 
+		void HUD::Input()
+		{
+			if (canvas) {
+				canvas->Input();
+			}
+		}
+
 
 		void HUD::Draw() 
 		{
