@@ -17,6 +17,7 @@ namespace Engine
 
 			//Per frame tick of the engine
 			virtual void Update() = 0;
+			virtual void Update(double dt) {};
 
 			//Per frame draw call of the engine
 			void virtual Draw(class HUD const * hud, HUDRect parent);

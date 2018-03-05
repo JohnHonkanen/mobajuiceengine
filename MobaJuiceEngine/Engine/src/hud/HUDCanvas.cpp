@@ -48,6 +48,16 @@ namespace Engine
 			}
 		}
 
+		void HUDCanvas::Update(double dt)
+		{
+			if (!active)
+				return;
+
+			for (int i = 0; i < widgets.size(); i++) {
+				widgets[i]->Update(dt);
+			}
+		}
+
 		void HUDCanvas::Draw(HUD const * hud)
 		{
 			if (!active)

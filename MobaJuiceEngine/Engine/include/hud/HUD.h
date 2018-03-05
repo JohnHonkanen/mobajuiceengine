@@ -20,6 +20,7 @@ namespace Engine {
 
 			//Per frame tick of the engine
 			virtual void Update();
+			virtual void Update(double dt);
 
 			//Per frame draw call of the engine
 			virtual void Draw();

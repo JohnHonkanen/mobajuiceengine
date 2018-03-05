@@ -43,6 +43,7 @@ namespace Engine {
 		if (hud) 
 		{
 			hud->Update();
+			hud->Update(dt);
 		}
 	}
 	void Scene::Draw()

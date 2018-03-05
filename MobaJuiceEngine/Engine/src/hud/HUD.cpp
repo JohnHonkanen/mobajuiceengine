@@ -54,6 +54,14 @@ namespace Engine
 			}
 		}
 
+		void HUD::Update(double dt)
+		{
+			//If we can tick and canvas exist
+			if (canTick && canvas) {
+				canvas->Update(dt);
+			}
+		}
+
 
 		void HUD::Draw() 
 		{
