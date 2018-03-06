@@ -29,6 +29,11 @@ namespace Engine {
 					glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(material->altDiffuseMap));
 					glUniform1i(glGetUniformLocation(shader, "secondaryTexture"), 1);
 				}
+				else {
+					glActiveTexture(GL_TEXTURE1);
+					glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(material->diffuseMap));
+					glUniform1i(glGetUniformLocation(shader, "secondaryTexture"), 1);
+				}
 			}
 			else {
 
