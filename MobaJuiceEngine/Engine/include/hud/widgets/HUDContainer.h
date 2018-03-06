@@ -20,7 +20,7 @@ namespace Engine
 
 			void DrawWidget(unsigned int shader);
 
-			void changeImage(std::string image);
+			void ChangeImage(std::string image);
 		private:
 			//Image of our canvas Background
 			std::string background;
