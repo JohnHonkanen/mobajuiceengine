@@ -44,5 +44,9 @@ namespace Engine
 				glUniform1i(glGetUniformLocation(shader, "texture0"), 0);
 			}
 		}
+		void WHUDContainer::changeImage(std::string image)
+		{
+			background = image;
+		}
 	}
 }

@@ -25,6 +25,10 @@ namespace Engine
 		{
 			return rect;
 		}
+		HUDRect HUDElement::GetWorldRect() const
+		{
+			return worldRect;
+		}
 		void HUDElement::EditRect(HUDRect rect)
 		{
 			HUDElement::rect = rect;
@@ -41,6 +45,11 @@ namespace Engine
 		bool HUDElement::IsActive() const
 		{
 			return active;
+		}
+		void HUDElement::CalculateWorldRect(HUDRect parentWorldRect)
+		{
+			worldRect = HUDRect(rect.x + parentWorldRect.x, rect.y + parentWorldRect.y, 
+				rect.width + parentWorldRect.width, rect.height + +parentWorldRect.height);
 		}
 	}
 }

@@ -25,6 +25,7 @@ namespace Engine
 			//Removes the widget from the element
 			void RemoveWidget(unsigned int widget);
 			HUDRect GetRect() const;
+			HUDRect GetWorldRect() const;
 			//Edit the rect element
 			void EditRect(HUDRect rect);
 			void EditRect(float x, float y, float width, float height);
@@ -34,12 +35,16 @@ namespace Engine
 			//Get the active boolean
 			bool IsActive() const;
 
+			void CalculateWorldRect(HUDRect parentWorldRect);
+
+			bool useWorldRect = false;
 		protected:
 			bool handleEvents = false;
 			bool active = true;
 			bool debugOnce = false;
 			//Array of attached widgets
-			std::vector<unique_ptr<class HUDWidget>> widgets;
+			std::vector<unique_ptr<class HUDWidget>> widgets;		
+			HUDRect worldRect;
 			HUDRect rect;
 		};
 	}

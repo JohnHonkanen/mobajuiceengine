@@ -19,6 +19,8 @@ namespace Engine
 			void Update(double dt);
 
 			void DrawWidget(unsigned int shader);
+
+			void changeImage(std::string image);
 		private:
 			//Image of our canvas Background
 			std::string background;
