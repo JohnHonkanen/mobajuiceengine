@@ -11,7 +11,12 @@ namespace Engine {
 	{
 	}
 
-	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path, RenderMode mode = FORWARD)
+	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path)
+	{
+		return Create(gameObject, path, FORWARD);
+	}
+
+	MeshRenderer * MeshRenderer::Create(GameObject * gameObject, std::string path, RenderMode mode)
 	{
 		MeshRenderer *r = new MeshRenderer();
 		r->meshPath = path;
@@ -19,7 +24,7 @@ namespace Engine {
 		r->cullBackFace = true;
 		//Adds ownership
 		gameObject->AddComponent(r);
-
+		gameObject->meshRenderer = r;
 		r->gameObject->SetRenderMode(mode);
 
 		return r;
@@ -48,17 +53,18 @@ namespace Engine {
 
 	void MeshRenderer::Draw()
 	{
-		string shaderString = mesh->GetShader();
 		GLuint shader;
 
 		if (gameObject->GetRenderMode() == DEFERRED)
 		{
-			shader = meshManager->getShaderManager()->GetShader(gameObject->material->shader);
+			shader = this->shader;
 		}
 		else {
+			string shaderString = mesh->GetShader();
 			shader = meshManager->getShaderManager()->GetShader(shaderString);
+			glUseProgram(shader);
 		}
-		glUseProgram(shader);
+		
 		//SetMVPS
 		glm::mat4 projection(1.0);
 		projection = Camera::mainCamera->GetProjectionMatrix();
@@ -86,5 +92,9 @@ namespace Engine {
 		{
 			glEnable(GL_CULL_FACE);
 		}
+	}
+	void MeshRenderer::SetShader(unsigned int shader)
+	{
+		this->shader = shader;
 	}
 }

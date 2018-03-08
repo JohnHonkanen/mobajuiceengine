@@ -26,19 +26,23 @@ namespace Engine {
 		~MeshRenderer();
 
 		/*
-			Sets up the MeshRenderer and its dependicies. Make the gameObject the owner of this component
-			@param gameObject	Object that owns this Behaviour
-			@param path			Path to model data
-			@param shader		Shader used for rendering
-			@param manager		Manager used for storing mesh data
-			@return				The created mesh renderer object
+		Sets up the MeshRenderer and its dependicies. Make the gameObject the owner of this component
+		@param gameObject	Object that owns this Behaviour
+		@param path			Path to model data
+		@param shader		Shader used for rendering
+		@param manager		Manager used for storing mesh data
+		@return				The created mesh renderer object
 		*/
+		static MeshRenderer *Create(GameObject *gameObject, std::string path);
 		static MeshRenderer *Create(GameObject *gameObject, std::string path, enum RenderMode mode);
+
 		void Copy(GameObject *copyObject);
 
 		void OnLoad();
 		void Start();
 		void Draw();
+
+		void SetShader(unsigned int shader);
 
 		template<class Archive>
 		void serialize(Archive & ar)
@@ -53,6 +57,7 @@ namespace Engine {
 		bool cullBackFace;
 	private:
 		Mesh *mesh;
+		unsigned int shader;
 	};
 }
 using namespace Engine;

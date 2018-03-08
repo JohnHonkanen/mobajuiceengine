@@ -43,6 +43,7 @@ namespace Engine {
 	void GameObjectManager::Draw()
 	{
 		vector<GameObject*> forwardRender;
+		vector<GameObject*> defferredRender;
 		//Try for Deferred
 		for (auto const &gameobjectPair : gameObjects) {
 			switch (gameobjectPair.second->GetRenderMode())
@@ -51,15 +52,14 @@ namespace Engine {
 				forwardRender.push_back(gameobjectPair.second.get());
 				break;
 			case DEFERRED:
-				//Do Defferred rendering
-				//Set GameObject Shader
-				//Render
+				defferredRender.push_back(gameobjectPair.second.get());
 				break;
 			default:
 				break;
 			}
 		}
 
+		//Forward Rendering
 		for (auto gameObject : forwardRender)
 		{
 			gameObject->Draw();

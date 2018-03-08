@@ -49,6 +49,7 @@ namespace Engine {
 		std::string name = "";
 		bool enabled = true;
 		Material *material;
+		class MeshRenderer* meshRenderer = nullptr;
 
 		RenderMode GetRenderMode() const;
 		void SetRenderMode(RenderMode mode);

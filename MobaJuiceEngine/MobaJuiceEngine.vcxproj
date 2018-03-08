@@ -210,6 +210,7 @@
     <ClCompile Include="Engine\src\hud\widget\TextWidget.cpp" />
     <ClCompile Include="Engine\src\physics\RayCast.cpp" />
     <ClCompile Include="Engine\src\physics\RaycastUtility.cpp" />
+    <ClCompile Include="Engine\src\render\DefferredRenderer.cpp" />
     <ClCompile Include="Engine\src\render\FontManager.cpp" />
     <ClCompile Include="Engine\src\render\FrameBuffer.cpp" />
     <ClCompile Include="Engine\src\render\GBuffer.cpp" />
@@ -265,6 +266,7 @@
     <ClInclude Include="Engine\include\MobaJuiceCore.h" />
     <ClInclude Include="Engine\include\physics\RayCast.h" />
     <ClInclude Include="Engine\include\physics\RaycastUtility.h" />
+    <ClInclude Include="Engine\include\render\DefferredRenderer.h" />
     <ClInclude Include="Engine\include\render\FontManager.h" />
     <ClInclude Include="Engine\include\render\FrameBuffer.h" />
     <ClInclude Include="Engine\include\render\GBuffer.h" />
