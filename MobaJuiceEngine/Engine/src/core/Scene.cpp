@@ -56,6 +56,7 @@ namespace Engine {
 			skybox.Draw();
 
 		gameObjects->Draw();
+
 		if (hud) {
 			hud->Draw();
 		}

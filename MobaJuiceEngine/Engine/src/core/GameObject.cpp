@@ -8,12 +8,14 @@ namespace Engine {
 		GameObject::id = -1;
 		transform = make_unique<Transform>();
 		material = new Material();
+		renderMode = FORWARD;
 	}
 
 	GameObject::GameObject(std::string name): name(name)
 	{
 		transform = make_unique<Transform>();
 		material = new Material();
+		renderMode = FORWARD;
 	}
 
 
@@ -99,5 +101,14 @@ namespace Engine {
 	{
 		component->SetGameObject(this);
 		GameObject::components.push_back(ComponentUP(component));
+	}
+
+	RenderMode GameObject::GetRenderMode() const
+	{
+		return renderMode;
+	}
+	void GameObject::SetRenderMode(RenderMode mode)
+	{
+		renderMode = mode;
 	}
 }

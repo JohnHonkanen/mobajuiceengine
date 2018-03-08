@@ -13,6 +13,11 @@
 
 namespace Engine {
 	typedef std::unique_ptr<Component> ComponentUP;
+
+	enum RenderMode {
+		FORWARD,
+		DEFERRED
+	};
 	class GameObject : std::enable_shared_from_this<GameObject>
 	{
 	public:
@@ -44,6 +49,9 @@ namespace Engine {
 		bool enabled = true;
 		Material *material;
 
+		RenderMode GetRenderMode() const;
+		void SetRenderMode(RenderMode mode);
+
 		template<class Archive>
 		void serialize(Archive & ar)
 		{
@@ -51,6 +59,7 @@ namespace Engine {
 		}
 	private:
 		std::vector<ComponentUP> components;
+		RenderMode renderMode;
 
 	};
 
