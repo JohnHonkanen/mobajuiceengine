@@ -33,7 +33,7 @@ namespace Engine {
 			@param manager		Manager used for storing mesh data
 			@return				The created mesh renderer object
 		*/
-		static MeshRenderer *Create(GameObject *gameObject, std::string path);
+		static MeshRenderer *Create(GameObject *gameObject, std::string path, enum RenderMode mode);
 		void Copy(GameObject *copyObject);
 
 		void OnLoad();

@@ -12,7 +12,7 @@ public:
 	void BindForReading();
 
 	//Read Only FrameBuffer Texture
-	std::vector<const uint> GetTextures() const;
+	std::vector<uint> GetTextures() const;
 	uint GetHeight() const;
 	uint GetWidth() const;
 

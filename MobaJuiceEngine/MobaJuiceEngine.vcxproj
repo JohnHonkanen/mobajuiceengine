@@ -211,6 +211,8 @@
     <ClCompile Include="Engine\src\physics\RayCast.cpp" />
     <ClCompile Include="Engine\src\physics\RaycastUtility.cpp" />
     <ClCompile Include="Engine\src\render\FontManager.cpp" />
+    <ClCompile Include="Engine\src\render\FrameBuffer.cpp" />
+    <ClCompile Include="Engine\src\render\GBuffer.cpp" />
     <ClCompile Include="Engine\src\render\graphics\OGLGraphicHandler.cpp" />
     <ClCompile Include="Engine\src\render\Material.cpp" />
     <ClCompile Include="Engine\src\render\mesh\AiModel.cpp" />
@@ -264,6 +266,8 @@
     <ClInclude Include="Engine\include\physics\RayCast.h" />
     <ClInclude Include="Engine\include\physics\RaycastUtility.h" />
     <ClInclude Include="Engine\include\render\FontManager.h" />
+    <ClInclude Include="Engine\include\render\FrameBuffer.h" />
+    <ClInclude Include="Engine\include\render\GBuffer.h" />
     <ClInclude Include="Engine\include\render\graphics\GraphicHandler.h" />
     <ClInclude Include="Engine\include\render\graphics\OGLGraphicHandler.h" />
     <ClInclude Include="Engine\include\render\Material.h" />

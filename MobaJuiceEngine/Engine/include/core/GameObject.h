@@ -16,7 +16,8 @@ namespace Engine {
 
 	enum RenderMode {
 		FORWARD,
-		DEFERRED
+		DEFERRED,
+		SHADOW,
 	};
 	class GameObject : std::enable_shared_from_this<GameObject>
 	{

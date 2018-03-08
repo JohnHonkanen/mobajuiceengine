@@ -52,6 +52,8 @@ namespace Engine {
 				break;
 			case DEFERRED:
 				//Do Defferred rendering
+				//Set GameObject Shader
+				//Render
 				break;
 			default:
 				break;

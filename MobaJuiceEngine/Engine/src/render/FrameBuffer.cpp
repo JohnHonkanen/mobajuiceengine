@@ -76,9 +76,9 @@ void FrameBuffer::BindForReading()
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo);
 }
 
-std::vector<const FrameBuffer::uint> FrameBuffer::GetTextures() const
+std::vector<FrameBuffer::uint> FrameBuffer::GetTextures() const
 {
-	return std::vector<const uint>(textureBuffer.begin(), textureBuffer.end());
+	return std::vector<uint>(textureBuffer.begin(), textureBuffer.end());
 }
 
 FrameBuffer::uint FrameBuffer::GetHeight() const

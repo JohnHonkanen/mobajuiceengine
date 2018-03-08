@@ -22,7 +22,7 @@ public:
 	void BindForReading();
 	void SetReadBuffer(GBUFFER_TEXTURE_TYPE TextureType);
 
-	std::map<TEXTURE_TYPE, const uint> GetTextures() const;
+	std::map<TEXTURE_TYPE,uint> GetTextures() const;
 
 private:
 	uint gBuffer;

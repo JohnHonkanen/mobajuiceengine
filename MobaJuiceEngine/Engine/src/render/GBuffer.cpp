@@ -55,7 +55,7 @@ void GBuffer::SetReadBuffer(GBUFFER_TEXTURE_TYPE TextureType)
 	glReadBuffer(GL_COLOR_ATTACHMENT0 + TextureType);
 }
 
-std::map<GBuffer::TEXTURE_TYPE, const GBuffer::uint> GBuffer::GetTextures() const
+std::map<GBuffer::TEXTURE_TYPE, GBuffer::uint> GBuffer::GetTextures() const
 {
-	return std::map<TEXTURE_TYPE, const uint>(textures.begin(), textures.end());
+	return std::map<TEXTURE_TYPE, uint>(textures.begin(), textures.end());
 }

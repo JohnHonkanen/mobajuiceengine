@@ -11,7 +11,7 @@ namespace Engine {
 	{
 	}
 
-	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path)
+	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path, RenderMode mode = FORWARD)
 	{
 		MeshRenderer *r = new MeshRenderer();
 		r->meshPath = path;
@@ -19,6 +19,8 @@ namespace Engine {
 		r->cullBackFace = true;
 		//Adds ownership
 		gameObject->AddComponent(r);
+
+		r->gameObject->SetRenderMode(mode);
 
 		return r;
 	}
@@ -47,7 +49,15 @@ namespace Engine {
 	void MeshRenderer::Draw()
 	{
 		string shaderString = mesh->GetShader();
-		GLuint shader = meshManager->getShaderManager()->GetShader(shaderString);
+		GLuint shader;
+
+		if (gameObject->GetRenderMode() == DEFERRED)
+		{
+			shader = meshManager->getShaderManager()->GetShader(gameObject->material->shader);
+		}
+		else {
+			shader = meshManager->getShaderManager()->GetShader(shaderString);
+		}
 		glUseProgram(shader);
 		//SetMVPS
 		glm::mat4 projection(1.0);
@@ -62,19 +72,11 @@ namespace Engine {
 		{
 			glDisable(GL_CULL_FACE);
 		}
-		/*
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glDisable(GL_CULL_FACE);*/
 
-		glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
-		glm::vec3 lightColor(1.0f, 1.0f, 1.0f); 
-		glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 		glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		glUniform3fv(glGetUniformLocation(shader, "objectColor"), 1, glm::value_ptr(objectColor));
-		glUniform3fv(glGetUniformLocation(shader, "lightColor"), 1, glm::value_ptr(lightColor));
-		glUniform3fv(glGetUniformLocation(shader, "lightPos"), 1, glm::value_ptr(lightPos));
+
 		glUniform1f(glGetUniformLocation(shader, "partialRenderV"), partialRenderValue);
 		//ENDOFMVP
 
