@@ -17,11 +17,14 @@ namespace Engine
 		void GeometryPass(std::vector<class GameObject*> objects);
 		void LightPass(std::vector<class GameObject*> objects);
 		void RenderScene();
+		void DrawQuad();
 
 		std::unique_ptr<FrameBuffer> shadowBuffer;
 		std::unique_ptr<GBuffer> gBuffer;
+		std::unique_ptr<FrameBuffer> lightBuffer;
 
 		//Original Width and Height
 		unsigned int oWidth, oHeight;
+		unsigned int quadVAO;
 	};
 }

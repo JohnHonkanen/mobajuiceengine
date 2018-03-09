@@ -2,6 +2,7 @@
 #include "core\GameObject.h"
 #include "core\GameEngine.h"
 #include "components\MeshRenderer.h"
+#include "components\Camera.h"
 #include "GL\glew.h"
 
 namespace Engine
@@ -13,6 +14,7 @@ namespace Engine
 
 		shadowBuffer = std::make_unique<FrameBuffer>(1024,1024, 1, true);
 		gBuffer = std::make_unique<GBuffer>(width, height);
+		lightBuffer = std::make_unique<FrameBuffer>(1024, 1024, 2);
 
 	}
 	void DefferredRenderer::Render(std::vector<GameObject*> objects)
@@ -69,5 +71,88 @@ namespace Engine
 
 			gameObject->Draw();
 		}
+	}
+	void DefferredRenderer::LightPass(std::vector<class GameObject*> objects)
+	{
+		lightBuffer->BindForWriting();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		unsigned int shader = GameEngine::manager.shaderManager.GetShader("light");
+
+		glUseProgram(shader);
+
+		auto gBufferTextures = gBuffer->GetTextures(); //Map (Gbuffer)
+
+		auto shadowTextures = shadowBuffer->GetTextures(); //vector (FrameBuffer)
+
+		for (int i = GBuffer::POSITION; i != GBuffer::EMISSION; i++)
+		{
+			GBuffer::TEXTURE_TYPE type = static_cast<GBuffer::TEXTURE_TYPE>(i);
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, gBufferTextures[type]);
+		}
+
+		//Get Camera Position and Direction
+		Camera * camera = Camera::mainCamera;
+
+		glm::vec3 cameraPosition = camera->transform->GetPosition();
+		glm::vec3 cameraDirection = camera->transform->Front();
+
+		//Get View Position
+		glm::vec3 viewPosition = camera->GetViewMatrix()[3];
+
+		//Pass Directional Light
+
+		//Pass Point Light
+
+		//Pass Shadow Mapping
+
+		//RenderQuad
+		DrawQuad();
+
+	}
+	void DefferredRenderer::RenderScene()
+	{
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); //Write to default
+
+		unsigned int shader = GameEngine::manager.shaderManager.GetShader("default");
+
+		glUseProgram(shader);
+
+		auto textures = lightBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textures[0]);
+
+		//Set Uniform Location for texture0
+
+		DrawQuad();
+	}
+	void DefferredRenderer::DrawQuad()
+	{
+		unsigned int quadVBO;
+		if (quadVAO == 0)
+		{
+			float quadVertices[] = {
+				// positions        // texture Coords
+				-1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+				-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+				1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
+				1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+			};
+			// setup plane VAO
+			glGenVertexArrays(1, &quadVAO);
+			glGenBuffers(1, &quadVBO);
+			glBindVertexArray(quadVAO);
+			glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+		}
+		glBindVertexArray(quadVAO);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glBindVertexArray(0);
 	}
 }
