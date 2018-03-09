@@ -26,5 +26,9 @@ namespace Engine
 		//Original Width and Height
 		unsigned int oWidth, oHeight;
 		unsigned int quadVAO;
+
+		//For Shadows
+		float near_plane = 1.0f;
+		float far_plane = 25.0f;
 	};
 }

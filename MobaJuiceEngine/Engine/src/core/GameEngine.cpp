@@ -88,6 +88,12 @@ namespace Engine {
 		manager.shaderManager.CreateShader("skyBoxShader", string(path.shaderPath + "skyBoxBasic.vert").c_str(), string(path.shaderPath + "skyBoxBasic.frag").c_str());
 		manager.shaderManager.CreateShader("text", string(path.shaderPath + "text2D.vert").c_str(), string(path.shaderPath + "text2D.frag").c_str());
 		manager.shaderManager.CreateShader("defaultHUDShader", string(path.shaderPath + "defaultHUD.vert").c_str(), string(path.shaderPath + "defaultHUD.frag").c_str());
+
+		/*Deferred Rendering Shaders*/
+		manager.shaderManager.CreateShader("depthMap", string(path.shaderPath + "/deferred/depth.vert").c_str(), string(path.shaderPath + "/deferred/depth.frag").c_str());
+		manager.shaderManager.CreateShader("geometry", string(path.shaderPath + "/deferred/geometry.vert").c_str(), string(path.shaderPath + "/deferred/geometry.frag").c_str());
+		manager.shaderManager.CreateShader("default", string(path.shaderPath + "/deferred/quad.vert").c_str(), string(path.shaderPath + "/deferred/quad.frag").c_str());
+		/*End of Deferred Rendering Shaders*/
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);
 		manager.meshManager.SetTextureManager(&manager.textureManager);
 

@@ -35,20 +35,21 @@ namespace Engine
 		}
 	}
 
-	std::vector<Light*> LightManager::GetLight(LightType type) const
+	std::vector<Light *> LightManager::GetLights(LightType type) const
 	{
 		switch (type)
 		{
 		case Engine::POINT_LIGHT:
-			return point;
+			return std::vector<Light *>(point.begin(), point.end());
 			break;
 		case Engine::SPOTLIGHT:
-			return spotlight;
+			return std::vector<Light *>(spotlight.begin(), spotlight.end());
 			break;
 		case Engine::DIRECTIONAL_LIGHT:
-			return directional;
+			return std::vector<Light *>(directional.begin(), directional.end());
 			break;
 		default:
+			return std::vector<Light *>();
 			break;
 		}
 	}

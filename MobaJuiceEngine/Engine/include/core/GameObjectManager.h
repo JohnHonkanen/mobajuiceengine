@@ -7,6 +7,7 @@
 #include <cereal\cereal.hpp>
 #include <cereal\types\map.hpp>
 #include "GameObject.h"
+#include "render\DefferredRenderer.h"
 namespace Engine {
 	typedef std::unique_ptr<GameObject> GameObjUniqPtr;
 
@@ -74,5 +75,7 @@ namespace Engine {
 	private:
 		std::map<std::string, GameObjUniqPtr> gameObjects;
 		std::map<std::string, int> counter;
+
+		DefferredRenderer dRenderer;
 	};
 }

@@ -29,6 +29,7 @@ namespace Engine {
 			tr->GenerateIndices();
 
 			gameObject->AddComponent(tr);
+			gameObject->SetRenderMode(DEFERRED);
 
 			return tr;
 		}
@@ -54,7 +55,16 @@ namespace Engine {
 		}
 		void TerrainRenderer::Draw()
 		{
-			GLuint program = GameEngine::manager.shaderManager.GetShader(shader);
+			GLuint program;
+
+			if (gameObject->GetRenderMode() == DEFERRED)
+			{
+				program = GameEngine::manager.shaderManager.GetShader(gameObject->material->shader);
+			}
+			else {
+				program = GameEngine::manager.shaderManager.GetShader(shader);
+				glUseProgram(program);
+			}
 
 			glUseProgram(program);
 
@@ -73,7 +83,7 @@ namespace Engine {
 			glActiveTexture(GL_TEXTURE0);
 			TextureManager *tm = &GameEngine::manager.textureManager;
 			glBindTexture(GL_TEXTURE_2D, tm->getTexture(material.diffuseMap));
-			glUniform1i(glGetUniformLocation(program, "texture0"), 0);
+			glUniform1i(glGetUniformLocation(program, "diffuseMap"), 0);
 
 
 			glBindVertexArray(vao);

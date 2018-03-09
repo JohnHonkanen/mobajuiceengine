@@ -3,6 +3,8 @@
 #include <cereal\types\memory.hpp>
 #include <iostream>
 #include <fstream>
+
+#include "core\GameEngine.h"
 namespace Engine {
 	GameObjectManager::GameObjectManager()
 	{
@@ -14,6 +16,8 @@ namespace Engine {
 
 	void GameObjectManager::OnLoad()
 	{
+		vec2 screenSize = GameEngine::screenSize;
+		dRenderer.SetupFrameBuffers(screenSize.x, screenSize.y);
 		for (auto const &gameobjectPair : gameObjects) {
 			gameobjectPair.second->OnLoad();
 		}
@@ -58,7 +62,8 @@ namespace Engine {
 				break;
 			}
 		}
-
+		
+		dRenderer.Render(defferredRender);
 		//Forward Rendering
 		for (auto gameObject : forwardRender)
 		{

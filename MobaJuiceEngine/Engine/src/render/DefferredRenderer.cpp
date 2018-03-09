@@ -5,6 +5,7 @@
 #include "components\Camera.h"
 #include "GL\glew.h"
 #include "render\LightManager.h"
+#include "components\Light.h"
 namespace Engine
 {
 	void DefferredRenderer::SetupFrameBuffers(unsigned int width, unsigned int height)
@@ -16,12 +17,21 @@ namespace Engine
 		gBuffer = std::make_unique<GBuffer>(width, height);
 		lightBuffer = std::make_unique<FrameBuffer>(1024, 1024, 2);
 
+		shadowBuffer->Init();
+		gBuffer->Init();
+		lightBuffer->Init();
+
 	}
 	void DefferredRenderer::Render(std::vector<GameObject*> objects)
 	{
+		if (objects.empty())
+		{
+			return;
+		}
+
 		ShadowPass(objects);
 		GeometryPass(objects);
-		LightPass(objects);
+		//LightPass(objects);
 		RenderScene();
 	}
 
@@ -37,15 +47,25 @@ namespace Engine
 
 		glUseProgram(shader);
 
-		//TODO Pass LightSpace things
+		const Light * directional = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT)[0];
+		vec3 lightPosition = directional->transform->GetPosition();
+		mat4 lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
 
 		for (auto gameObject : objects)
 		{
 			if (gameObject->meshRenderer != nullptr)
 			{
 				gameObject->meshRenderer->SetShader(shader);
+				gameObject->material->shader = "depthMap";
 			}
-			
+
+			vec3 objPosition = gameObject->transform->GetPosition();
+			vec3 direction = normalize(objPosition - lightPosition);
+			mat4 lightView = lookAt(lightPosition, lightPosition + direction, vec3(0,1,0));
+			mat4 lightSpaceMatrix = lightProjection * lightView;
+
+			glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+
 			gameObject->Draw();
 		}
 
@@ -119,12 +139,14 @@ namespace Engine
 
 		glUseProgram(shader);
 
-		auto textures = lightBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
+		auto textures = shadowBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textures[0]);
 
 		//Set Uniform Location for texture0
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textures[0]);
 
 		DrawQuad();
 	}

@@ -16,7 +16,7 @@ namespace Engine
 		static LightManager * Get();
 
 		void AddLight(LightType  type, class Light *light);
-		std::vector<class Light*> GetLight(LightType type) const;
+		std::vector<class Light *> GetLights(LightType type) const;
 	private:
 		static LightManager * manager;
 		LightManager() {};
