@@ -34,6 +34,8 @@ namespace Engine {
 					CEREAL_NVP(weight), CEREAL_NVP(shader), CEREAL_NVP(visualizeGrid), CEREAL_NVP(offset.x), CEREAL_NVP(offset.y)
 				, CEREAL_NVP(offset.z));
 			}
+
+			vec3 offset = vec3(0, 1, 0);
 		private:
 			void GenerateVAO();
 			void PreGenerateHeightMap();
@@ -60,7 +62,6 @@ namespace Engine {
 
 			bool visualizeGrid;
 
-			vec3 offset = vec3(0, 1, 0);
 			unsigned int vao;
 			unsigned int vbo[2];
 

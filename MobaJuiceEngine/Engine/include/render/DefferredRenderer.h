@@ -3,6 +3,7 @@
 #include "FrameBuffer.h"
 #include "GBuffer.h"
 #include <memory>
+#include "components\Light.h"
 
 namespace Engine
 {
@@ -20,9 +21,14 @@ namespace Engine
 		void TestDepthMap();
 		void DrawQuad();
 
+		/*Utility Functions*/
+		void PassLightsToShader(vector<Light*> lights, std::string locString, unsigned int shader);
+
 		std::unique_ptr<FrameBuffer> shadowBuffer;
 		std::unique_ptr<GBuffer> gBuffer;
 		std::unique_ptr<FrameBuffer> lightBuffer;
+
+		mat4 lightSpaceMatrix;
 
 		//Original Width and Height
 		unsigned int oWidth, oHeight;

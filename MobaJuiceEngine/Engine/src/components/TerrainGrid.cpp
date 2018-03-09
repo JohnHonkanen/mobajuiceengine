@@ -16,6 +16,7 @@ namespace Engine {
 			glDeleteVertexArrays(1, &vao);
 			glDeleteBuffers(2, vbo);
 		}
+
 		TerrainGrid * TerrainGrid::Create(GameObject * obj, float cellSize, unsigned xLength, unsigned zLength, 
 			float freq, float weight, string shader, bool visualizeGrid)
 		{
@@ -75,9 +76,18 @@ namespace Engine {
 			if (!visualizeGrid)
 				return;
 
-			GLuint program = GameEngine::manager.shaderManager.GetShader(shader);
+			GLuint program;
 
-			glUseProgram(program);
+			if (gameObject->GetRenderMode() == DEFERRED)
+			{
+				program = gameObject->shader;
+			}
+			else {
+				program = GameEngine::manager.shaderManager.GetShader(shader);
+				glUseProgram(program);
+			}
+
+
 
 			glm::mat4 projection(1.0);
 			projection = Camera::mainCamera->GetProjectionMatrix();

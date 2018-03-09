@@ -2,6 +2,7 @@
 #include "core\GameEngine.h"
 #include "components\Camera.h"
 #include <glm\gtc\type_ptr.hpp>
+#include <glm\gtc\matrix_transform.hpp>
 #include "GL\glew.h"
 namespace Engine {
 	namespace Terrain{
@@ -40,6 +41,7 @@ namespace Engine {
 			tr->shader = shader;
 
 			copyObject->AddComponent(tr);
+			copyObject->SetRenderMode(DEFERRED);
 		}
 		void TerrainRenderer::OnLoad()
 		{
@@ -59,14 +61,13 @@ namespace Engine {
 
 			if (gameObject->GetRenderMode() == DEFERRED)
 			{
-				program = GameEngine::manager.shaderManager.GetShader(gameObject->material->shader);
+				program = gameObject->shader;
 			}
 			else {
 				program = GameEngine::manager.shaderManager.GetShader(shader);
 				glUseProgram(program);
 			}
 
-			glUseProgram(program);
 
 			glm::mat4 projection(1.0);
 			projection = Camera::mainCamera->GetProjectionMatrix();
@@ -75,6 +76,7 @@ namespace Engine {
 
 			mat4 model(1.0);
 			model = transform->GetLocalToWorldMatrix();
+			model = translate(model, vec3(10, 0, 50));
 
 			glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, glm::value_ptr(model));
@@ -110,14 +112,14 @@ namespace Engine {
 			//UV Data
 			glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
 			glBufferData(GL_ARRAY_BUFFER, uv.size() * 2 * sizeof(float), &uv[0], GL_STATIC_DRAW);
-			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0); //Layout Location 1, UV
-			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0); //Layout Location 1, UV
+			glEnableVertexAttribArray(2);
 
 			//Normals
 			glBindBuffer(GL_ARRAY_BUFFER, vbo[3]);
 			glBufferData(GL_ARRAY_BUFFER, normals.size() * 3 * sizeof(float), &normals[0], GL_STATIC_DRAW);
-			glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0); //Layout Location 1, UV
-			glEnableVertexAttribArray(2);
+			glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+			glEnableVertexAttribArray(3);
 		}
 
 		void TerrainRenderer::GenerateIndices()

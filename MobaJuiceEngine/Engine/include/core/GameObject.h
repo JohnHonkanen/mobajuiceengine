@@ -50,7 +50,7 @@ namespace Engine {
 		bool enabled = true;
 		Material *material;
 		class MeshRenderer* meshRenderer = nullptr;
-
+		unsigned int shader;
 		RenderMode GetRenderMode() const;
 		void SetRenderMode(RenderMode mode);
 

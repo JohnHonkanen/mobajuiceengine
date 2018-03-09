@@ -13,7 +13,7 @@ namespace Engine {
 
 	MeshRenderer * MeshRenderer::Create(GameObject *gameObject, std::string path)
 	{
-		return Create(gameObject, path, FORWARD);
+		return Create(gameObject, path, DEFERRED);
 	}
 
 	MeshRenderer * MeshRenderer::Create(GameObject * gameObject, std::string path, RenderMode mode)
@@ -32,11 +32,7 @@ namespace Engine {
 
 	void MeshRenderer::Copy(GameObject * copyObject)
 	{
-		MeshRenderer *copy = new MeshRenderer();
-
-		copy->meshPath = MeshRenderer::meshPath;
-
-		copyObject->AddComponent(copy);
+		Create(copyObject, meshPath, gameObject->GetRenderMode());
 	}
 
 	void MeshRenderer::OnLoad()
@@ -83,7 +79,6 @@ namespace Engine {
 		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-		glUniform1f(glGetUniformLocation(shader, "partialRenderV"), partialRenderValue);
 		//ENDOFMVP
 
 		mesh->Render(gameObject->material);

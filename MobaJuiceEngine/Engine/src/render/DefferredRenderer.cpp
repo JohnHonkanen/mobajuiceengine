@@ -5,7 +5,6 @@
 #include "components\Camera.h"
 #include "GL\glew.h"
 #include "render\LightManager.h"
-#include "components\Light.h"
 namespace Engine
 {
 	void DefferredRenderer::SetupFrameBuffers(unsigned int width, unsigned int height)
@@ -15,11 +14,17 @@ namespace Engine
 
 		shadowBuffer = std::make_unique<FrameBuffer>(1024,1024, 1, true);
 		gBuffer = std::make_unique<GBuffer>(width, height);
-		lightBuffer = std::make_unique<FrameBuffer>(1024, 1024, 2);
+		lightBuffer = std::make_unique<FrameBuffer>(width, height, 2);
 
 		shadowBuffer->Init();
 		gBuffer->Init();
 		lightBuffer->Init();
+
+		unsigned int light = GameEngine::manager.shaderManager.GetShader("light");
+		glUniform1i(glGetUniformLocation(light, "gPosition"), 0);
+		glUniform1i(glGetUniformLocation(light, "gNormal"), 1);
+		glUniform1i(glGetUniformLocation(light, "gAlbedoSpec"), 2);
+		glUniform1i(glGetUniformLocation(light, "gEmission"), 3);
 
 	}
 	void DefferredRenderer::Render(std::vector<GameObject*> objects)
@@ -31,7 +36,7 @@ namespace Engine
 
 		ShadowPass(objects);
 		GeometryPass(objects);
-		//LightPass(objects);
+		LightPass(objects);
 		RenderScene();
 		//TestDepthMap();
 	}
@@ -51,19 +56,21 @@ namespace Engine
 		const Light * directional = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT)[0];
 		vec3 lightPosition = directional->transform->GetPosition();
 		mat4 lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
+		mat4 lightView = lookAt(lightPosition, vec3(0,0,0), vec3(0, 1, 0));
+		lightSpaceMatrix = lightProjection * lightView;
 
 		for (auto gameObject : objects)
 		{
+			gameObject->shader = shader;
+
 			if (gameObject->meshRenderer != nullptr)
 			{
 				gameObject->meshRenderer->SetShader(shader);
-				gameObject->material->shader = "depthMap";
+				
 			}
 
 			vec3 objPosition = gameObject->transform->GetPosition();
 			vec3 direction = normalize(objPosition - lightPosition);
-			mat4 lightView = lookAt(lightPosition, lightPosition + direction, vec3(0,1,0));
-			mat4 lightSpaceMatrix = lightProjection * lightView;
 
 			glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
 
@@ -85,9 +92,11 @@ namespace Engine
 
 		for (auto gameObject : objects)
 		{
+			gameObject->shader = shader;
 			if (gameObject->meshRenderer != nullptr)
 			{
-				gameObject->meshRenderer->SetShader(shader);
+  				gameObject->meshRenderer->SetShader(shader);
+				
 			}
 
 			gameObject->Draw();
@@ -106,12 +115,33 @@ namespace Engine
 
 		auto shadowTextures = shadowBuffer->GetTextures(); //vector (FrameBuffer)
 
-		for (int i = GBuffer::POSITION; i != GBuffer::EMISSION; i++)
+		/*for (int i = GBuffer::POSITION; i != GBuffer::EMISSION; i++)
 		{
 			GBuffer::TEXTURE_TYPE type = static_cast<GBuffer::TEXTURE_TYPE>(i);
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, gBufferTextures[type]);
-		}
+		}*/
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, gBufferTextures[GBuffer::POSITION]);
+		glUniform1i(glGetUniformLocation(shader, "gPosition"), 0);
+
+
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, gBufferTextures[GBuffer::NORMAL]);
+		glUniform1i(glGetUniformLocation(shader, "gNormal"), 1);
+
+
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, gBufferTextures[GBuffer::ALBEDOSPEC]);
+		glUniform1i(glGetUniformLocation(shader, "gAlbedoSpec"), 2);
+		
+
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, gBufferTextures[GBuffer::EMISSION]);
+		glUniform1i(glGetUniformLocation(shader, "gEmission"), 3);
+
+		glActiveTexture(GL_TEXTURE4);
 
 		//Get Camera Position and Direction
 		Camera * camera = Camera::mainCamera;
@@ -121,12 +151,23 @@ namespace Engine
 
 		//Get View Position
 		glm::vec3 viewPosition = camera->GetViewMatrix()[3];
+		glUniform3f(glGetUniformLocation(shader, "viewPosition"), viewPosition.x,viewPosition.y, viewPosition.z);
 
 		//Pass Directional Light
+		auto directionals = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT);
+		glUniform1i(glGetUniformLocation(shader, "numDirectionals"), directionals.size());
+		PassLightsToShader(directionals, "directionalLights", shader);
 
 		//Pass Point Light
+		auto points = LightManager::Get()->GetLights(POINT_LIGHT);
+		glUniform1i(glGetUniformLocation(shader, "numPoints"), points.size());
+		PassLightsToShader(points, "pointLights", shader);
 
 		//Pass Shadow Mapping
+		glUniform1f(glGetUniformLocation(shader, "near_plane"), near_plane);
+		glUniform1f(glGetUniformLocation(shader, "near_plane"), far_plane);
+		glUniform1i(glGetUniformLocation(shader, "depthMap"), 4);
+		glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
 
 		//RenderQuad
 		DrawQuad();
@@ -140,12 +181,12 @@ namespace Engine
 
 		glUseProgram(shader);
 
-		auto textures = gBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
+		auto textures = lightBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
 
 
 		//Set Uniform Location for texture0
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textures[GBuffer::POSITION]);
+		glBindTexture(GL_TEXTURE_2D, textures[0]);
 
 		DrawQuad();
 	}
@@ -194,5 +235,34 @@ namespace Engine
 		glBindVertexArray(quadVAO);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		glBindVertexArray(0);
+	}
+	void DefferredRenderer::PassLightsToShader(vector<Light*> lights, std::string locString,unsigned int shader)
+	{
+		for (int i = 0; i < lights.size(); i++)
+		{
+			auto prop = lights[i]->GetProperties();
+			string uniformLoc = locString + "[" + std::to_string(i) + "]";
+			glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".ambient").c_str()),
+				prop.ambient.x, prop.ambient.y, prop.ambient.z
+			);
+			glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".diffuse").c_str()),
+				prop.diffuse.x, prop.diffuse.y, prop.diffuse.z
+			);
+			glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".specular").c_str()),
+				prop.specular.x, prop.specular.y, prop.specular.z
+			);
+
+			glUniform1f(glGetUniformLocation(shader, (uniformLoc + ".constant").c_str()),
+				prop.constant
+			);
+
+			glUniform1f(glGetUniformLocation(shader, (uniformLoc + ".linear").c_str()),
+				prop.linear
+			);
+
+			glUniform1f(glGetUniformLocation(shader, (uniformLoc + ".quadratic").c_str()),
+				prop.quadratic
+			);
+		}
 	}
 }
