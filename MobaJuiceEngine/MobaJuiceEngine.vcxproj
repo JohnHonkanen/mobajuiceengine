@@ -180,6 +180,8 @@
   <ItemGroup>
     <ClCompile Include="Engine\src\components\Camera.cpp" />
     <ClCompile Include="Engine\src\components\FreeCameraControl.cpp" />
+    <ClCompile Include="Engine\src\components\Light.cpp" />
+    <ClCompile Include="Engine\src\components\LightManager.cpp" />
     <ClCompile Include="Engine\src\components\MeshRenderer.cpp" />
     <ClCompile Include="Engine\src\components\TerrainGrid.cpp" />
     <ClCompile Include="Engine\src\components\TerrainRenderer.cpp" />
@@ -232,6 +234,7 @@
     <ClInclude Include="Engine\include\components\Camera.h" />
     <ClInclude Include="Engine\include\components\Component.h" />
     <ClInclude Include="Engine\include\components\FreeCameraControl.h" />
+    <ClInclude Include="Engine\include\components\Light.h" />
     <ClInclude Include="Engine\include\components\MeshRenderer.h" />
     <ClInclude Include="Engine\include\components\TerrainGrid.h" />
     <ClInclude Include="Engine\include\components\TerrainRenderer.h" />
@@ -272,6 +275,7 @@
     <ClInclude Include="Engine\include\render\GBuffer.h" />
     <ClInclude Include="Engine\include\render\graphics\GraphicHandler.h" />
     <ClInclude Include="Engine\include\render\graphics\OGLGraphicHandler.h" />
+    <ClInclude Include="Engine\include\render\LightManager.h" />
     <ClInclude Include="Engine\include\render\Material.h" />
     <ClInclude Include="Engine\include\render\mesh\AiModel.h" />
     <ClInclude Include="Engine\include\render\mesh\Mesh.h" />

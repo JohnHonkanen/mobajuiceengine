@@ -4,7 +4,7 @@
 #include "components\MeshRenderer.h"
 #include "components\Camera.h"
 #include "GL\glew.h"
-
+#include "render\LightManager.h"
 namespace Engine
 {
 	void DefferredRenderer::SetupFrameBuffers(unsigned int width, unsigned int height)

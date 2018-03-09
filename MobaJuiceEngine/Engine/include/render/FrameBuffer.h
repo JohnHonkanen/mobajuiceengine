@@ -5,7 +5,7 @@ class FrameBuffer
 {
 	using uint = unsigned int;
 public:
-	FrameBuffer(uint width, uint height, uint attachmentCount, bool depthMap);
+	FrameBuffer(uint width, uint height, uint attachmentCount, bool depthMap = false);
 
 	void Init();
 	void BindForWriting();
