@@ -92,6 +92,7 @@ namespace Engine {
 		/*Deferred Rendering Shaders*/
 		manager.shaderManager.CreateShader("depthMap", string(path.shaderPath + "/deferred/depth.vert").c_str(), string(path.shaderPath + "/deferred/depth.frag").c_str());
 		manager.shaderManager.CreateShader("geometry", string(path.shaderPath + "/deferred/geometry.vert").c_str(), string(path.shaderPath + "/deferred/geometry.frag").c_str());
+		manager.shaderManager.CreateShader("depthDebug", string(path.shaderPath + "/deferred/depth_tester.vert").c_str(), string(path.shaderPath + "/deferred/depth_tester.frag").c_str());
 		manager.shaderManager.CreateShader("default", string(path.shaderPath + "/deferred/quad.vert").c_str(), string(path.shaderPath + "/deferred/quad.frag").c_str());
 		/*End of Deferred Rendering Shaders*/
 		manager.meshManager.SetShaderProgram("phong", &manager.shaderManager);

@@ -17,6 +17,7 @@ namespace Engine
 		void GeometryPass(std::vector<class GameObject*> objects);
 		void LightPass(std::vector<class GameObject*> objects);
 		void RenderScene();
+		void TestDepthMap();
 		void DrawQuad();
 
 		std::unique_ptr<FrameBuffer> shadowBuffer;

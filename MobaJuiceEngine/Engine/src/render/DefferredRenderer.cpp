@@ -33,6 +33,7 @@ namespace Engine
 		GeometryPass(objects);
 		//LightPass(objects);
 		RenderScene();
+		//TestDepthMap();
 	}
 
 	void DefferredRenderer::ShadowPass(std::vector<GameObject*> objects)
@@ -139,10 +140,27 @@ namespace Engine
 
 		glUseProgram(shader);
 
+		auto textures = gBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
+
+
+		//Set Uniform Location for texture0
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textures[GBuffer::POSITION]);
+
+		DrawQuad();
+	}
+	void DefferredRenderer::TestDepthMap()
+	{
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); //Write to default
+
+		unsigned int shader = GameEngine::manager.shaderManager.GetShader("depthDebug");
+
+		glUseProgram(shader);
+
 		auto textures = shadowBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
 
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textures[0]);
+		glUniform1f(glGetUniformLocation(shader, "near_plane"), near_plane);
+		glUniform1f(glGetUniformLocation(shader, "far_plane"), far_plane);
 
 		//Set Uniform Location for texture0
 		glActiveTexture(GL_TEXTURE0);
