@@ -9,6 +9,7 @@ public:
 
 	void Init();
 	void BindForWriting();
+	void BindForWriting(unsigned int index);
 	void BindForReading();
 
 	//Read Only FrameBuffer Texture
