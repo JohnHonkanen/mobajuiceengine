@@ -36,6 +36,6 @@ namespace Engine
 
 		//For Shadows
 		float near_plane = 1.0f;
-		float far_plane = 25.0f;
+		float far_plane = 100.0f;
 	};
 }

@@ -81,6 +81,8 @@ namespace Engine {
 			if (gameObject->GetRenderMode() == DEFERRED)
 			{
 				program = gameObject->shader;
+				if (gameObject->shaderName == "depthMap")
+					return;
 			}
 			else {
 				program = GameEngine::manager.shaderManager.GetShader(shader);

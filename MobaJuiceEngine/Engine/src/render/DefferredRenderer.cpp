@@ -34,11 +34,15 @@ namespace Engine
 			return;
 		}
 
+		glDisable(GL_BLEND);
+
 		ShadowPass(objects);
 		GeometryPass(objects);
 		LightPass(objects);
 		RenderScene();
 		//TestDepthMap();
+
+		glEnable(GL_BLEND);
 	}
 
 	void DefferredRenderer::ShadowPass(std::vector<GameObject*> objects)
@@ -55,22 +59,20 @@ namespace Engine
 
 		const Light * directional = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT)[0];
 		vec3 lightPosition = directional->transform->GetPosition();
-		mat4 lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
+		mat4 lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
 		mat4 lightView = lookAt(lightPosition, vec3(0,0,0), vec3(0, 1, 0));
 		lightSpaceMatrix = lightProjection * lightView;
 
 		for (auto gameObject : objects)
 		{
 			gameObject->shader = shader;
+			gameObject->shaderName = "depthMap";
 
 			if (gameObject->meshRenderer != nullptr)
 			{
 				gameObject->meshRenderer->SetShader(shader);
 				
 			}
-
-			vec3 objPosition = gameObject->transform->GetPosition();
-			vec3 direction = normalize(objPosition - lightPosition);
 
 			glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
 
@@ -93,6 +95,7 @@ namespace Engine
 		for (auto gameObject : objects)
 		{
 			gameObject->shader = shader;
+			gameObject->shaderName = "geometry";
 			if (gameObject->meshRenderer != nullptr)
 			{
   				gameObject->meshRenderer->SetShader(shader);
@@ -166,6 +169,9 @@ namespace Engine
 		//Pass Shadow Mapping
 		glUniform1f(glGetUniformLocation(shader, "near_plane"), near_plane);
 		glUniform1f(glGetUniformLocation(shader, "near_plane"), far_plane);
+
+		glActiveTexture(GL_TEXTURE4);
+		glBindTexture(GL_TEXTURE_2D, shadowTextures[0]);
 		glUniform1i(glGetUniformLocation(shader, "depthMap"), 4);
 		glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
 
@@ -192,6 +198,8 @@ namespace Engine
 	}
 	void DefferredRenderer::TestDepthMap()
 	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); //Write to default
 
 		unsigned int shader = GameEngine::manager.shaderManager.GetShader("depthDebug");
@@ -206,6 +214,7 @@ namespace Engine
 		//Set Uniform Location for texture0
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textures[0]);
+		glUniform1i(glGetUniformLocation(shader, "depthMap"), 0);
 
 		DrawQuad();
 	}

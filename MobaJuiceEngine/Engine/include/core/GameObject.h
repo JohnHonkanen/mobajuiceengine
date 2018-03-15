@@ -51,6 +51,7 @@ namespace Engine {
 		Material *material;
 		class MeshRenderer* meshRenderer = nullptr;
 		unsigned int shader;
+		string shaderName;
 		RenderMode GetRenderMode() const;
 		void SetRenderMode(RenderMode mode);
 

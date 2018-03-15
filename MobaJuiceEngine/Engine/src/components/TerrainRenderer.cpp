@@ -62,6 +62,7 @@ namespace Engine {
 			if (gameObject->GetRenderMode() == DEFERRED)
 			{
 				program = gameObject->shader;
+
 			}
 			else {
 				program = GameEngine::manager.shaderManager.GetShader(shader);

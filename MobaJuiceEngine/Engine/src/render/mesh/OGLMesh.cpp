@@ -23,17 +23,6 @@ namespace Engine {
 				glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(material->diffuseMap));
 				glUniform1i(glGetUniformLocation(shader, "diffuseMap"), 0);
 
-				if (material->altDiffuseMap != "")
-				{
-					glActiveTexture(GL_TEXTURE1);
-					glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(material->altDiffuseMap));
-					glUniform1i(glGetUniformLocation(shader, "secondaryTexture"), 1);
-				}
-				else {
-					glActiveTexture(GL_TEXTURE1);
-					glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(material->diffuseMap));
-					glUniform1i(glGetUniformLocation(shader, "secondaryTexture"), 1);
-				}
 			}
 			else {
 
@@ -44,7 +33,6 @@ namespace Engine {
 				}
 				else
 				{
-					printf("No Material");
 					glActiveTexture(GL_TEXTURE0);
 					glBindTexture(GL_TEXTURE_2D, 0);
 				}
