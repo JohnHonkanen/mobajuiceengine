@@ -79,6 +79,11 @@ namespace Engine {
 
 		void Copy(GameObject *copyObject);
 
+		float GetFOV();
+		float GetAspectRatio();
+		float GetNear();
+		float GetFar();
+
 		template<class Archive>
 		void serialize(Archive & ar)
 		{

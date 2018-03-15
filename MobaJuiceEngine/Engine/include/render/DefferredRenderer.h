@@ -5,6 +5,7 @@
 #include <memory>
 #include "components\Light.h"
 
+#define NUM_CASCADES 3
 namespace Engine
 {
 	class DefferredRenderer : public Renderer
@@ -23,12 +24,15 @@ namespace Engine
 
 		/*Utility Functions*/
 		void PassLightsToShader(vector<Light*> lights, std::string locString, unsigned int shader);
+		void CalcShadowMapOrthoProj();
 
 		std::unique_ptr<FrameBuffer> shadowBuffer;
 		std::unique_ptr<GBuffer> gBuffer;
 		std::unique_ptr<FrameBuffer> lightBuffer;
 
 		mat4 lightSpaceMatrix;
+		float shadowMapCascades[4];
+		mat4 shadowOrthoProj[NUM_CASCADES];
 
 		//Original Width and Height
 		unsigned int oWidth, oHeight;

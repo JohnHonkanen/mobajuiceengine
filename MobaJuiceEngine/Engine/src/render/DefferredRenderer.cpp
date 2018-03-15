@@ -12,7 +12,7 @@ namespace Engine
 		oWidth = width;
 		oHeight = height;
 
-		shadowBuffer = std::make_unique<FrameBuffer>(1024,1024, 1, true);
+		shadowBuffer = std::make_unique<FrameBuffer>(1024,1024, NUM_CASCADES, true);
 		gBuffer = std::make_unique<GBuffer>(width, height);
 		lightBuffer = std::make_unique<FrameBuffer>(width, height, 2);
 
@@ -25,6 +25,13 @@ namespace Engine
 		glUniform1i(glGetUniformLocation(light, "gNormal"), 1);
 		glUniform1i(glGetUniformLocation(light, "gAlbedoSpec"), 2);
 		glUniform1i(glGetUniformLocation(light, "gEmission"), 3);
+
+		Camera *camera = Camera::mainCamera;
+		shadowMapCascades[0] = camera->GetNear();
+		shadowMapCascades[1] = 25.0f;
+		shadowMapCascades[2] = 90.0f;
+		shadowMapCascades[3] = camera->GetFar();
+
 
 	}
 	void DefferredRenderer::Render(std::vector<GameObject*> objects)
@@ -47,37 +54,38 @@ namespace Engine
 
 	void DefferredRenderer::ShadowPass(std::vector<GameObject*> objects)
 	{
+		CalcShadowMapOrthoProj();
+
 		glViewport(0, 0, shadowBuffer->GetWidth(), shadowBuffer->GetHeight());
-
-		shadowBuffer->BindForWriting();
-
-		glClear(GL_DEPTH_BUFFER_BIT);
 
 		unsigned int shader = GameEngine::manager.shaderManager.GetShader("depthMap");
 
 		glUseProgram(shader);
 
-		const Light * directional = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT)[0];
-		vec3 lightPosition = directional->transform->GetPosition();
-		mat4 lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
-		mat4 lightView = lookAt(lightPosition, vec3(0,0,0), vec3(0, 1, 0));
-		lightSpaceMatrix = lightProjection * lightView;
 
-		for (auto gameObject : objects)
+		for (unsigned int i = 0; i < NUM_CASCADES; i++)
 		{
-			gameObject->shader = shader;
-			gameObject->shaderName = "depthMap";
+			shadowBuffer->BindForWriting(i);
+			glClear(GL_DEPTH_BUFFER_BIT);
 
-			if (gameObject->meshRenderer != nullptr)
+			glUniformMatrix4fv(glGetUniformLocation(shader, ("lightSpaceMatrix[" + to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(shadowOrthoProj[i]));
+
+			for (auto gameObject : objects)
 			{
-				gameObject->meshRenderer->SetShader(shader);
-				
+				gameObject->shader = shader;
+				gameObject->shaderName = "depthMap";
+
+				if (gameObject->meshRenderer != nullptr)
+				{
+					gameObject->meshRenderer->SetShader(shader);
+
+				}
+
+				gameObject->Draw();
 			}
 
-			glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
-
-			gameObject->Draw();
 		}
+		
 
 		glViewport(0, 0, oWidth, oHeight); // Reset viewport to (Screen width and height)
 	}
@@ -117,13 +125,6 @@ namespace Engine
 		auto gBufferTextures = gBuffer->GetTextures(); //Map (Gbuffer)
 
 		auto shadowTextures = shadowBuffer->GetTextures(); //vector (FrameBuffer)
-
-		/*for (int i = GBuffer::POSITION; i != GBuffer::EMISSION; i++)
-		{
-			GBuffer::TEXTURE_TYPE type = static_cast<GBuffer::TEXTURE_TYPE>(i);
-			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, gBufferTextures[type]);
-		}*/
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, gBufferTextures[GBuffer::POSITION]);
@@ -170,10 +171,19 @@ namespace Engine
 		glUniform1f(glGetUniformLocation(shader, "near_plane"), near_plane);
 		glUniform1f(glGetUniformLocation(shader, "near_plane"), far_plane);
 
-		glActiveTexture(GL_TEXTURE4);
-		glBindTexture(GL_TEXTURE_2D, shadowTextures[0]);
-		glUniform1i(glGetUniformLocation(shader, "depthMap"), 4);
-		glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+		for (unsigned int i = 0; i < NUM_CASCADES; i++)
+		{
+			glActiveTexture(GL_TEXTURE4 + i);
+			glBindTexture(GL_TEXTURE_2D, shadowTextures[i]);
+			glUniform1i(glGetUniformLocation(shader, ("shadowMap[" + to_string(i)).c_str()), 4 + i);
+		}
+		
+
+		for (unsigned int i = 0; i < NUM_CASCADES; i++)
+		{
+			glUniformMatrix4fv(glGetUniformLocation(shader, ("lightSpaceMatrix[" + to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(shadowOrthoProj[i]));
+		}
+		
 
 		//RenderQuad
 		DrawQuad();
@@ -277,6 +287,75 @@ namespace Engine
 			glUniform1f(glGetUniformLocation(shader, (uniformLoc + ".quadratic").c_str()),
 				prop.quadratic
 			);
+		}
+	}
+
+	#define NUM_FRUSTRUM_CORNERS 8
+
+	void DefferredRenderer::CalcShadowMapOrthoProj()
+	{
+		//Get the inverse of the view transform
+		Camera * camera = Camera::mainCamera;
+		mat4 view = camera->GetViewMatrix();
+		mat4 invView = inverse(view);
+
+		//Get the lightspace transform
+		const Light * directional = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT)[0];
+		vec3 lightDir = normalize(directional->transform->GetPosition());
+		mat4 lightView = lookAt(vec3(0), lightDir, vec3(0,1,0));
+
+		float aspectRatio = camera->GetAspectRatio();
+		float fov = camera->GetFOV();
+
+		float tanHalfHFOV = tanf(radians(fov / 2.0f));
+		float tanHalfVFOV = tanf(radians((fov * aspectRatio) /2.0f));
+
+		for (unsigned int i = 0; i < NUM_CASCADES; i++)
+		{
+			float xn = shadowMapCascades[i] * tanHalfHFOV;
+			float xf = shadowMapCascades[i + 1] * tanHalfHFOV;
+			float yn = shadowMapCascades[i] * tanHalfVFOV;
+			float yf = shadowMapCascades[i + 1] * tanHalfVFOV;
+
+			vec4 frustumCorners[NUM_FRUSTRUM_CORNERS] = {
+				//near face
+				vec4(xn, yn, shadowMapCascades[i], 1.0),
+				vec4(-xn, yn, shadowMapCascades[i], 1.0),
+				vec4(xn, -yn, shadowMapCascades[i], 1.0),
+				vec4(-xn, -yn, shadowMapCascades[i], 1.0),
+
+				//far face
+				vec4(xf, yf, shadowMapCascades[i + 1], 1.0),
+				vec4(-xf, yf, shadowMapCascades[i + 1], 1.0),
+				vec4(xf, -yf, shadowMapCascades[i + 1], 1.0),
+				vec4(-xf, -yf, shadowMapCascades[i + 1], 1.0)
+			};
+
+			vec4 frustumCornersL[NUM_FRUSTRUM_CORNERS];
+
+			float minX = std::numeric_limits<float>::max();
+			float maxX = std::numeric_limits<float>::min();
+			float minY = std::numeric_limits<float>::max();
+			float maxY = std::numeric_limits<float>::min();
+			float minZ = std::numeric_limits<float>::max();
+			float maxZ = std::numeric_limits<float>::min();
+
+			for (unsigned int j = 0; j < NUM_FRUSTRUM_CORNERS; j++)
+			{
+				vec4 vW = invView * frustumCorners[j];
+				frustumCornersL[j] = lightView * vW;
+
+				minX = min(minX, frustumCornersL[j].x);
+				maxX = max(maxX, frustumCornersL[j].x);
+
+				minY = min(minY, frustumCornersL[j].y);
+				maxY = max(maxY, frustumCornersL[j].y);
+
+				minZ = min(minZ, frustumCornersL[j].z);
+				maxZ = max(maxZ, frustumCornersL[j].z);
+			}
+
+			shadowOrthoProj[i] = ortho(minX, maxX, minY, maxY, minZ, maxZ);
 		}
 	}
 }

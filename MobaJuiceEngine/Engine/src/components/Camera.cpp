@@ -102,6 +102,26 @@ namespace Engine {
 		copyObject->AddComponent(copy);
 	}
 
+	float Camera::GetFOV()
+	{
+		return fov;
+	}
+
+	float Camera::GetAspectRatio()
+	{
+		return aspectRatio;
+	}
+
+	float Camera::GetNear()
+	{
+		return near;
+	}
+
+	float Camera::GetFar()
+	{
+		return far;
+	}
+
 	void Camera::SetPerspective(float _fov, float _aspectRatio, float _near, float _far)
 	{
 		fov = _fov;
