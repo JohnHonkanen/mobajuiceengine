@@ -13,8 +13,8 @@ namespace Engine
 		vec3 specular = vec3(0.15f);
 
 		float constant = 1.0f;
-		float linear = 0.1f;
-		float quadratic = 3.0f;
+		float linear = 0.07f;
+		float quadratic = 0.017f;
 	};
 
 	class Light : public Behaviour

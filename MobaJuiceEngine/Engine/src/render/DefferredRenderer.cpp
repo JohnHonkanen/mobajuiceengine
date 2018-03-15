@@ -241,7 +241,12 @@ namespace Engine
 		for (int i = 0; i < lights.size(); i++)
 		{
 			auto prop = lights[i]->GetProperties();
+			vec3 position = lights[i]->transform->GetPosition();
 			string uniformLoc = locString + "[" + std::to_string(i) + "]";
+			glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".position").c_str()),
+				position.x, position.y, position.z
+			);
+
 			glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".ambient").c_str()),
 				prop.ambient.x, prop.ambient.y, prop.ambient.z
 			);
