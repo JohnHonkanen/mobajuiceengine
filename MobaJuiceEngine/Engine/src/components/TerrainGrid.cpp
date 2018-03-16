@@ -104,9 +104,9 @@ namespace Engine {
 			glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 			glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-			glBindVertexArray(vao);
+			/*glBindVertexArray(vao);
 			glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
+			glBindVertexArray(0);*/
 		}
 		void TerrainGrid::GetData(vector<vec3>& verts, vector<vec2>& uv, vector<vec3> &normals, unsigned int &xLength, unsigned int &zLength)
 		{

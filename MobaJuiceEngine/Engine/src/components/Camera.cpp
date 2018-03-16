@@ -82,7 +82,7 @@ namespace Engine {
 	{
 		if (!customViewMatrix)
 		{
-			view = lookAt(transform->GetPosition(), transform->GetPosition() + transform->Front(), transform->Up());
+			view = lookAt(transform->GetPosition(), transform->GetPosition() - transform->Front(), transform->Up());
 		}
 		
 	}

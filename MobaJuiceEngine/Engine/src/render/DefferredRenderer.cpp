@@ -29,7 +29,7 @@ namespace Engine
 		Camera *camera = Camera::mainCamera;
 		shadowMapCascades[0] = camera->GetNear();
 		shadowMapCascades[1] = 100;
-		shadowMapCascades[2] = 250;
+		shadowMapCascades[2] = 350;
 		shadowMapCascades[3] = camera->GetFar();
 
 		unsigned int lightPass = GameEngine::manager.shaderManager.GetShader("light");
@@ -38,7 +38,7 @@ namespace Engine
 
 		for (unsigned int i = 0; i < NUM_CASCADES; i++)
 		{
-			vec4 vView = vec4(0.0f,0.0f, shadowMapCascades[i + 1], 1.0f);
+			vec4 vView = -vec4(0.0f, 0.0f, shadowMapCascades[i + 1], 1.0f);
 			vec4 vClip = camera->GetProjectionMatrix() * vView;
 			glUniform1f(glGetUniformLocation(lightPass, ("CascadeEndClipSpace[" + to_string(i) + "]").c_str()), vClip.z);
 		}
@@ -60,8 +60,8 @@ namespace Engine
 		ShadowPass(objects);
 		GeometryPass(objects);
 		LightPass(objects);
-		RenderScene();
-		//TestDepthMap();
+		//RenderScene();
+		TestDepthMap();
 
 		glEnable(GL_BLEND);
 	}
@@ -70,22 +70,22 @@ namespace Engine
 	{
 		CalcShadowMapOrthoProj();
 
-		glViewport(0, 0, shadowBuffer->GetWidth(), shadowBuffer->GetHeight());
+		//glViewport(0, 0, shadowBuffer->GetWidth(), shadowBuffer->GetHeight());
 
 		unsigned int shader = GameEngine::manager.shaderManager.GetShader("depthMap");
 
 		glUseProgram(shader);
-
+		
 
 		for (unsigned int i = 0; i < NUM_CASCADES; i++)
 		{
 			shadowBuffer->BindForWriting(i);
 			glClear(GL_DEPTH_BUFFER_BIT);
-
-			glUniformMatrix4fv(glGetUniformLocation(shader, ("lightSpaceMatrix[" + to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(shadowOrthoProj[i]));
-
+			
 			for (auto gameObject : objects)
 			{
+				glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_TRUE, glm::value_ptr(shadowOrthoProj[i]));
+
 				gameObject->shader = shader;
 				gameObject->shaderName = "depthMap";
 
@@ -176,7 +176,7 @@ namespace Engine
 
 
 		auto prop = directionalLight->GetProperties();
-		vec3 position = -normalize(cameraPosition); //directionalLight->transform->GetPosition();
+		vec3 position = -normalize(directionalLight->transform->GetPosition()); //directionalLight->transform->GetPosition();
 
 		printf("dir: %f , %f, %f \n", position.x, position.y, position.z);
 		string uniformLoc = "directionalLight";
@@ -220,13 +220,9 @@ namespace Engine
 		{
 			glActiveTexture(GL_TEXTURE4 + i);
 			glBindTexture(GL_TEXTURE_2D, shadowTextures[i]);
-			glUniform1i(glGetUniformLocation(shader, ("shadowMap[" + to_string(i) + "]").c_str()), 4 + i);
+			glUniform1i(glGetUniformLocation(shader, ("shadowMaps[" + to_string(i) + "]").c_str()), 4 + i);
 
-			glUniformMatrix4fv(glGetUniformLocation(shader, ("lightSpaceMatrix[" + to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(shadowOrthoProj[i]));
-
-			vec4 vView = vec4(0.0f, 0.0f, shadowMapCascades[i + 1], 1.0f);
-			vec4 vClip = camera->GetProjectionMatrix() * vView;
-			glUniform1f(glGetUniformLocation(shader, ("CascadeEndClipSpace[" + to_string(i) + "]").c_str()), vClip.z);
+			glUniformMatrix4fv(glGetUniformLocation(shader, ("lightSpaceMatrix[" + to_string(i) + "]").c_str()), 1, GL_TRUE, glm::value_ptr(shadowOrthoProj[i]));
 		}
 		
 
@@ -262,9 +258,9 @@ namespace Engine
 		glUseProgram(shader);
 
 		auto textures = shadowBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
-
-		glUniform1f(glGetUniformLocation(shader, "near_plane"), near_plane);
-		glUniform1f(glGetUniformLocation(shader, "far_plane"), far_plane);
+		Camera *c = Camera::mainCamera;
+		glUniform1f(glGetUniformLocation(shader, "near_plane"), c->GetNear());
+		glUniform1f(glGetUniformLocation(shader, "far_plane"), c->GetFar());
 
 		//Set Uniform Location for texture0
 		glActiveTexture(GL_TEXTURE0);
@@ -344,18 +340,19 @@ namespace Engine
 		mat4 view = camera->GetViewMatrix();
 		mat4 invView = inverse(view);
 
+		printf("Camera Pos : %f, %f, %f\n", camera->transform->GetPosition().x, camera->transform->GetPosition().y, camera->transform->GetPosition().z);
 		//Get the lightspace transform
 		const Light * directional = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT)[0];
-		vec3 lightDir = -normalize(directional->transform->GetPosition());
-		mat4 lightView = lookAt(vec3(0), lightDir, vec3(0,1,0));
+		vec3 lightDir = -normalize(camera->transform->GetPosition());
+		mat4 lightView = lookAt(camera->transform->GetPosition(), vec3(0), vec3(0,1,0));
 
-		float aspectRatio = camera->GetAspectRatio();
+		float aspectRatio = 1;//camera->GetAspectRatio();
 		float fov = camera->GetFOV();
 
 		float tanHalfHFOV = tanf(radians(fov / 2.0f));
 		float tanHalfVFOV = tanf(radians(((fov * aspectRatio) / 2.0f)));
 
-		//printf("ar %f tanHalfHFOV %f tanHalfVFOV %f\n", aspectRatio, tanHalfHFOV, tanHalfVFOV);
+		printf("ar %f tanHalfHFOV %f tanHalfVFOV %f\n", aspectRatio, tanHalfHFOV, tanHalfVFOV);
 		for (unsigned int i = 0; i < NUM_CASCADES; i++)
 		{
 			float xn = shadowMapCascades[i] * tanHalfHFOV;
@@ -363,8 +360,8 @@ namespace Engine
 			float yn = shadowMapCascades[i] * tanHalfVFOV;
 			float yf = shadowMapCascades[i + 1] * tanHalfVFOV;
 
-			//printf("xn %f xf %f\n", xn, xf);
-			//printf("yn %f yf %f\n", yn, yf);
+			printf("xn %f xf %f\n", xn, xf);
+			printf("yn %f yf %f\n", yn, yf);
 
 			vec4 frustumCorners[NUM_FRUSTRUM_CORNERS] = {
 				//near face
@@ -381,6 +378,7 @@ namespace Engine
 			};
 
 			vec4 frustumCornersL[NUM_FRUSTRUM_CORNERS];
+			vec4 frustumCornersCL[NUM_FRUSTRUM_CORNERS];
 
 			float minX = std::numeric_limits<float>::max();
 			float maxX = std::numeric_limits<float>::min();
@@ -389,10 +387,14 @@ namespace Engine
 			float minZ = std::numeric_limits<float>::max();
 			float maxZ = std::numeric_limits<float>::min();
 
+			float minCZ = std::numeric_limits<float>::max();
+			float maxCZ = std::numeric_limits<float>::min();
+
 			for (unsigned int j = 0; j < NUM_FRUSTRUM_CORNERS; j++)
 			{
 				vec4 vW = invView * frustumCorners[j];
-				frustumCornersL[j] = lightView * vW;
+				frustumCornersL[j] = vW;
+				frustumCornersCL[j] = vW * lightView;
 
 				minX = min(minX, frustumCornersL[j].x);
 				maxX = max(maxX, frustumCornersL[j].x);
@@ -402,11 +404,17 @@ namespace Engine
 
 				minZ = min(minZ, frustumCornersL[j].z);
 				maxZ = max(maxZ, frustumCornersL[j].z);
+
+				minCZ = min(minCZ, frustumCornersCL[j].z);
+				maxCZ = max(maxCZ, frustumCornersCL[j].z);
 			}
+
+			clippingPlanes[i * 2] = -25.0f;
+			clippingPlanes[i * 2 + 1] = 50.0f;
 
 			printf("BB %i: %f %f %f %f %f %f\n", i, minX, maxX, minY, maxY, minZ, maxZ);
 
-			shadowOrthoProj[i] = ortho(minX, maxX, minY, maxY, minZ, maxZ);
+			shadowOrthoProj[i] = camera->GetProjectionMatrix() * view;
 		}
 	}
 }
