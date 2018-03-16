@@ -88,6 +88,18 @@ namespace Engine {
 			glBindTexture(GL_TEXTURE_2D, tm->getTexture(material.diffuseMap));
 			glUniform1i(glGetUniformLocation(program, "diffuseMap"), 0);
 
+			glActiveTexture(GL_TEXTURE1);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glUniform1i(glGetUniformLocation(program, "specularMap"), 1);
+
+			glActiveTexture(GL_TEXTURE2);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glUniform1i(glGetUniformLocation(program, "emissionMap"), 2);
+
+			glActiveTexture(GL_TEXTURE3);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glUniform1i(glGetUniformLocation(program, "normalMap"), 3);
+
 
 			glBindVertexArray(vao);
 			glDrawElements(GL_TRIANGLE_STRIP, indices.size(), GL_UNSIGNED_INT, 0);

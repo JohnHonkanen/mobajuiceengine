@@ -100,8 +100,10 @@ namespace Engine {
 				if (mesh->HasNormals()) {
 					aiVector3D normal = mesh->mNormals[face.mIndices[j]];
 					normalArray.push_back(normal.x);
+					//normalArray.push_back(normal.z);
+					//normalArray.push_back(normal.y * -1);
+					normalArray.push_back(normal.y);
 					normalArray.push_back(normal.z);
-					normalArray.push_back(normal.y * -1);
 				}
 
 

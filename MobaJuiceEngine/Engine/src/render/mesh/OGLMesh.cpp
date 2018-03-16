@@ -25,19 +25,42 @@ namespace Engine {
 
 			}
 			else {
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, 0);
+			}
 
-				if (materials[i].diffuseMap != "") {
-					glActiveTexture(GL_TEXTURE0);
-					glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(materials[i].diffuseMap));
-					glUniform1i(glGetUniformLocation(shader, "diffuseMap"), 0);
-				}
-				else
-				{
-					glActiveTexture(GL_TEXTURE0);
-					glBindTexture(GL_TEXTURE_2D, 0);
-				}
+			if (material->specularMap != "")
+			{
+				glActiveTexture(GL_TEXTURE1);
+				glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(material->specularMap));
+				glUniform1i(glGetUniformLocation(shader, "specularMap"), 1);
+			}
+			else {
+				glActiveTexture(GL_TEXTURE1);
+				glBindTexture(GL_TEXTURE_2D, 0);
+			}
 
-				
+			if (material->emissionMap != "")
+			{
+				glActiveTexture(GL_TEXTURE2);
+				glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(material->specularMap));
+				glUniform1i(glGetUniformLocation(shader, "emissionMap"), 2);
+			}
+			else {
+				glActiveTexture(GL_TEXTURE2);
+				glBindTexture(GL_TEXTURE_2D, 0);
+			}
+
+			if (material->normalMap != "")
+			{
+				glActiveTexture(GL_TEXTURE3);
+				glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(material->normalMap));
+				glUniform1i(glGetUniformLocation(shader, "normalMap"), 3);
+
+			}
+			else {
+				glActiveTexture(GL_TEXTURE3);
+				glBindTexture(GL_TEXTURE_2D, 0);
 			}
 			
 			glBindVertexArray(OGLMesh::VAO[i]);

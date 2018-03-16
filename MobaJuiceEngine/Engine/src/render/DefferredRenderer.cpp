@@ -28,9 +28,23 @@ namespace Engine
 
 		Camera *camera = Camera::mainCamera;
 		shadowMapCascades[0] = camera->GetNear();
-		shadowMapCascades[1] = 25.0f;
-		shadowMapCascades[2] = 90.0f;
+		shadowMapCascades[1] = 100;
+		shadowMapCascades[2] = 250;
 		shadowMapCascades[3] = camera->GetFar();
+
+		unsigned int lightPass = GameEngine::manager.shaderManager.GetShader("light");
+
+		glUseProgram(lightPass);
+
+		for (unsigned int i = 0; i < NUM_CASCADES; i++)
+		{
+			vec4 vView = vec4(0.0f,0.0f, shadowMapCascades[i + 1], 1.0f);
+			vec4 vClip = camera->GetProjectionMatrix() * vView;
+			glUniform1f(glGetUniformLocation(lightPass, ("CascadeEndClipSpace[" + to_string(i) + "]").c_str()), vClip.z);
+		}
+
+
+		glUseProgram(0);
 
 
 	}
@@ -158,9 +172,39 @@ namespace Engine
 		glUniform3f(glGetUniformLocation(shader, "viewPosition"), viewPosition.x,viewPosition.y, viewPosition.z);
 
 		//Pass Directional Light
-		auto directionals = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT);
-		glUniform1i(glGetUniformLocation(shader, "numDirectionals"), directionals.size());
-		PassLightsToShader(directionals, "directionalLights", shader);
+		auto directionalLight = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT)[0];
+
+
+		auto prop = directionalLight->GetProperties();
+		vec3 position = -normalize(cameraPosition); //directionalLight->transform->GetPosition();
+
+		printf("dir: %f , %f, %f \n", position.x, position.y, position.z);
+		string uniformLoc = "directionalLight";
+		glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".position").c_str()),
+			position.x, position.y, position.z
+		);
+
+		glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".ambient").c_str()),
+			prop.ambient.x, prop.ambient.y, prop.ambient.z
+		);
+		glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".diffuse").c_str()),
+			prop.diffuse.x, prop.diffuse.y, prop.diffuse.z
+		);
+		glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".specular").c_str()),
+			prop.specular.x, prop.specular.y, prop.specular.z
+		);
+
+		glUniform1f(glGetUniformLocation(shader, (uniformLoc + ".constant").c_str()),
+			prop.constant
+		);
+
+		glUniform1f(glGetUniformLocation(shader, (uniformLoc + ".linear").c_str()),
+			prop.linear
+		);
+
+		glUniform1f(glGetUniformLocation(shader, (uniformLoc + ".quadratic").c_str()),
+			prop.quadratic
+		);
 
 		//Pass Point Light
 		auto points = LightManager::Get()->GetLights(POINT_LIGHT);
@@ -171,17 +215,18 @@ namespace Engine
 		glUniform1f(glGetUniformLocation(shader, "near_plane"), near_plane);
 		glUniform1f(glGetUniformLocation(shader, "near_plane"), far_plane);
 
+
 		for (unsigned int i = 0; i < NUM_CASCADES; i++)
 		{
 			glActiveTexture(GL_TEXTURE4 + i);
 			glBindTexture(GL_TEXTURE_2D, shadowTextures[i]);
-			glUniform1i(glGetUniformLocation(shader, ("shadowMap[" + to_string(i)).c_str()), 4 + i);
-		}
-		
+			glUniform1i(glGetUniformLocation(shader, ("shadowMap[" + to_string(i) + "]").c_str()), 4 + i);
 
-		for (unsigned int i = 0; i < NUM_CASCADES; i++)
-		{
 			glUniformMatrix4fv(glGetUniformLocation(shader, ("lightSpaceMatrix[" + to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(shadowOrthoProj[i]));
+
+			vec4 vView = vec4(0.0f, 0.0f, shadowMapCascades[i + 1], 1.0f);
+			vec4 vClip = camera->GetProjectionMatrix() * vView;
+			glUniform1f(glGetUniformLocation(shader, ("CascadeEndClipSpace[" + to_string(i) + "]").c_str()), vClip.z);
 		}
 		
 
@@ -301,21 +346,25 @@ namespace Engine
 
 		//Get the lightspace transform
 		const Light * directional = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT)[0];
-		vec3 lightDir = normalize(directional->transform->GetPosition());
+		vec3 lightDir = -normalize(directional->transform->GetPosition());
 		mat4 lightView = lookAt(vec3(0), lightDir, vec3(0,1,0));
 
 		float aspectRatio = camera->GetAspectRatio();
 		float fov = camera->GetFOV();
 
 		float tanHalfHFOV = tanf(radians(fov / 2.0f));
-		float tanHalfVFOV = tanf(radians((fov * aspectRatio) /2.0f));
+		float tanHalfVFOV = tanf(radians(((fov * aspectRatio) / 2.0f)));
 
+		//printf("ar %f tanHalfHFOV %f tanHalfVFOV %f\n", aspectRatio, tanHalfHFOV, tanHalfVFOV);
 		for (unsigned int i = 0; i < NUM_CASCADES; i++)
 		{
 			float xn = shadowMapCascades[i] * tanHalfHFOV;
 			float xf = shadowMapCascades[i + 1] * tanHalfHFOV;
 			float yn = shadowMapCascades[i] * tanHalfVFOV;
 			float yf = shadowMapCascades[i + 1] * tanHalfVFOV;
+
+			//printf("xn %f xf %f\n", xn, xf);
+			//printf("yn %f yf %f\n", yn, yf);
 
 			vec4 frustumCorners[NUM_FRUSTRUM_CORNERS] = {
 				//near face
@@ -354,6 +403,8 @@ namespace Engine
 				minZ = min(minZ, frustumCornersL[j].z);
 				maxZ = max(maxZ, frustumCornersL[j].z);
 			}
+
+			printf("BB %i: %f %f %f %f %f %f\n", i, minX, maxX, minY, maxY, minZ, maxZ);
 
 			shadowOrthoProj[i] = ortho(minX, maxX, minY, maxY, minZ, maxZ);
 		}

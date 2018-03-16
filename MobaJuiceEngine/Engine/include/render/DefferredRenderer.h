@@ -33,6 +33,7 @@ namespace Engine
 		mat4 lightSpaceMatrix;
 		float shadowMapCascades[4];
 		mat4 shadowOrthoProj[NUM_CASCADES];
+		float clippingPlanes[6];
 
 		//Original Width and Height
 		unsigned int oWidth, oHeight;
