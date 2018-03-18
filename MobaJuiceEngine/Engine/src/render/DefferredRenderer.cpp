@@ -255,7 +255,7 @@ namespace Engine
 
 		/*Draw Shadow Maps*/
 
-		/*Camera * camera = Camera::mainCamera;
+		Camera * camera = Camera::mainCamera;
 		float aspectRatio = camera->GetAspectRatio();
 
 		shader = GameEngine::manager.shaderManager.GetShader("depthDebug");
@@ -301,7 +301,7 @@ namespace Engine
 		glBindTexture(GL_TEXTURE_2D, textures[2]);
 		glUniform1i(glGetUniformLocation(shader, "depthMap"), 0);
 
-		DrawQuad();*/
+		DrawQuad();
 
 	}
 	void DefferredRenderer::TestDepthMap()
@@ -407,15 +407,12 @@ namespace Engine
 
 		vec3 right = normalize(vec3(1, 0, 0));
 		vec3 up = cross(right, normalize(lightDir));
-
-		printf("Camera Z: %f\n", camera->transform->GetPosition().z);
 		float aspectRatio = camera->GetAspectRatio();
 		float fov = camera->GetFOV();
 
 
 		float tanFoV = tanf(radians(fov/2.0f));
 
-		printf("CP : %f, %f, %f \n", camPos.x, camPos.y, camPos.z);
 
 		mat4 lightView = lookAt(vec3(0), lightDir, up);
 
@@ -474,9 +471,7 @@ namespace Engine
 			
 			vec4 centerW = vec4((cn + cf) / 2.0f, 1.0);//inverse(lightView) * vec4(center, 1.0);
 
-			printf("CenterWorld : %f, %f, %f \n", centerW.x, centerW.y + 50.0f, centerW.z);
 			mat4 lightViewMatrix = lookAt(vec3(centerW), vec3(centerW) + lightDir, up);
-			printf("BB %i: %f %f %f %f %f %f\n", i, minX, maxX, minY, maxY, minZ, maxZ);
 
 
 			shadowOrthoProj[i] = ortho(minX, maxX, minY, maxY, minZ, maxZ) * lightViewMatrix;
