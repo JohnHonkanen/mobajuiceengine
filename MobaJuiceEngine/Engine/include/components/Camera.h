@@ -68,6 +68,7 @@ namespace Engine {
 		*/
 
 		mat4 GetProjectionMatrix();
+		mat4 SetProjectionMatrix(mat4 projection);
 
 		void OnLoad();
 		void Update();
@@ -84,6 +85,9 @@ namespace Engine {
 		float GetNear();
 		float GetFar();
 
+		void SetFront(vec3 front);
+		vec3 GetFront();
+
 		template<class Archive>
 		void serialize(Archive & ar)
 		{
@@ -97,7 +101,7 @@ namespace Engine {
 		mat4 projection;
 		mat4 view;
 
-		vec3 front;
+		vec3 front = vec3(0,0,1);
 		vec3 up;
 
 		

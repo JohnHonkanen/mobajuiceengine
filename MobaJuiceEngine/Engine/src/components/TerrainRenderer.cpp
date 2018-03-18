@@ -69,6 +69,10 @@ namespace Engine {
 				glUseProgram(program);
 			}
 
+			if (gameObject->shaderName == "depthMap")
+			{
+				return;
+			}
 
 			glm::mat4 projection(1.0);
 			projection = Camera::mainCamera->GetProjectionMatrix();

@@ -9,6 +9,8 @@ namespace Engine {
 	{
 		if (Camera::mainCamera == nullptr)
 			Camera::mainCamera = this;
+
+		front = vec3(0, 0, 1);
 	}
 
 	Camera::Camera()
@@ -16,6 +18,7 @@ namespace Engine {
 		if (Camera::mainCamera == nullptr)
 			Camera::mainCamera = this;
 
+		front = vec3(0, 0, 1);
 	}
 
 	Camera::~Camera()
@@ -26,6 +29,7 @@ namespace Engine {
 	{
 		Camera *c = new Camera();
 		gameObject->AddComponent(c);
+		c->front = vec3(0, 0, 1);
 		return c;
 	}
 
@@ -66,6 +70,11 @@ namespace Engine {
 	mat4 Camera::GetProjectionMatrix()
 	{
 		return projection;
+	}
+
+	mat4 Camera::SetProjectionMatrix(mat4 projection)
+	{
+		return this->projection = projection;;
 	}
 
 	void Camera::OnLoad()
@@ -120,6 +129,16 @@ namespace Engine {
 	float Camera::GetFar()
 	{
 		return far;
+	}
+
+	vec3 Camera::GetFront()
+	{
+		return front;
+	}
+
+	void Camera::SetFront(vec3 front)
+	{
+		this->front = front;
 	}
 
 	void Camera::SetPerspective(float _fov, float _aspectRatio, float _near, float _far)

@@ -5,6 +5,9 @@
 #include "components\Camera.h"
 #include "GL\glew.h"
 #include "render\LightManager.h"
+#include <glm\gtc\matrix_inverse.hpp>
+#include <glm\gtx\quaternion.hpp>
+#include <glm\gtx\matrix_decompose.hpp>
 namespace Engine
 {
 	void DefferredRenderer::SetupFrameBuffers(unsigned int width, unsigned int height)
@@ -12,7 +15,7 @@ namespace Engine
 		oWidth = width;
 		oHeight = height;
 
-		shadowBuffer = std::make_unique<FrameBuffer>(1024,1024, NUM_CASCADES, true);
+		shadowBuffer = std::make_unique<FrameBuffer>(2048,2048, NUM_CASCADES, true);
 		gBuffer = std::make_unique<GBuffer>(width, height);
 		lightBuffer = std::make_unique<FrameBuffer>(width, height, 2);
 
@@ -28,8 +31,8 @@ namespace Engine
 
 		Camera *camera = Camera::mainCamera;
 		shadowMapCascades[0] = camera->GetNear();
-		shadowMapCascades[1] = 100;
-		shadowMapCascades[2] = 350;
+		shadowMapCascades[1] = camera->GetFar() * 0.3f;
+		shadowMapCascades[2] = camera->GetFar() * 0.7f;
 		shadowMapCascades[3] = camera->GetFar();
 
 		unsigned int lightPass = GameEngine::manager.shaderManager.GetShader("light");
@@ -60,8 +63,8 @@ namespace Engine
 		ShadowPass(objects);
 		GeometryPass(objects);
 		LightPass(objects);
-		//RenderScene();
-		TestDepthMap();
+		RenderScene();
+		//TestDepthMap();
 
 		glEnable(GL_BLEND);
 	}
@@ -69,8 +72,9 @@ namespace Engine
 	void DefferredRenderer::ShadowPass(std::vector<GameObject*> objects)
 	{
 		CalcShadowMapOrthoProj();
+		glCullFace(GL_FRONT);
 
-		//glViewport(0, 0, shadowBuffer->GetWidth(), shadowBuffer->GetHeight());
+		glViewport(0, 0, shadowBuffer->GetWidth(), shadowBuffer->GetHeight());
 
 		unsigned int shader = GameEngine::manager.shaderManager.GetShader("depthMap");
 
@@ -84,7 +88,7 @@ namespace Engine
 			
 			for (auto gameObject : objects)
 			{
-				glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_TRUE, glm::value_ptr(shadowOrthoProj[i]));
+				glUniformMatrix4fv(glGetUniformLocation(shader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(shadowOrthoProj[i]));
 
 				gameObject->shader = shader;
 				gameObject->shaderName = "depthMap";
@@ -100,6 +104,7 @@ namespace Engine
 
 		}
 		
+		glCullFace(GL_BACK);
 
 		glViewport(0, 0, oWidth, oHeight); // Reset viewport to (Screen width and height)
 	}
@@ -178,7 +183,6 @@ namespace Engine
 		auto prop = directionalLight->GetProperties();
 		vec3 position = -normalize(directionalLight->transform->GetPosition()); //directionalLight->transform->GetPosition();
 
-		printf("dir: %f , %f, %f \n", position.x, position.y, position.z);
 		string uniformLoc = "directionalLight";
 		glUniform3f(glGetUniformLocation(shader, (uniformLoc + ".position").c_str()),
 			position.x, position.y, position.z
@@ -212,8 +216,8 @@ namespace Engine
 		PassLightsToShader(points, "pointLights", shader);
 
 		//Pass Shadow Mapping
-		glUniform1f(glGetUniformLocation(shader, "near_plane"), near_plane);
-		glUniform1f(glGetUniformLocation(shader, "near_plane"), far_plane);
+		glUniform1f(glGetUniformLocation(shader, "near_plane"), shadowMapCascades[0]);
+		glUniform1f(glGetUniformLocation(shader, "far_plane"), shadowMapCascades[3]);
 
 
 		for (unsigned int i = 0; i < NUM_CASCADES; i++)
@@ -222,9 +226,10 @@ namespace Engine
 			glBindTexture(GL_TEXTURE_2D, shadowTextures[i]);
 			glUniform1i(glGetUniformLocation(shader, ("shadowMaps[" + to_string(i) + "]").c_str()), 4 + i);
 
-			glUniformMatrix4fv(glGetUniformLocation(shader, ("lightSpaceMatrix[" + to_string(i) + "]").c_str()), 1, GL_TRUE, glm::value_ptr(shadowOrthoProj[i]));
+			glUniformMatrix4fv(glGetUniformLocation(shader, ("lightSpaceMatrix[" + to_string(i) + "]").c_str()), 1, GL_FALSE, glm::value_ptr(shadowOrthoProj[i]));
 		}
-		
+
+		glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
 
 		//RenderQuad
 		DrawQuad();
@@ -240,12 +245,64 @@ namespace Engine
 
 		auto textures = lightBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
 
-
 		//Set Uniform Location for texture0
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textures[0]);
 
+		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(mat4(1.0)));
+
 		DrawQuad();
+
+		/*Draw Shadow Maps*/
+
+		/*Camera * camera = Camera::mainCamera;
+		float aspectRatio = camera->GetAspectRatio();
+
+		shader = GameEngine::manager.shaderManager.GetShader("depthDebug");
+
+		glUseProgram(shader);
+
+		textures = shadowBuffer->GetTextures();
+
+		mat4 model = mat4(1.0);
+		model = translate(model, vec3(0.6, 0.8, -1));
+		model = scale(model, vec3(0.1, 0.1 * aspectRatio, 1));
+		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1f(glGetUniformLocation(shader, "near_plane"), shadowMapCascades[0]);
+		glUniform1f(glGetUniformLocation(shader, "far_plane"), shadowMapCascades[1]);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textures[0]);
+		glUniform1i(glGetUniformLocation(shader, "depthMap"), 0);
+
+		DrawQuad();
+
+		model = mat4(1.0);
+		model = translate(model, vec3(0.6, 0.2, -1));
+		model = scale(model, vec3(0.1, 0.1 *aspectRatio, 1));
+		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1f(glGetUniformLocation(shader, "near_plane"), shadowMapCascades[1]);
+		glUniform1f(glGetUniformLocation(shader, "far_plane"), shadowMapCascades[2]);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textures[1]);
+		glUniform1i(glGetUniformLocation(shader, "depthMap"), 0);
+
+		DrawQuad();
+
+		model = mat4(1.0);
+		model = translate(model, vec3(0.6, -0.8, -1));
+		model = scale(model, vec3(0.1, 0.1 *aspectRatio, 1));
+		glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1f(glGetUniformLocation(shader, "near_plane"), shadowMapCascades[2]);
+		glUniform1f(glGetUniformLocation(shader, "far_plane"), shadowMapCascades[3]);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, textures[2]);
+		glUniform1i(glGetUniformLocation(shader, "depthMap"), 0);
+
+		DrawQuad();*/
+
 	}
 	void DefferredRenderer::TestDepthMap()
 	{
@@ -259,12 +316,14 @@ namespace Engine
 
 		auto textures = shadowBuffer->GetTextures(); // 0 Texture, 1 Bloom texture
 		Camera *c = Camera::mainCamera;
-		glUniform1f(glGetUniformLocation(shader, "near_plane"), c->GetNear());
-		glUniform1f(glGetUniformLocation(shader, "far_plane"), c->GetFar());
+
+		int texture = 1;
+		glUniform1f(glGetUniformLocation(shader, "near_plane"), shadowMapCascades[texture]);
+		glUniform1f(glGetUniformLocation(shader, "far_plane"), shadowMapCascades[texture+1]);
 
 		//Set Uniform Location for texture0
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, textures[0]);
+		glBindTexture(GL_TEXTURE_2D, textures[texture]);
 		glUniform1i(glGetUniformLocation(shader, "depthMap"), 0);
 
 		DrawQuad();
@@ -340,45 +399,49 @@ namespace Engine
 		mat4 view = camera->GetViewMatrix();
 		mat4 invView = inverse(view);
 
-		printf("Camera Pos : %f, %f, %f\n", camera->transform->GetPosition().x, camera->transform->GetPosition().y, camera->transform->GetPosition().z);
+		vec3 camPos = camera->transform->GetPosition();
+
 		//Get the lightspace transform
 		const Light * directional = LightManager::Get()->GetLights(DIRECTIONAL_LIGHT)[0];
-		vec3 lightDir = -normalize(camera->transform->GetPosition());
-		mat4 lightView = lookAt(camera->transform->GetPosition(), vec3(0), vec3(0,1,0));
+		vec3 lightDir = -normalize(directional->transform->GetPosition());
 
-		float aspectRatio = 1;//camera->GetAspectRatio();
+		vec3 right = normalize(vec3(1, 0, 0));
+		vec3 up = cross(right, normalize(lightDir));
+
+		printf("Camera Z: %f\n", camera->transform->GetPosition().z);
+		float aspectRatio = camera->GetAspectRatio();
 		float fov = camera->GetFOV();
 
-		float tanHalfHFOV = tanf(radians(fov / 2.0f));
-		float tanHalfVFOV = tanf(radians(((fov * aspectRatio) / 2.0f)));
 
-		printf("ar %f tanHalfHFOV %f tanHalfVFOV %f\n", aspectRatio, tanHalfHFOV, tanHalfVFOV);
+		float tanFoV = tanf(radians(fov/2.0f));
+
+		printf("CP : %f, %f, %f \n", camPos.x, camPos.y, camPos.z);
+
+		mat4 lightView = lookAt(vec3(0), lightDir, up);
+
 		for (unsigned int i = 0; i < NUM_CASCADES; i++)
 		{
-			float xn = shadowMapCascades[i] * tanHalfHFOV;
-			float xf = shadowMapCascades[i + 1] * tanHalfHFOV;
-			float yn = shadowMapCascades[i] * tanHalfVFOV;
-			float yf = shadowMapCascades[i + 1] * tanHalfVFOV;
-
-			printf("xn %f xf %f\n", xn, xf);
-			printf("yn %f yf %f\n", yn, yf);
+			float hn = 2 * tanFoV * shadowMapCascades[i];
+			float wn = hn * aspectRatio;
+			float hf = 2 * tanFoV * shadowMapCascades[i + 1];
+			float wf = hf * aspectRatio;
+			vec3 front = camera->GetFront();
+			vec3 cn = camera->transform->GetPosition() + normalize(camera->GetFront()) * shadowMapCascades[i];
+			vec3 cf = camera->transform->GetPosition() + normalize(camera->GetFront()) * shadowMapCascades[i + 1];
 
 			vec4 frustumCorners[NUM_FRUSTRUM_CORNERS] = {
-				//near face
-				vec4(xn, yn, shadowMapCascades[i], 1.0),
-				vec4(-xn, yn, shadowMapCascades[i], 1.0),
-				vec4(xn, -yn, shadowMapCascades[i], 1.0),
-				vec4(-xn, -yn, shadowMapCascades[i], 1.0),
+				vec4(cn + up * hn / 2.0f - right * wn / 2.0f, 1.0),
+				vec4(cn + up * hn / 2.0f + right * wn / 2.0f, 1.0),
+				vec4(cn - up * hn / 2.0f - right * wn / 2.0f, 1.0),
+				vec4(cn - up * hn / 2.0f + right * wn / 2.0f, 1.0),
 
-				//far face
-				vec4(xf, yf, shadowMapCascades[i + 1], 1.0),
-				vec4(-xf, yf, shadowMapCascades[i + 1], 1.0),
-				vec4(xf, -yf, shadowMapCascades[i + 1], 1.0),
-				vec4(-xf, -yf, shadowMapCascades[i + 1], 1.0)
-			};
+				vec4(cf + up * hf / 2.0f - right * wf / 2.0f, 1.0),
+				vec4(cf + up * hf / 2.0f + right * wf / 2.0f, 1.0),
+				vec4(cf - up * hf / 2.0f - right * wf / 2.0f, 1.0),
+				vec4(cf - up * hf / 2.0f + right * wf / 2.0f, 1.0),
+			}; 
 
 			vec4 frustumCornersL[NUM_FRUSTRUM_CORNERS];
-			vec4 frustumCornersCL[NUM_FRUSTRUM_CORNERS];
 
 			float minX = std::numeric_limits<float>::max();
 			float maxX = std::numeric_limits<float>::min();
@@ -387,14 +450,10 @@ namespace Engine
 			float minZ = std::numeric_limits<float>::max();
 			float maxZ = std::numeric_limits<float>::min();
 
-			float minCZ = std::numeric_limits<float>::max();
-			float maxCZ = std::numeric_limits<float>::min();
-
 			for (unsigned int j = 0; j < NUM_FRUSTRUM_CORNERS; j++)
 			{
-				vec4 vW = invView * frustumCorners[j];
-				frustumCornersL[j] = vW;
-				frustumCornersCL[j] = vW * lightView;
+				vec4 vW = frustumCorners[j]; // Frustum Corners in World Space
+				frustumCornersL[j] = lightView * vW;
 
 				minX = min(minX, frustumCornersL[j].x);
 				maxX = max(maxX, frustumCornersL[j].x);
@@ -404,17 +463,24 @@ namespace Engine
 
 				minZ = min(minZ, frustumCornersL[j].z);
 				maxZ = max(maxZ, frustumCornersL[j].z);
-
-				minCZ = min(minCZ, frustumCornersCL[j].z);
-				maxCZ = max(maxCZ, frustumCornersCL[j].z);
 			}
 
-			clippingPlanes[i * 2] = -25.0f;
-			clippingPlanes[i * 2 + 1] = 50.0f;
+			maxX += 200.0f;
+			minY = -500.0f;
+			maxY = 500.0f;
 
+
+			vec3 center = vec3(minX + maxX, minY +maxY, minZ +maxZ) / 2.0f;
+			
+			vec4 centerW = vec4((cn + cf) / 2.0f, 1.0);//inverse(lightView) * vec4(center, 1.0);
+
+			printf("CenterWorld : %f, %f, %f \n", centerW.x, centerW.y + 50.0f, centerW.z);
+			mat4 lightViewMatrix = lookAt(vec3(centerW), vec3(centerW) + lightDir, up);
 			printf("BB %i: %f %f %f %f %f %f\n", i, minX, maxX, minY, maxY, minZ, maxZ);
 
-			shadowOrthoProj[i] = camera->GetProjectionMatrix() * view;
+
+			shadowOrthoProj[i] = ortho(minX, maxX, minY, maxY, minZ, maxZ) * lightViewMatrix;
+			//shadowOrthoProj[i] = camera->GetProjectionMatrix() * view;
 		}
 	}
 }

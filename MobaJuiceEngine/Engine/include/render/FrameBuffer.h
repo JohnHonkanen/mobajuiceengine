@@ -23,6 +23,6 @@ private:
 	uint width, height;
 	bool depthMap = false;
 
-	const uint SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+	const uint SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
 	std::vector<uint> textureBuffer;
 };
