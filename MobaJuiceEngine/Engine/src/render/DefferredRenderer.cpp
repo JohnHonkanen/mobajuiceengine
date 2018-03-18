@@ -255,7 +255,7 @@ namespace Engine
 
 		/*Draw Shadow Maps*/
 
-		Camera * camera = Camera::mainCamera;
+		/*Camera * camera = Camera::mainCamera;
 		float aspectRatio = camera->GetAspectRatio();
 
 		shader = GameEngine::manager.shaderManager.GetShader("depthDebug");
@@ -301,7 +301,7 @@ namespace Engine
 		glBindTexture(GL_TEXTURE_2D, textures[2]);
 		glUniform1i(glGetUniformLocation(shader, "depthMap"), 0);
 
-		DrawQuad();
+		DrawQuad();*/
 
 	}
 	void DefferredRenderer::TestDepthMap()
