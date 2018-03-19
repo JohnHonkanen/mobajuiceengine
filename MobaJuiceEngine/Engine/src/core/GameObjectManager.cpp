@@ -64,6 +64,15 @@ namespace Engine {
 		}
 		
 		dRenderer.Render(defferredRender);
+
+		//Copy Depth Buffer from GBUFFER
+		vec2 screenSize = GameEngine::screenSize;
+
+		dRenderer.ReadBuffer(DefferredRenderer::GBUFFER);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		glBlitFramebuffer(0, 0, screenSize.x, screenSize.y, 0, 0, screenSize.x, screenSize.y, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 		//Forward Rendering
 		for (auto gameObject : forwardRender)
 		{

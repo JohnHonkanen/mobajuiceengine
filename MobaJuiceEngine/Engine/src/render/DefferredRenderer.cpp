@@ -69,6 +69,24 @@ namespace Engine
 		glEnable(GL_BLEND);
 	}
 
+	void DefferredRenderer::ReadBuffer(BUFFERS type)
+	{
+		switch (type)
+		{
+		case Engine::DefferredRenderer::SHADOW:
+			shadowBuffer->BindForReading();
+			break;
+		case Engine::DefferredRenderer::GBUFFER:
+			gBuffer->BindForReading();
+			break;
+		case Engine::DefferredRenderer::LIGHTBUFFER:
+			lightBuffer->BindForReading();
+			break;
+		default:
+			break;
+		}
+	}
+
 	void DefferredRenderer::ShadowPass(std::vector<GameObject*> objects)
 	{
 		CalcShadowMapOrthoProj();

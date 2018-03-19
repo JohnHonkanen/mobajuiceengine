@@ -11,9 +11,16 @@ namespace Engine
 	class DefferredRenderer : public Renderer
 	{
 	public:
+		enum BUFFERS
+		{
+			SHADOW,
+			GBUFFER,
+			LIGHTBUFFER
+		};
 		void SetupFrameBuffers(unsigned int width, unsigned int height);
 		void Render(std::vector<class GameObject*> objects);
 
+		void ReadBuffer(BUFFERS type);
 	private:
 		void ShadowPass(std::vector<class GameObject*> objects);
 		void GeometryPass(std::vector<class GameObject*> objects);
