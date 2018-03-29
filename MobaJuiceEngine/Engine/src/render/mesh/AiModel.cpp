@@ -84,6 +84,13 @@ namespace Engine {
 		numVerts = mesh->mNumFaces * 3;
 		indexCount = mesh->mNumFaces;
 
+		float minX = std::numeric_limits<float>::max();
+		float maxX = std::numeric_limits<float>::min();
+		float minY = std::numeric_limits<float>::max();
+		float maxY = std::numeric_limits<float>::min();
+		float minZ = std::numeric_limits<float>::max();
+		float maxZ = std::numeric_limits<float>::min();
+
 		for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 		{
 			const aiFace& face = mesh->mFaces[i];
@@ -111,12 +118,31 @@ namespace Engine {
 				vertexArray.push_back(pos.x);
 				vertexArray.push_back(pos.y);
 				vertexArray.push_back(pos.z);
+
+				minX = min(minX, pos.x);
+				maxX = max(maxX, pos.x);
+
+				minY = min(minY, pos.y);
+				maxY = max(maxY, pos.y);
+
+				minZ = min(minZ, pos.z);
+				maxZ = max(maxZ, pos.z);
 			}
 			for (int j = 0; j < face.mNumIndices; j++) {
 				indexArray.push_back(face.mIndices[j]);
 
 			}
 
+		}
+
+		glm::vec3 bb = {maxX - minX, maxY - minY, maxZ - minZ}; //Bounding box from 0-xyz
+		float scaleValue = max(bb.x, bb.y);
+
+		printf("BBox: %f , %f, %f \n", bb.x, bb.y, bb.z);
+
+		for (GLfloat &i : vertexArray)
+		{
+			i /= scaleValue;
 		}
 
 		MeshData data;
@@ -126,6 +152,7 @@ namespace Engine {
 		data.normalArray = normalArray;
 		data.numVerts = numVerts;
 		data.indexCount = indexArray.size();
+		data.boundingBox = bb;
 
 		return data;
 	}

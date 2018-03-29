@@ -128,6 +128,11 @@ namespace Engine {
 
 			int gridX = (int)floor(terrainX / cellSize);
 			int gridZ = (int)floor(terrainZ / cellSize);
+
+			if (gridX < 0 || gridX >= 299 || gridZ < 0 || gridZ >= 299)
+			{
+				return -100;
+			}
 			float height;
 
 			if (gridX > xLength || gridZ > zLength)
@@ -152,6 +157,11 @@ namespace Engine {
 
 			int gridX = (int)floor(terrainX / cellSize);
 			int gridZ = (int)floor(terrainZ / cellSize);
+
+			if (gridX < 0 || gridX >= 299 || gridZ < 0 || gridZ >= 299)
+			{
+				return vec3(-999);
+			}
 
 
 			return vec3(gridX * cellSize, heightmap[gridZ][gridX], gridZ * cellSize) + tp;

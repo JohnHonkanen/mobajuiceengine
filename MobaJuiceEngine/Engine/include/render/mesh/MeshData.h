@@ -4,6 +4,7 @@
 */
 #include <vector>
 #include <GL\glew.h>
+#include <glm\glm.hpp>
 #pragma once
 namespace Engine {
 	struct MeshData {
@@ -13,5 +14,6 @@ namespace Engine {
 		std::vector<GLuint> indices;
 		GLuint numVerts;
 		GLuint indexCount;
+		glm::vec3 boundingBox;
 	};
 }
