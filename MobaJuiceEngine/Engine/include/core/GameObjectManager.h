@@ -65,6 +65,8 @@ namespace Engine {
 			@param	prefab	Prefab xml file to be loaded
 		*/
 		GameObject *LoadPrefab(const char *prefab);
+
+		void DestroyGameObject(std::string name);
 		bool SavePrefab(const char *prefab, std::string name);
 
 		template<class Archive>
@@ -75,6 +77,7 @@ namespace Engine {
 	private:
 		std::map<std::string, GameObjUniqPtr> gameObjects;
 		std::map<std::string, int> counter;
+		std::vector<std::string> gameObjectsToDestroy;
 
 		DefferredRenderer dRenderer;
 	};

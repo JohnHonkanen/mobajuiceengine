@@ -42,6 +42,16 @@ namespace Engine {
 		for (auto const &gameobjectPair : gameObjects) {
 			gameobjectPair.second->Update(dt);
 		}
+
+		if (!gameObjectsToDestroy.empty())
+		{
+			for (auto toDestroy : gameObjectsToDestroy)
+			{
+				gameObjects.erase(toDestroy);
+			}
+
+			gameObjectsToDestroy.clear();
+		}
 	}
 
 	void GameObjectManager::Draw()
@@ -137,6 +147,11 @@ namespace Engine {
 
 		return obj;
 
+	}
+
+	void GameObjectManager::DestroyGameObject(std::string name)
+	{
+		gameObjectsToDestroy.push_back(name);
 	}
 
 	bool GameObjectManager::SavePrefab(const char * prefab, std::string name)

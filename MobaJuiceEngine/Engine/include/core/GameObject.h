@@ -39,6 +39,7 @@ namespace Engine {
 			Add a Component and gives the GameObject a Sole Ownership of the component
 		*/
 		void AddComponent(Component *component);
+		void Destroy();
 		//Get the first component of the type
 		template<class T>
 		T* GetComponent();

@@ -103,6 +103,11 @@ namespace Engine {
 		GameObject::components.push_back(ComponentUP(component));
 	}
 
+	void GameObject::Destroy()
+	{
+		GameEngine::manager.gameObjectManager->DestroyGameObject(this->name);
+	}
+
 	RenderMode GameObject::GetRenderMode() const
 	{
 		return renderMode;
