@@ -13,7 +13,6 @@ namespace Engine
 
 	Light::~Light()
 	{
-		LightManager::Get()->RemoveLight(properties.type, this);
 	}
 
 	void Light::Copy(GameObject * object)
@@ -35,6 +34,10 @@ namespace Engine
 	void Light::SetSlot(unsigned int slot)
 	{
 		this->slot = slot;
+	}
+	void Light::RemoveFromLightManager()
+	{
+		LightManager::Get()->RemoveLight(properties.type, this);
 	}
 }
 

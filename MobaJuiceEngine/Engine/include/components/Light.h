@@ -26,6 +26,7 @@ namespace Engine
 		LightProperties GetProperties() const;
 		void SetLightProperties(LightProperties lightProperty);
 		void SetSlot(unsigned int slot);
+		void RemoveFromLightManager();
 	private:
 		LightProperties properties;
 		unsigned int slot;
