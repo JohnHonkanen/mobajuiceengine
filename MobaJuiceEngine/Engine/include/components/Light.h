@@ -21,6 +21,7 @@ namespace Engine
 	{
 	public:
 		static Light * Create(class GameObject *gameObject, LightType type);
+		~Light();
 		void Copy(class GameObject *object);
 		LightProperties GetProperties() const;
 		void SetLightProperties(LightProperties lightProperty);

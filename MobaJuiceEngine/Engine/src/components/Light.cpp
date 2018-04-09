@@ -11,6 +11,11 @@ namespace Engine
 		return l;
 	}
 
+	Light::~Light()
+	{
+		LightManager::Get()->RemoveLight(properties.type, this);
+	}
+
 	void Light::Copy(GameObject * object)
 	{
 		Light *l = Create(object, properties.type);

@@ -35,6 +35,46 @@ namespace Engine
 		}
 	}
 
+	void LightManager::RemoveLight(LightType type, Light * light)
+	{
+		auto it = FindLight(type, light);
+
+		switch (type)
+		{
+		case Engine::POINT_LIGHT:
+			point.erase(it);
+			break;
+		case Engine::SPOTLIGHT:
+			spotlight.erase(it);
+			break;
+		case Engine::DIRECTIONAL_LIGHT:
+			directional.erase(it);
+			break;
+		default:
+			break;
+		}
+	}
+
+	std::vector<Light *>::iterator LightManager::FindLight(LightType type, Light * light)
+	{
+		std::vector<Light *>::iterator it;
+		switch (type)
+		{
+		case Engine::POINT_LIGHT:
+			it = find(point.begin(), point.end(), light);
+			break;
+		case Engine::SPOTLIGHT:
+			it = find(spotlight.begin(), spotlight.end(), light);
+			break;
+		case Engine::DIRECTIONAL_LIGHT:
+			it = find(directional.begin(), directional.end(), light);
+			break;
+		default:
+			break;
+		}
+		return it;
+	}
+
 	std::vector<Light *> LightManager::GetLights(LightType type) const
 	{
 		switch (type)
